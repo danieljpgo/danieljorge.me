@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
