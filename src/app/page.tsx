@@ -37,32 +37,41 @@ export default function Home() {
         </a>
         .
       </p>
-      <div className="flex gap-4">
-        <a
-          href="https://github.com/danieljpgo"
-          target="_blank"
-          rel="noreferrer"
-          className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
-        >
-          <GithubIcon />
-        </a>
-        <a
-          href="https://twitter.com/danieljpgo"
-          target="_blank"
-          rel="noreferrer"
-          className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
-        >
-          <TwitterIcon />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/danieljpgo/"
-          target="_blank"
-          rel="noreferrer"
-          className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
-        >
-          <LinkedinIcon />
-        </a>
-      </div>
+      <ul aria-label="Social links" className="flex gap-4">
+        <li>
+          <a
+            aria-label="Github"
+            href="https://github.com/danieljpgo"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+          >
+            <GithubIcon />
+          </a>
+        </li>
+        <li>
+          <a
+            aria-label="Twitter"
+            href="https://twitter.com/danieljpgo"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+          >
+            <TwitterIcon />
+          </a>
+        </li>
+        <li>
+          <a
+            aria-label="Linkedin"
+            href="https://www.linkedin.com/in/danieljpgo/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+          >
+            <LinkedinIcon />
+          </a>
+        </li>
+      </ul>
     </main>
   );
 }
