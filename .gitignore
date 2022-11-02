@@ -35,5 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# vscode
+/.vscode
+
 # docs
 /docs/LINKS.md

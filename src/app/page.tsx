@@ -1,5 +1,6 @@
 import Image from "next/image";
 import profile from "../../public/profile.jpeg";
+import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons";
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
           <h1 className="text-lg font-medium leading-4 text-gray-800 antialiased">
             Daniel Jorge
           </h1>
-          <p className="text-base font-medium leading-4 text-gray-400 antialiased">
+          <p className="text-base font-medium leading-4 text-slate-500 antialiased">
             Frontend Engineer
           </p>
         </div>
@@ -36,6 +37,32 @@ export default function Home() {
         </a>
         .
       </p>
+      <div className="flex gap-4">
+        <a
+          href="https://github.com/danieljpgo"
+          target="_blank"
+          rel="noreferrer"
+          className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+        >
+          <GithubIcon />
+        </a>
+        <a
+          href="https://twitter.com/danieljpgo"
+          target="_blank"
+          rel="noreferrer"
+          className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+        >
+          <TwitterIcon />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/danieljpgo/"
+          target="_blank"
+          rel="noreferrer"
+          className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+        >
+          <LinkedinIcon />
+        </a>
+      </div>
     </main>
   );
 }
