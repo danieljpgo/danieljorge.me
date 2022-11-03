@@ -4,7 +4,7 @@ import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons";
 
 export default function Home() {
   return (
-    <main className="mx-auto grid max-w-md gap-8 px-6 pt-16 pb-4">
+    <main className="mx-auto grid max-w-md gap-8 px-10 pt-16 pb-4">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -19,7 +19,7 @@ export default function Home() {
           <h1 className="text-lg font-medium leading-4 text-gray-800 antialiased">
             Daniel Jorge
           </h1>
-          <p className="text-base font-medium leading-4 text-slate-500 antialiased">
+          <p className="text-base font-medium leading-4 text-slate-600 antialiased">
             Frontend Engineer
           </p>
         </div>
