@@ -14,8 +14,8 @@
 - Dark Mode
   - [ ] html { color-scheme: dark; }
 - Manisfest / pwa
-  - [ ] Viewport tags
-- PWA support
+  - [x] Viewport tags
+  - [ ] PWA support
 
 ### Misc
 
