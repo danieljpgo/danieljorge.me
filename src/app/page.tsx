@@ -25,8 +25,8 @@ export default function Home() {
         </div>
       </div>
       <p className="text-base font-normal text-gray-700 antialiased">
-        Engineer interested at FP, React, Design System and TypeScript,
-        currently working at{" "}
+        Engineer interested at Functional Programming, React, Design System and
+        TypeScript, currently working at{" "}
         <a
           href="https://bitso.com/"
           target="_blank"
