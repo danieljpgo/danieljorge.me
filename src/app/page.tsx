@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import profile from "../../public/profile.jpeg";
-import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  Text,
+  Heading,
+} from "../components";
 
 export default function Home() {
   return (
@@ -26,7 +32,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <p className="text-base font-normal text-gray-700 antialiased">
+      <Text>
         Engineer interested at Functional Programming, React, Design System and
         TypeScript, currently working at{" "}
         <a
@@ -38,7 +44,7 @@ export default function Home() {
           Bitso
         </a>
         .
-      </p>
+      </Text>
 
       <ul aria-label="Social links" className="flex gap-3">
         <li>
@@ -77,7 +83,15 @@ export default function Home() {
       </ul>
 
       <div>
-        <h2 className="text-xl font-semibold leading-tight">Writing</h2>
+        <Heading
+          as="h2"
+          size="xl"
+          weight="semibold"
+          leading="tight"
+          color="darker"
+        >
+          Writing
+        </Heading>
         <p className="mt-2 text-gray-700">
           Crafted, long form thoughts and ideas.
           {/* Crafted, long form narrative and thoughts. */}
@@ -88,10 +102,15 @@ export default function Home() {
             <article className="grid gap-4">
               <div className="grid gap-1">
                 <Link href="/writing/slug">
-                  <h2 className="text-base font-medium leading-tight">
-                    {/* <h2 className="max-w-[90%] text-2xl font-bold leading-normal sm:text-3xl md:text-3xl"> */}
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
                     Lorem ipsum dolor dolor dolor
-                  </h2>
+                  </Heading>
                 </Link>
                 <p className="text-sm text-slate-600">January 2, 2022</p>
               </div>
@@ -101,9 +120,15 @@ export default function Home() {
             <article className="grid gap-4">
               <div className="grid gap-1">
                 <Link href="/writing/slug">
-                  <h2 className="text-base font-medium leading-tight">
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
                     Lorem ipsum dolor
-                  </h2>
+                  </Heading>
                 </Link>
                 <p className="text-sm text-slate-600">January 2, 2022</p>
               </div>
@@ -121,7 +146,15 @@ export default function Home() {
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold leading-tight">Notes</h2>
+        <Heading
+          as="h2"
+          size="xl"
+          weight="semibold"
+          leading="tight"
+          color="darker"
+        >
+          Notes
+        </Heading>
         <p className="mt-2 text-gray-700">
           Loose, short form thoughts, reflections and ideas.
           {/* A collection of my reflections, ideas and thoughts in short form. */}
@@ -134,10 +167,15 @@ export default function Home() {
             <article className="grid gap-4">
               <div className="grid gap-1">
                 <Link href="/writing/slug">
-                  <h2 className="text-base font-medium leading-tight">
-                    {/* <h2 className="max-w-[90%] text-2xl font-bold leading-normal sm:text-3xl md:text-3xl"> */}
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
                     Lorem ipsum dolor dolor dolor
-                  </h2>
+                  </Heading>
                 </Link>
                 <p className="text-sm text-slate-600">January 2, 2022</p>
               </div>
@@ -147,9 +185,15 @@ export default function Home() {
             <article className="grid gap-4">
               <div className="grid gap-1">
                 <Link href="/writing/slug">
-                  <h2 className="text-base font-medium leading-tight">
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
                     Lorem ipsum dolor
-                  </h2>
+                  </Heading>
                 </Link>
                 <p className="text-sm text-slate-600">January 2, 2022</p>
               </div>
