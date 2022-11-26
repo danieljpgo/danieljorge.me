@@ -11,7 +11,6 @@ import {
 
 export default function Home() {
   return (
-    // <main className="mx-auto grid max-w-md gap-8 px-10 pt-16 pb-4">
     <main className="mx-auto grid max-w-2xl gap-8 px-10  pt-16 pb-4">
       <div className="flex gap-4">
         <Image
@@ -92,10 +91,9 @@ export default function Home() {
         >
           Writing
         </Heading>
-        <p className="mt-2 text-gray-700">
-          Crafted, long form thoughts and ideas.
-          {/* Crafted, long form narrative and thoughts. */}
-        </p>
+        <div className="mt-2">
+          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+        </div>
         <hr className="mt-4 py-2" />
         <ul className="grid gap-4">
           <li>
@@ -112,7 +110,9 @@ export default function Home() {
                     Lorem ipsum dolor dolor dolor
                   </Heading>
                 </Link>
-                <p className="text-sm text-slate-600">January 2, 2022</p>
+                <Text size="sm" color="light">
+                  January 2, 2022
+                </Text>
               </div>
             </article>
           </li>
@@ -130,7 +130,9 @@ export default function Home() {
                     Lorem ipsum dolor
                   </Heading>
                 </Link>
-                <p className="text-sm text-slate-600">January 2, 2022</p>
+                <Text size="sm" color="light">
+                  January 2, 2022
+                </Text>{" "}
               </div>
             </article>
           </li>
@@ -155,12 +157,14 @@ export default function Home() {
         >
           Notes
         </Heading>
-        <p className="mt-2 text-gray-700">
-          Loose, short form thoughts, reflections and ideas.
-          {/* A collection of my reflections, ideas and thoughts in short form. */}
-          {/* Reflections, thoughts, ideas and loose notes that can grow overtime. */}
-          {/* Loose, unopinionated notes on things I don’t entirely understand yet. */}
-        </p>
+        <div className="mt-2">
+          <Text color="base">
+            Loose, short form thoughts, reflections and ideas.
+            {/* A collection of my reflections, ideas and thoughts in short form. */}
+            {/* Reflections, thoughts, ideas and loose notes that can grow overtime. */}
+            {/* Loose, unopinionated notes on things I don’t entirely understand yet. */}
+          </Text>
+        </div>
         <hr className="mt-4 py-2" />
         <ul className="grid gap-4">
           <li>
@@ -177,7 +181,9 @@ export default function Home() {
                     Lorem ipsum dolor dolor dolor
                   </Heading>
                 </Link>
-                <p className="text-sm text-slate-600">January 2, 2022</p>
+                <Text size="sm" color="light">
+                  January 2, 2022
+                </Text>
               </div>
             </article>
           </li>
@@ -195,7 +201,9 @@ export default function Home() {
                     Lorem ipsum dolor
                   </Heading>
                 </Link>
-                <p className="text-sm text-slate-600">January 2, 2022</p>
+                <Text size="sm" color="light">
+                  January 2, 2022
+                </Text>
               </div>
             </article>
           </li>
