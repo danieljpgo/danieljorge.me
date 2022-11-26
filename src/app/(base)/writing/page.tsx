@@ -11,7 +11,6 @@ export default function Writing() {
         lorem abc.
       </p>
       <hr className="mt-6 py-6" />
-
       <ul className="grid gap-12">
         <li>
           <article className="grid gap-4">

@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import profile from "../../public/profile.jpeg";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons";
 
 export default function Home() {
   return (
-    <main className="mx-auto grid max-w-md gap-8 px-10 pt-16 pb-4">
+    // <main className="mx-auto grid max-w-md gap-8 px-10 pt-16 pb-4">
+    <main className="mx-auto grid max-w-2xl gap-8 px-10  pt-16 pb-4">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -37,7 +39,8 @@ export default function Home() {
         </a>
         .
       </p>
-      <ul aria-label="Social links" className="flex gap-4">
+
+      <ul aria-label="Social links" className="flex gap-3">
         <li>
           <a
             aria-label="Github"
@@ -72,6 +75,96 @@ export default function Home() {
           </a>
         </li>
       </ul>
+
+      <div>
+        <h2 className="text-xl font-semibold leading-tight">Writing</h2>
+        <p className="mt-2 text-gray-700">
+          Crafted, long form thoughts and ideas.
+          {/* Crafted, long form narrative and thoughts. */}
+        </p>
+        <hr className="mt-4 py-2" />
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href="/writing/slug">
+                  <h2 className="text-base font-medium leading-tight">
+                    {/* <h2 className="max-w-[90%] text-2xl font-bold leading-normal sm:text-3xl md:text-3xl"> */}
+                    Lorem ipsum dolor dolor dolor
+                  </h2>
+                </Link>
+                <p className="text-sm text-slate-600">January 2, 2022</p>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href="/writing/slug">
+                  <h2 className="text-base font-medium leading-tight">
+                    Lorem ipsum dolor
+                  </h2>
+                </Link>
+                <p className="text-sm text-slate-600">January 2, 2022</p>
+              </div>
+            </article>
+          </li>
+          <li>
+            <Link
+              href="/writing"
+              className="text-gray-800 underline decoration-gray-800 underline-offset-2"
+            >
+              More
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-semibold leading-tight">Notes</h2>
+        <p className="mt-2 text-gray-700">
+          Loose, short form thoughts, reflections and ideas.
+          {/* A collection of my reflections, ideas and thoughts in short form. */}
+          {/* Reflections, thoughts, ideas and loose notes that can grow overtime. */}
+          {/* Loose, unopinionated notes on things I don’t entirely understand yet. */}
+        </p>
+        <hr className="mt-4 py-2" />
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href="/writing/slug">
+                  <h2 className="text-base font-medium leading-tight">
+                    {/* <h2 className="max-w-[90%] text-2xl font-bold leading-normal sm:text-3xl md:text-3xl"> */}
+                    Lorem ipsum dolor dolor dolor
+                  </h2>
+                </Link>
+                <p className="text-sm text-slate-600">January 2, 2022</p>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href="/writing/slug">
+                  <h2 className="text-base font-medium leading-tight">
+                    Lorem ipsum dolor
+                  </h2>
+                </Link>
+                <p className="text-sm text-slate-600">January 2, 2022</p>
+              </div>
+            </article>
+          </li>
+          <li>
+            <Link
+              href="/writing"
+              className="text-gray-800 underline decoration-gray-800 underline-offset-2"
+            >
+              More
+            </Link>
+          </li>
+        </ul>
+      </div>
     </main>
   );
 }
