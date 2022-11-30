@@ -62,3 +62,9 @@ export default function Text(props: TextProps) {
   );
 }
 
+// const styles = {
+//   italic: "italic",
+//   "not-italic": "not-italic",
+// } as const;
+// "2xs": "text-[10px]",
+// style?: keyof typeof styles;

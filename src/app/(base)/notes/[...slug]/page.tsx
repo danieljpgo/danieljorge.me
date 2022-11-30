@@ -1,15 +1,23 @@
-// mx-auto max-w-2xl py-12
+import { Heading, Text } from "../../../../components";
 
-export default function WritingDetail() {
+export default function Note() {
   return (
     <article>
       <div className="flex flex-col space-y-2">
-        <h1 className="max-w-[90%] text-4xl font-bold leading-normal">
+        <Heading
+          as="h2"
+          size="2xl"
+          weight="semibold"
+          leading="tight"
+          color="darker"
+        >
           Lorem ipsum dolor
-        </h1>
-        <p className="text-sm text-slate-600">January 2, 2022</p>
+        </Heading>
+        <Text size="sm" color="light">
+          January 2, 2022
+        </Text>
       </div>
-      <hr className="my-6" />
+      <hr className="mt-4 py-4" />
       <div className="prose max-w-none">
         Lorem ipsum dolor sit amet.
         <br />
