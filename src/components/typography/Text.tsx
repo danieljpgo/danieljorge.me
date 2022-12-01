@@ -1,4 +1,4 @@
-import { cn } from "../../../lib/tailwindcss";
+import { cn } from "~/lib/tailwindcss";
 
 const colors = {
   lighter: "text-gray-500",

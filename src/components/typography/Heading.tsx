@@ -1,4 +1,4 @@
-import { cn } from "../../../lib/tailwindcss";
+import { cn } from "~/lib/tailwindcss";
 
 const tags = {
   h1: "h1",

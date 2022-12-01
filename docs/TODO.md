@@ -7,7 +7,8 @@
 - [ ] Eslint
   - [ ] best settings
 - [ ] Workspace - (vscode config)
-- [ ] Antialiasing fonts
+- [x] Antialiasing fonts
+- [x] Path Alias
 
 ### Features
 
