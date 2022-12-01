@@ -81,7 +81,7 @@ export default function Home() {
         </li>
       </ul>
 
-      <div>
+      {/* <div>
         <Heading
           as="h2"
           size="xl"
@@ -143,77 +143,11 @@ export default function Home() {
               href="/notes"
               className="text-gray-800 underline decoration-gray-800 underline-offset-2"
             >
-              More
+              more
             </Link>
           </li>
         </ul>
-      </div>
+      </div> */}
     </main>
   );
 }
-
-/* <div>
-        <Heading
-          as="h2"
-          size="xl"
-          weight="semibold"
-          leading="tight"
-          color="darker"
-        >
-          Writing
-        </Heading>
-        <div className="mt-2">
-          <Text color="base">Crafted, long form thoughts and ideas.</Text>
-        </div>
-        <hr className="mt-4 py-2" />
-        <ul className="grid gap-4">
-          <li>
-            <article className="grid gap-4">
-              <div className="grid gap-1">
-                <Link href="/writing/slug">
-                  <Heading
-                    as="h3"
-                    size="base"
-                    weight="medium"
-                    leading="tight"
-                    color="darker"
-                  >
-                    Lorem ipsum dolor dolor dolor
-                  </Heading>
-                </Link>
-                <Text size="sm" color="light">
-                  January 2, 2022
-                </Text>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article className="grid gap-4">
-              <div className="grid gap-1">
-                <Link href="/writing/slug">
-                  <Heading
-                    as="h3"
-                    size="base"
-                    weight="medium"
-                    leading="tight"
-                    color="darker"
-                  >
-                    Lorem ipsum dolor
-                  </Heading>
-                </Link>
-                <Text size="sm" color="light">
-                  January 2, 2022
-                </Text>{" "}
-              </div>
-            </article>
-          </li>
-          <li>
-            <Link
-              href="/writing"
-              className="text-gray-800 underline decoration-gray-800 underline-offset-2"
-            >
-              More
-            </Link>
-          </li>
-        </ul>
-      </div> */
