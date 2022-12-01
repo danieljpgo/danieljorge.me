@@ -1,10 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
 import profile from "../../public/profile.jpeg";
-import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  Text,
+  Heading,
+} from "../components";
 
 export default function Home() {
   return (
-    <main className="mx-auto grid max-w-md gap-8 px-6 pt-16 pb-4">
+    <main className="mx-auto grid max-w-2xl gap-8 px-10  pt-16 pb-4">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -19,12 +26,12 @@ export default function Home() {
           <h1 className="text-lg font-medium leading-4 text-gray-800 antialiased">
             Daniel Jorge
           </h1>
-          <p className="text-base font-medium leading-4 text-slate-500 antialiased">
+          <p className="text-base font-medium leading-4 text-slate-600 antialiased">
             Frontend Engineer
           </p>
         </div>
       </div>
-      <p className="text-base font-normal text-gray-700 antialiased">
+      <Text>
         Engineer interested at Functional Programming, React, Design System and
         TypeScript, currently working at{" "}
         <a
@@ -36,8 +43,9 @@ export default function Home() {
           Bitso
         </a>
         .
-      </p>
-      <ul aria-label="Social links" className="flex gap-4">
+      </Text>
+
+      <ul aria-label="Social links" className="flex gap-3">
         <li>
           <a
             aria-label="Github"
@@ -72,6 +80,74 @@ export default function Home() {
           </a>
         </li>
       </ul>
+
+      {/* <div>
+        <Heading
+          as="h2"
+          size="xl"
+          weight="semibold"
+          leading="tight"
+          color="darker"
+        >
+          Notes
+        </Heading>
+        <div className="mt-2">
+          <Text color="base">
+            Loose, short form thoughts, reflections and ideas.
+          </Text>
+        </div>
+        <hr className="mt-4 py-2" />
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href="/notes/slug">
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    Lorem ipsum dolor dolor dolor
+                  </Heading>
+                </Link>
+                <Text size="sm" color="light">
+                  January 2, 2022
+                </Text>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href="/notes/slug">
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    Lorem ipsum dolor
+                  </Heading>
+                </Link>
+                <Text size="sm" color="light">
+                  January 2, 2022
+                </Text>
+              </div>
+            </article>
+          </li>
+          <li>
+            <Link
+              href="/notes"
+              className="text-gray-800 underline decoration-gray-800 underline-offset-2"
+            >
+              more
+            </Link>
+          </li>
+        </ul>
+      </div> */}
     </main>
   );
 }
