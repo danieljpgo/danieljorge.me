@@ -1,10 +1,10 @@
 import { HeadTags } from "~/components";
 
-export default function Head() {
+export default function Head(props: { params: { slug: Array<string> } }) {
   return (
     <>
       <head>
-        <title>Slug</title>
+        <title>{props.params.slug[0]}</title>
         <meta name="description" content="Lorem Ipsum" />
         <HeadTags />
       </head>

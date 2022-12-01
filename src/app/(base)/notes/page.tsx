@@ -3,7 +3,7 @@ import { Heading, Text } from "~/components";
 
 export default function Notes() {
   return (
-    <div>
+    <>
       <Heading
         as="h2"
         size="2xl"
@@ -24,7 +24,7 @@ export default function Notes() {
         <li>
           <article className="grid gap-4">
             <div className="grid gap-1">
-              <Link href="/notes/slug">
+              <Link href="/notes/test-1">
                 <Heading
                   as="h3"
                   size="base"
@@ -50,7 +50,7 @@ export default function Notes() {
         <li>
           <article className="grid gap-4">
             <div className="grid gap-1">
-              <Link href="/notes/slug">
+              <Link href="/notes/test-2">
                 <Heading
                   as="h3"
                   size="base"
@@ -74,6 +74,6 @@ export default function Notes() {
           {/* <hr className="mt-4 py-2" /> */}
         </li>
       </ul>
-    </div>
+    </>
   );
 }
