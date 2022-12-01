@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Heading, Text } from "../../../components";
+import { Heading, Text } from "~/components";
 
 export default function Notes() {
   return (

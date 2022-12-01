@@ -1,13 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
-import profile from "../../public/profile.jpeg";
-import {
-  GithubIcon,
-  LinkedinIcon,
-  TwitterIcon,
-  Text,
-  Heading,
-} from "../components";
+import profile from "~/public/profile.jpeg";
+import { GithubIcon, LinkedinIcon, TwitterIcon, Text } from "~/components";
 
 export default function Home() {
   return (
