@@ -1,6 +1,13 @@
+// import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.jpeg";
-import { GithubIcon, LinkedinIcon, TwitterIcon, Text } from "~/components";
+import {
+  GithubIcon,
+  // Heading,
+  LinkedinIcon,
+  Text,
+  TwitterIcon,
+} from "~/components";
 
 export default function Home() {
   return (
@@ -94,7 +101,7 @@ export default function Home() {
           <li>
             <article className="grid gap-4">
               <div className="grid gap-1">
-                <Link href="/notes/slug">
+                <Link href="/notes/test-1">
                   <Heading
                     as="h3"
                     size="base"
@@ -114,7 +121,7 @@ export default function Home() {
           <li>
             <article className="grid gap-4">
               <div className="grid gap-1">
-                <Link href="/notes/slug">
+                <Link href="/notes/test-2">
                   <Heading
                     as="h3"
                     size="base"
