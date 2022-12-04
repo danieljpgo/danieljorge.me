@@ -40,3 +40,6 @@ next-env.d.ts
 
 # docs
 /docs/LINKS.md
+
+# content
+.contentlayer
