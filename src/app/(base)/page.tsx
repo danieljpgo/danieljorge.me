@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.jpeg";
+import { allNotes } from "~/contentlayer";
+import { formatDate } from "~/lib/date";
 import {
   GithubIcon,
   Heading,
@@ -8,14 +10,12 @@ import {
   Text,
   TwitterIcon,
 } from "~/components";
-import { allNotes } from "contentlayer/generated";
-import { formatDate } from "~/lib/date";
 
 export default function Home() {
   const notes = allNotes;
 
   return (
-    <main className="mx-auto grid max-w-2xl gap-8 px-8 pt-16 pb-4 lg:px-10">
+    <div className="grid gap-8">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -124,7 +124,6 @@ export default function Home() {
               </article>
             </li>
           ))}
-
           <li>
             <Link
               href="/notes"
@@ -135,6 +134,6 @@ export default function Home() {
           </li>
         </ul>
       </div>
-    </main>
+    </div>
   );
 }

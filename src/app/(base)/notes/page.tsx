@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Heading, Text } from "~/components";
-import { allNotes } from "contentlayer/generated";
+import { allNotes } from "~/contentlayer";
 import { formatDate } from "~/lib/date";
+import { Heading, Text } from "~/components";
 
 export default function Notes() {
   const notes = allNotes;

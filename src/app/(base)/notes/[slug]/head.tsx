@@ -5,8 +5,7 @@ type HeadProps = {
   params: { slug: string };
 };
 
-export default function Head(props: HeadProps) {
-  const { params } = props;
+export default function Head({ params }: HeadProps) {
   const note = allNotes.find((notes) => notes.slug === params.slug);
 
   if (!note) {

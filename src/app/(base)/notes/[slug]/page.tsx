@@ -1,14 +1,13 @@
 import { notFound } from "next/navigation";
-import { allNotes } from "contentlayer/generated";
-import { Heading, Text, Mdx } from "~/components";
+import { allNotes } from "~/contentlayer";
 import { formatDate } from "~/lib/date";
+import { Heading, Text, Mdx } from "~/components";
 
 type NoteProps = {
   params: { slug: string };
 };
 
-export default function Note(props: NoteProps) {
-  const { params } = props;
+export default function Note({ params }: NoteProps) {
   const note = allNotes.find((notes) => notes.slug === params.slug);
 
   if (!note) {
