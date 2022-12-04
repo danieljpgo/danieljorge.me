@@ -21,7 +21,9 @@
       "~/hooks": ["src/hooks"],
       "~/lib/*": ["lib/*"],
       "~/public/*": ["public/*"],
-      "~/styles/*": ["src/styles/*"]
+      "~/styles/*": ["src/styles/*"],
+      "contentlayer/generated": ["./.contentlayer/generated"],
+      "~/contentlayer": ["./.contentlayer/generated"]
     },
     "plugins": [
       {
@@ -29,6 +31,12 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
+  ],
   "exclude": ["node_modules"]
 }

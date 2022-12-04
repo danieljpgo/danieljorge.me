@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { allNotes } from "~/contentlayer";
+import { formatDate } from "~/lib/date";
 import { Heading, Text } from "~/components";
 
 export default function Notes() {
+  const notes = allNotes;
+
   return (
     <>
       <Heading
@@ -21,59 +25,35 @@ export default function Notes() {
       </div>
       <hr className="mt-4 py-4" />
       <ul className="grid gap-4">
-        <li>
-          <article className="grid gap-4">
-            <div className="grid gap-1">
-              <Link href="/notes/test-1">
-                <Heading
-                  as="h3"
-                  size="base"
-                  weight="medium"
-                  leading="tight"
-                  color="darker"
-                >
-                  Lorem ipsum dolor dolor dolor
-                </Heading>
-              </Link>
-              <Text size="sm" color="light">
-                January 2, 2022
-              </Text>
-              <div className="mt-2">
-                <Text color="base">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        {notes.map((note) => (
+          <li key={note.slug}>
+            <article className="grid gap-4">
+              <div className="grid gap-1">
+                <Link href={note._raw.flattenedPath}>
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    {note.title}
+                  </Heading>
+                </Link>
+                <Text size="sm" color="light">
+                  {formatDate(note.date)}
                 </Text>
+                <div className="mt-2">
+                  <Text color="base">{note.description}</Text>
+                </div>
               </div>
-            </div>
-          </article>
-          <hr className="mt-4 py-2" />
-        </li>
-        <li>
-          <article className="grid gap-4">
-            <div className="grid gap-1">
-              <Link href="/notes/test-2">
-                <Heading
-                  as="h3"
-                  size="base"
-                  weight="medium"
-                  leading="tight"
-                  color="darker"
-                >
-                  Lorem ipsum dolor
-                </Heading>
-              </Link>
-              <Text size="sm" color="light">
-                January 2, 2022
-              </Text>
-              <div className="mt-2">
-                <Text color="base">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </Text>
-              </div>
-            </div>
-          </article>
-          {/* <hr className="mt-4 py-2" /> */}
-        </li>
+            </article>
+            <hr className="mt-4 py-2" />
+          </li>
+        ))}
       </ul>
     </>
   );
 }
+
+// @TODO Melhorar lidar com caso de não encontrar o note, 404?
