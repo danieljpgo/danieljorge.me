@@ -1,7 +1,7 @@
-import { allNotes } from "contentlayer/generated";
-import { Heading, Text } from "~/components";
-import { useMDXComponent } from "next-contentlayer/hooks";
 import { notFound } from "next/navigation";
+import { allNotes } from "contentlayer/generated";
+import { Heading, Text, Mdx } from "~/components";
+import { formatDate } from "~/lib/date";
 
 type NoteProps = {
   params: { slug: string };
@@ -14,8 +14,6 @@ export default function Note(props: NoteProps) {
   if (!note) {
     notFound();
   }
-
-  const MDXContent = useMDXComponent(note.body.code);
 
   return (
     <article>
@@ -30,11 +28,11 @@ export default function Note(props: NoteProps) {
           {note.title}
         </Heading>
         <Text size="sm" color="light">
-          {note.date}
+          {formatDate(note.date)}
         </Text>
       </div>
       <hr className="mt-4 py-4" />
-      <MDXContent />
+      <Mdx code={note.body.code} />
     </article>
   );
 }

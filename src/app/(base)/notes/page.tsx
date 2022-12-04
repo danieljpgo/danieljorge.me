@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Heading, Text } from "~/components";
 import { allNotes } from "contentlayer/generated";
+import { formatDate } from "~/lib/date";
 
 export default function Notes() {
   const notes = allNotes;
@@ -40,7 +41,7 @@ export default function Notes() {
                   </Heading>
                 </Link>
                 <Text size="sm" color="light">
-                  {note.date}
+                  {formatDate(note.date)}
                 </Text>
                 <div className="mt-2">
                   <Text color="base">{note.description}</Text>
