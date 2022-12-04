@@ -85,7 +85,7 @@ export default function Home() {
         </li>
       </ul>
 
-      <div>
+      {/* <div>
         <Heading
           as="h2"
           size="xl"
@@ -133,7 +133,7 @@ export default function Home() {
             </Link>
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
