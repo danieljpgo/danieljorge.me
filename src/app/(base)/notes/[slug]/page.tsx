@@ -18,6 +18,9 @@ export default function Note(props: NoteProps) {
   return (
     <article>
       <div className="flex flex-col space-y-2">
+        <Text size="sm" color="light">
+          {formatDate(note.date)}
+        </Text>
         <Heading
           as="h2"
           size="2xl"
@@ -27,9 +30,6 @@ export default function Note(props: NoteProps) {
         >
           {note.title}
         </Heading>
-        <Text size="sm" color="light">
-          {formatDate(note.date)}
-        </Text>
       </div>
       <hr className="mt-4 py-4" />
       <Mdx code={note.body.code} />

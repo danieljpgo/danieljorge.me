@@ -1,17 +1,21 @@
-// import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.jpeg";
 import {
   GithubIcon,
-  // Heading,
+  Heading,
   LinkedinIcon,
   Text,
   TwitterIcon,
 } from "~/components";
+import { allNotes } from "contentlayer/generated";
+import { formatDate } from "~/lib/date";
 
 export default function Home() {
+  const notes = allNotes;
+
   return (
-    <main className="mx-auto grid max-w-2xl gap-8 px-10  pt-16 pb-4">
+    <main className="mx-auto grid max-w-2xl gap-8 px-8 pt-16 pb-4 lg:px-10">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -81,7 +85,7 @@ export default function Home() {
         </li>
       </ul>
 
-      {/* <div>
+      <div>
         <Heading
           as="h2"
           size="xl"
@@ -98,46 +102,29 @@ export default function Home() {
         </div>
         <hr className="mt-4 py-2" />
         <ul className="grid gap-4">
-          <li>
-            <article className="grid gap-4">
-              <div className="grid gap-1">
-                <Link href="/notes/test-1">
-                  <Heading
-                    as="h3"
-                    size="base"
-                    weight="medium"
-                    leading="tight"
-                    color="darker"
-                  >
-                    Lorem ipsum dolor dolor dolor
-                  </Heading>
-                </Link>
-                <Text size="sm" color="light">
-                  January 2, 2022
-                </Text>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article className="grid gap-4">
-              <div className="grid gap-1">
-                <Link href="/notes/test-2">
-                  <Heading
-                    as="h3"
-                    size="base"
-                    weight="medium"
-                    leading="tight"
-                    color="darker"
-                  >
-                    Lorem ipsum dolor
-                  </Heading>
-                </Link>
-                <Text size="sm" color="light">
-                  January 2, 2022
-                </Text>
-              </div>
-            </article>
-          </li>
+          {notes.map((note) => (
+            <li key={note.slug}>
+              <article className="grid gap-4">
+                <div className="grid gap-1">
+                  <Link href={note._raw.flattenedPath}>
+                    <Heading
+                      as="h3"
+                      size="base"
+                      weight="medium"
+                      leading="tight"
+                      color="darker"
+                    >
+                      {note.title}
+                    </Heading>
+                  </Link>
+                  <Text size="sm" color="light">
+                    {formatDate(note.date)}
+                  </Text>
+                </div>
+              </article>
+            </li>
+          ))}
+
           <li>
             <Link
               href="/notes"
@@ -147,7 +134,7 @@ export default function Home() {
             </Link>
           </li>
         </ul>
-      </div> */}
+      </div>
     </main>
   );
 }
