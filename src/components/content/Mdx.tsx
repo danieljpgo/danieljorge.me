@@ -9,7 +9,7 @@ export default function Mdx(props: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
   return (
-    <div className="prose">
+    <div className="prose max-w-none">
       <MDXContent />
     </div>
   );

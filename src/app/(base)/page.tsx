@@ -15,7 +15,7 @@ export default function Home() {
   const notes = allNotes;
 
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-8 md:px-10">
       <div className="flex gap-4">
         <Image
           quality={100}
