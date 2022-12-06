@@ -1,7 +1,5 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import rehypePrettyCode from "rehype-pretty-code";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeSlug from "rehype-slug";
+import { rehype } from "./lib/rehype";
 
 export const Writing = defineDocumentType(() => ({
   name: "Writing",
@@ -60,27 +58,9 @@ export default makeSource({
   documentTypes: [Writing, Notes],
   mdx: {
     rehypePlugins: [
-      rehypeSlug,
-      [rehypePrettyCode, { theme: "poimandres" }],
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "wrap",
-          properties: {
-            className: [
-              "before:content-['#'] before:text-gray-100/0 hover:before:text-gray-100/50",
-            ],
-          },
-        },
-      ],
+      [rehype.slug],
+      [rehype.prettyCode, rehype.options.prettyCode],
+      [rehype.autolinkHeadings, rehype.options.autolinkHeadings],
     ],
   },
 });
-
-// before:text-gray-100/0 hover:before:text-gray-100/50
-
-// const a: Options = {
-// properties: {
-//   c
-// }
-// }

@@ -1,0 +1,28 @@
+/* Line highligh */
+div[data-rehype-pretty-code-fragment] .line--highlighted {
+  border-left-color: rgb(173, 215, 255);
+  background-color: rgb(173 215 255 / 13%);
+}
+
+/* Forçar line highlights cobrir a linha toda */
+div[data-rehype-pretty-code-fragment] code {
+  display: grid;
+}
+
+code[data-line-numbers] {
+  counter-reset: lineNumber;
+}
+
+code[data-line-numbers] .line::before {
+  counter-increment: lineNumber;
+  content: counter(lineNumber);
+  display: inline-block;
+  text-align: right;
+
+  /* stylistic preferences */
+  margin-right: 0.75rem;
+  width: 1rem;
+  color: rgb(255 255 255 / 0.2);
+}
+
+/* @TODO: Add and remove line with + green and - red */
