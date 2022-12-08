@@ -7,6 +7,12 @@ import rehypeSlug from "rehype-slug";
 
 const autolinkHeadingsOptions: AutolinkHeadingsOptions = {
   behavior: "wrap",
+  properties: {
+    className: [
+      // @TODO fix here
+      "before:content-['#'] before:absolute before:-ml-[1em] before:text-gray-100/0 hover:before:text-gray-900 pl-[1em] -ml-[1em] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300",
+    ],
+  },
 };
 
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
@@ -28,10 +34,3 @@ export const rehype = {
     slug: slugOptions,
   },
 };
-
-// @TODO Adicionar a hashtag
-// properties: {
-//   className: [
-//     "before:content-['#'] before:text-gray-100/0 hover:before:text-gray-100/50",
-//   ],
-// },
