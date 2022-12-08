@@ -29,16 +29,27 @@ code[data-line-numbers] .line::before {
 
 /*  File name */
 div[data-rehype-pretty-code-title] {
-  color: rgb(145, 180, 213); /* @TODO verificar esse valor */
+  color: #91b4d5;
   line-height: 1rem;
   font-size: 0.75rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+
+  background-color: #314052;
+  padding: 4px 12px;
+  border-radius: 0.375rem;
 }
 div[data-rehype-pretty-code-fragment] {
-  background-color: rgb(173 215 255 / 13%); /* @TODO verificar esse valor */
+  background-color: var(--tw-prose-pre-bg);
+
+  /* background-color: rgb(173 215 255 / 13%); @TODO verificar esse valor */
   border-radius: 0.375rem;
 }
 
+/* @TODO fix !important */
+.prose :where(pre):not(:where([class~="not-prose"] *)) {
+  margin-top: 0 !important;
+  padding: 0.8571429em 0 !important;
+}
 /* @TODO: Add and remove line with + green and - red */
 /* @TODO: Highligh line number */
