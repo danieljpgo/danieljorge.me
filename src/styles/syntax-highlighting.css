@@ -46,6 +46,14 @@ div[data-rehype-pretty-code-fragment] {
   border-radius: 0.375rem;
 }
 
+/* @TODO improve here */
+@media (max-width: 640px) {
+  div[data-rehype-pretty-code-fragment] {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
 /* @TODO fix !important */
 .prose :where(pre):not(:where([class~="not-prose"] *)) {
   margin-top: 0 !important;

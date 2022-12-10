@@ -17,6 +17,29 @@ And we can style those titles using the data-rehype-pretty-code-title data attri
 Line Highlights
 We can highlight different lines using the `{<line number>}` annotation e.g. ` {3}``. Multiple lines and ranges are supported e.g  `{3,4-8}`.
 
+```tsx showLineNumbers title="Stack.tsx" {12,17}
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
+};
+
+type StackProps = {
+  children: React.ReactNode;
+  gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
+};
+
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
+
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
+```
+
 ```js title="multiply.js" {1} showLineNumbers
 const multiply = (a, b) => a * b;
 ```
@@ -176,7 +199,7 @@ function LeadForm() {
 }
 ```
 
-```tsx
+```tsx title="browser.ts"
 /**
  * Checks if the code is running in the `browser`.
  */
