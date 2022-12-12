@@ -15,14 +15,14 @@ export default function Note({ params }: NoteProps) {
   }
 
   return (
-    <div className="relative flex flex-row-reverse gap-2">
+    <>
       <aside className="sticky top-0 h-min">
         <h2>table of content</h2>
         <nav>
           <a href="#">back to top</a>
         </nav>
       </aside>
-      <article>
+      <article className="max-w-2xl">
         <div className="flex flex-col space-y-2">
           <Text size="sm" color="light">
             {formatDate(note.date)}
@@ -43,7 +43,7 @@ export default function Note({ params }: NoteProps) {
       <div>
         <a href=".">back to notes</a>
       </div>
-    </div>
+    </>
   );
 }
 
