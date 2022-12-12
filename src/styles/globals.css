@@ -1,7 +1,7 @@
 @tailwind base;
-@import "./syntax-highlighting.css";
 @tailwind components;
 @tailwind utilities;
+@import "./mdx.css";
 
 body {
   -webkit-tap-highlight-color: transparent;

@@ -15,9 +15,32 @@ const multiply = (a, b) => a * b;
 And we can style those titles using the data-rehype-pretty-code-title data attribute:
 
 Line Highlights
-We can highlight different lines using the `{<line number>}` annotation e.g. ` {3}``. Multiple lines and ranges are supported e.g  `{3,4-8}`.
+We can highlight different lines using the `{<line number>}` annotation e.g. `{12}` . Multiple lines and ranges are supported e.g `{16-17}`.
 
-```tsx showLineNumbers title="Stack.tsx" {12,17}
+```tsx showLineNumbers title="Stack.tsx" {12,16-17}
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
+};
+
+type StackProps = {
+  children: React.ReactNode;
+  gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
+};
+
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
+
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
+```
+
+```tsx showLineNumbers title="Stack.tsx" /gap/
 const gaps = {
   xs: "gap-1",
   sm: "gap-2",
