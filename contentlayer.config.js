@@ -18,6 +18,11 @@ export const Writing = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
+    published: {
+      type: "boolean",
+      default: false,
+      required: true,
+    },
   },
   computedFields: {
     slug: {
@@ -42,6 +47,11 @@ export const Notes = defineDocumentType(() => ({
     },
     date: {
       type: "date",
+      required: true,
+    },
+    published: {
+      type: "boolean",
+      default: false,
       required: true,
     },
   },

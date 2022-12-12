@@ -4,7 +4,7 @@ import { formatDate } from "~/lib/date";
 import { Heading, Text } from "~/components";
 
 export default function Notes() {
-  const notes = allNotes;
+  const notes = allNotes.filter((note) => note.published);
 
   return (
     <>
