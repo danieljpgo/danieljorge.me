@@ -15,24 +15,35 @@ export default function Note({ params }: NoteProps) {
   }
 
   return (
-    <article>
-      <div className="flex flex-col space-y-2">
-        <Text size="sm" color="light">
-          {formatDate(note.date)}
-        </Text>
-        <Heading
-          as="h2"
-          size="2xl"
-          weight="semibold"
-          leading="tight"
-          color="darker"
-        >
-          {note.title}
-        </Heading>
+    <div className="relative flex flex-row-reverse gap-2">
+      <aside className="sticky top-0 h-min">
+        <h2>table of content</h2>
+        <nav>
+          <a href="#">back to top</a>
+        </nav>
+      </aside>
+      <article>
+        <div className="flex flex-col space-y-2">
+          <Text size="sm" color="light">
+            {formatDate(note.date)}
+          </Text>
+          <Heading
+            as="h2"
+            size="2xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            {note.title}
+          </Heading>
+        </div>
+        <hr className="mt-4 py-4" />
+        <Mdx code={note.body.code} />
+      </article>
+      <div>
+        <a href=".">back to notes</a>
       </div>
-      <hr className="mt-4 py-4" />
-      <Mdx code={note.body.code} />
-    </article>
+    </div>
   );
 }
 
