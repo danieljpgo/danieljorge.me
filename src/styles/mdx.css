@@ -17,13 +17,13 @@ div[data-rehype-pretty-code-fragment] code {
 }
 
 code[data-line-numbers] {
-  counter-reset: lineNumber;
+  counter-reset: line;
 }
 code[data-line-numbers] .line::before {
   /* color: rgb(255 255 255 / 0.2); @TODO verificar esse valor */
   color: #767c9d4f;
-  counter-increment: lineNumber;
-  content: counter(lineNumber);
+  counter-increment: line;
+  content: counter(line);
   @apply mr-3 inline-block w-4 text-right;
 }
 

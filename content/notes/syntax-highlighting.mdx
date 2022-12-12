@@ -17,6 +17,42 @@ And we can style those titles using the data-rehype-pretty-code-title data attri
 Line Highlights
 We can highlight different lines using the `{<line number>}` annotation e.g. `{12}` . Multiple lines and ranges are supported e.g `{16-17}`.
 
+================
+
+## Titles
+
+Add a file title to your code block, with text inside double quotes (""):
+
+`title="Component.tsx"`
+
+```tsx title="Component.tsx"
+...
+```
+
+## Line numbers
+
+If you want to conditionally show them, use showLineNumbers:
+
+`showLineNumbers`
+
+```tsx title="Component.tsx" showLineNumbers
+...
+```
+
+If you want to start line number at specific number, use `showLineNumbers{number}`:
+
+`showLineNumbers{10}`
+
+```tsx title="Component.tsx" showLineNumbers{10}
+...
+```
+
+## Highlight lines
+
+Place a numeric range inside {}.
+
+`{12,16-17}`
+
 ```tsx showLineNumbers title="Stack.tsx" {12,16-17}
 const gaps = {
   xs: "gap-1",
@@ -40,7 +76,19 @@ export default function Stack(props: StackProps) {
 }
 ```
 
-```tsx showLineNumbers title="Stack.tsx" /gap/
+## Highlight inline code
+
+Append `{:lag} (e.g. {:js})` to the end of inline code to highlight it like a regular code block.
+
+This is an array `[1, 2, 3]{:js}` of numbers 1 through 3.
+
+## Highlight words
+
+Literal text, like a regex. Note regex itself is not yet supported.
+
+`/gap/ /tag/`
+
+```tsx showLineNumbers title="Stack.tsx" /gap/ /tag/
 const gaps = {
   xs: "gap-1",
   sm: "gap-2",
@@ -63,647 +111,29 @@ export default function Stack(props: StackProps) {
 }
 ```
 
-```js title="multiply.js" {1} showLineNumbers
-const multiply = (a, b) => a * b;
-```
-
-```js showLineNumbers title="multiply.js" {2} showLineNumbers
-const multiply = (a, b) => a * b;
-multiply(2, 2); // 4
-```
-
-```html {2,4-8} showLineNumbers
-<article class="prose">
-  <h1>Garlic bread with cheese: What the science tells us</h1>
-  <p>
-    For years parents have espoused the health benefits of eating garlic bread
-    with cheese to their children, with the food earning such an iconic status
-    in our culture that kids will often dress up as warm, cheesy loaf for
-    Halloween.
-  </p>
-  <p>
-    But a recent study shows that the celebrated appetizer may be linked to a
-    series of rabies cases springing up around the country.
-  </p>
-</article>
-```
-
-```js
-module.exports = {
-  purge: [],
-  theme: {
-    extend: {},
-  },
-  variants: {},
-  plugins: [],
-};
-```
-
-```js
-const multiply = (a, b) => a * b;
-```
-
-```ts
-const multiply = (a: number, b: number) => a * b;
-```
-
-```tsx
-import { useQuery } from "react-query";
-import leadsMock from "modules/Leads/leadsMock.json";
-import { MOCK_DELAY_RESPONSE } from "@/constants";
-import { mockResponse } from "@/lib/mock";
-
-export function useMyLeadsQuery(id: string | number) {
-  return useQuery<Lead[], Error>(["myLeadsQuery", id], () =>
-    mockResponse(leadsMock.myLeads, MOCK_DELAY_RESPONSE),
-  );
-}
-```
-
-```jsx showLineNumbers title="Panel.jsx" {4, 8, 13} showLineNumbers
-import * as React from "react";
-
-function MainPanel({ children }) {
-  return <section className="flex-grow">{children}</section>;
-}
-
-function SidePanel({ children }) {
-  return <aside className="md:max-w-75 max-w-none flex-grow">{children}</aside>;
-}
-
-export default function Panel({ children }) {
-  const childrens = React.Children.map(children, (child) => {
-    if ([SidePanel, MainPanel].includes(child.type)) {
-      return child;
-    }
-    throw new Error(
-      `Panel component only accepts as children the Panel.Side and Panel.Main components`,
-    );
-  });
-
-  return <div className="flex flex-col gap-4 md:flex-row">{childrens}</div>;
-}
-
-Panel.MainPanel = MainPanel;
-Panel.SidePanel = SidePanel;
-```
-
-# React-Query Patterns
-
-## Motivation
-
-The React-query was adopted to manage the server state syncronization. The react-query has two main methods usually used:
-
-1. Mutations - the concept represents PUT, POST and PATCH that operates side-effects.
-2. Queries - similar the GET method in HTTP
-
-## Using the tool
-
-The folder `common/hooks` contains all use cases for requests using mutations and queries.
-
-## Conventions
-
-1. Using mutations, the hook should ends with **mutation** like `useCreateLeadMutation`.
-2. Using the queries, the hook should ends with **Query** like `useAllLeadsQuery`.
-3. The folder that fetch the data is `services/requests`.
-4. These examples bellow only represents how to use the **React-Query** and **Typescript**.
-
-## Making Queries in Typescript
-
-You can use the `common/hooks/useMyLeadsQuery` for example:
-
-```tsx
-import { useQuery } from "react-query";
-import leadsMock from "modules/Leads/leadsMock.json";
-import { MOCK_DELAY_RESPONSE } from "@/constants";
-import { mockResponse } from "@/lib/mock";
-
-export function useMyLeadsQuery(id: string | number) {
-  return useQuery<Lead[], Error>(["myLeadsQuery", id], () =>
-    mockResponse(leadsMock.myLeads, MOCK_DELAY_RESPONSE),
-  );
-}
-```
-
-## Making mutations in Typescript
-
-The mutations operates the changes from server state and you can invalidate all its requests related. For example:
-
-```tsx
-// useCreateLeadMutation.ts
-import { useMutation, useQueryClient } from "react-query";
-import { attention } from "services/requests";
-
-interface ResultLead {}
-
-export function useCreateLeadMutation() {
-  return useMutation<ResultLead, Error>((lead: Lead) =>
-    attention.createLead(lead),
-  );
-}
-
-// using the hook
-function LeadForm() {
-  const { mutateAsync } = useCreateLeadMutation();
-  const queryClient = useQueryClient();
-
-  const handleOnSubmit = async (event) => {
-    event.preventDefault();
-    await mutateAsync({ name: "teste" });
-    queryClient.invalidateQueries("allLeads"); // make the refresh over leads
-  };
-
-  return (
-    <form onSubmit={handleOnSubmit}>
-      <input />
-      <button type="submit">Save</button>
-    </form>
-  );
-}
-```
-
-```tsx title="browser.ts"
-/**
- * Checks if the code is running in the `browser`.
- */
-export function isBrowser() {
-  return typeof window === "object";
-}
-
-/**
- * Checks if the code is running in the `server`.
- */
-export function isServer() {
-  return typeof window === "undefined";
-}
-```
-
-```tsx
-/**
- * Returns the current object from `localStorage` associated with the given `key`.
- */
-export function getLocalStorageData<T>(key: string): T | undefined {
-  const data = window.localStorage.getItem(key);
-  try {
-    return data ? JSON.parse(data) : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-/**
- * Save the value to `localStorage` associated with the given `key`.
- */
-export function setLocalStorageData<T>(key: string, body: T) {
-  window.localStorage.setItem(key, JSON.stringify(body));
-}
-
-/**
- * Remove the value from `localStorage` associated with the given `key`.
- */
-export function removeLocalStorageData(key: string) {
-  window.localStorage.removeItem(key);
-}
-```
-
-# Styled Components
-
-## Introdução
-
-### Tema
-
-A construção do tema é sempre uma parte importante para o desenvolvimento de qualquer projeto, com `styled-components` é possível desenvolver um tema de forma dinâmica para acelerar o desenvolvimento e facilita se manter consistente durante a criação dos estilos.
-
-Inicialmente, para se criar o arquivo de tema para a aplicação, recomendamos seguir a seguinte estrutura:
-
-```
-/src
-└── /app
-    ├── ...
-    ├── ...
-    └── /styles
-        ├── global.ts
-        ├── theme.ts
-        └── /tokens
-            ├── breakpoints.ts
-            ├── typography.ts
-            ├── spacing.ts
-            ├── shapes.ts
-            ├── layers.ts
-            └── colors.ts
-```
-
-Para múltiplos temas:
-
-```
-/src
-└── /app
-    ├── ...
-    ├── ...
-    └── /styles
-        ├── global.ts
-        ├── /theme
-        |   ├── light.ts
-        |   └── dark.ts
-        └── /tokens
-            ├── breakpoints.ts
-            ├── typography.ts
-            ├── spacing.ts
-            ├── shapes.ts
-            ├── layers.ts
-            └── colors.ts
-```
-
-A partir disso, dentro do arquivo de tema:
-
-- Importe os _design tokens_.
-- Crie e exporte a variavel `theme`.
-- Dentro do `theme`, defina os valores dos designs tokens a serem utilizados pelo tema como no exemplo abaixo.
-
-```ts
-import {
-  breakpoints,
-  typography,
-  spacing,
-  shapes,
-  layers,
-  colors,
-} from "./tokens";
-
-export const theme = {
-  title: "main", // nome para auxiliar no debugging caso possua multiplos temas por meio React Devtools
-
-  colors: {
-    primary: {
-      lighter: colors.blue["200"],
-      light: colors.blue["400"],
-      main: colors.blue["500"],
-      dark: colors.blue["600"],
-      darker: colors.blue["800"],
-    },
-    secundary: {
-      lighter: colors.purple["200"],
-      light: colors.purple["400"],
-      main: colors.purple["500"],
-      dark: colors.purple["600"],
-      darker: colors.purple["800"],
-    },
-    tertiary: {
-      lighter: colors.pink["200"],
-      light: colors.pink["400"],
-      main: colors.pink["500"],
-      dark: colors.pink["600"],
-      darker: colors.pink["800"],
-    },
-    success: {
-      light: colors.green["400"],
-      main: colors.green["500"],
-      dark: colors.green["600"],
-    },
-    attention: {
-      light: colors.yellow["400"],
-      main: colors.yellow["500"],
-      dark: colors.yellow["600"],
-    },
-    error: {
-      light: colors.red["400"],
-      main: colors.red["500"],
-      dark: colors.red["600"],
-    },
-    surface: {
-      primary: colors.blue["100"],
-      secundary: colors.purple["100"],
-      tertiary: colors.pink["100"],
-      main: colors.white,
-      constrast: colors.gray["100"],
-    },
-    text: {
-      primary: colors.gray["800"],
-      secundary: colors.gray["300"],
-      tertiary: colors.gray["200"],
-      main: colors.blue["100"],
-      constrast: colors.gray["100"],
-    },
-  },
-  breakpoints,
-  typography,
-  spacing,
-  shapes,
-  layers,
-} as const;
-```
-
-### Design Tokens
-
-Os _design tokens_ são uma forma de padronizar a estilização das interface, utilizando valores e nomes comuns, a fim de acelerar o desenvolvimento e aumentar sua consistência.
-
-Segue o exemplo de _tokens_ que já estão sendo utilizado em projetos, **lembrando que o importante é a nomenclatura e a organização, não os valores.**
-
-```ts
-// spacings.ts
-export const spacing = {
-  "2xs": "2px",
-  xs: "4px",
-  sm: "8px",
-  md: "16px",
-  lg: "32px",
-  xl: "56px",
-  "2xl": "64px",
-} as const;
-```
-
-```ts
-// shapes.ts
-export const shapes = {
-  borderRadius: {
-    sm: "4px",
-    md: "8px",
-    lg: "16px",
-    full: "999999px",
-  },
-  borderWidth: {
-    sm: "1px",
-    md: "2px",
-    lg: "4px",
-  },
-} as const;
-```
-
-```ts
-// breakpoints.ts
-export const breakpoints = {
-  "2xs": "360px",
-  xs: "480px",
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px",
-  "2xl": "1536px",
-} as const;
-```
-
-```ts
-// typography.ts
-export const typography = {
-  family: {
-    // @TODO adicionar exemplo
-    primary: "",
-    secondary: "",
-  },
-  weight: {
-    sm: "400",
-    md: "500",
-    lg: "600",
-    xl: "700",
-  },
-  sizes: {
-    xs: "12px",
-    sm: "14px",
-    md: "16px",
-    lg: "24px",
-    xl: "32px",
-    "2xl": "48px",
-  },
-  lineHeight: {
-    // @TODO adicionar exemplo
-    sm: "",
-    md: "",
-    lg: "",
-    xl: "",
-  },
-} as const;
-```
-
-```ts
-// effects.ts
-export const effects = {
-  opacity: {
-    xs: "0.1",
-    sm: "0.3",
-    md: "0.5",
-    lg: "0.7",
-    full: "1",
-  },
-  boxShadow: {
-    // @TODO adicionar exemplo
-    sm: "",
-    md: "",
-    lg: "",
-  },
-} as const;
-```
-
-```ts
-// layers.ts
-export const layers = {
-  base: 10,
-  menu: 20,
-  overlay: 30,
-  modal: 40,
-  alwaysOnTop: 50,
-} as const;
-```
-
-### TypeScript
-
-Utilizando o `styled-components` com TypeScript, é possível garantir a execução correta do tema desenvolvido para a aplicação, de forma segura e com _developer experience_ incrível.
-
-Segue um exemplo:
-
-![styled components com typescript](../../../styled-components-typescript.gif)
-
-Para isso:
-
-- Crie o tema e defina os seus valores de forma esttica.
-- Utilize o `as const` para garantir que todos os valores sejam _read only_ e assim o TypeScript conseguir inferir os tipos e os próprios valores
-
-```ts
-// theme.ts
-export const theme = {
-  colors: {
-    // ...
-  },
-  breakpoints,
-  typography,
-  spacing,
-  shapes,
-  layers,
-} as const;
-```
-
-Após a criação do arquivo de tema:
-
-- Crie um arquivo de tipagem chamado `styled.d.ts`.
-- Importe o arquivo de tema e crie um tipo a partir dele utilizando o `typeof`.
-- Declare um module do `styled-components`.
-- Exporte o `DefaultTheme` do `styled-components` estendendo o seu tema.
-
-```ts
-// styled.d.ts
-import { theme } from "../theme";
-
-type Theme = typeof theme;
-
-declare module "styled-components" {
-  export interface DefaultTheme extends Theme {}
-}
-```
-
-## Estilizando componentes
-
-### Preferências
-
-TODO: - Adicionar algo como ordem. padrões de css/estilizacao em geral
-
-### Tema e Props
-
-Utilizando `styled-components`, existem diversas formas de acessar suas `props`, a fim de padronizar esse acesso, criamos esses dois padrões:
-
-- Em casos onde só será utilizado uma única vez as `props`, utilize da seguinte forma:
-
-Bom - 😃
-
-```ts
-export const Button = styled.button`
-  border-radius: ${({ theme }) => theme.shapes.borderRadius.xs};
-`;
-```
-
-Ruim - ☹️
-
-```ts
-export const Button = styled.button`
-  ${({ theme }) => css`
-    border-radius: ${theme.shapes.borderRadius.xs};
-  `}
-`;
-```
-
-- Em casos onde só será necessário utilizar várias vezes as `props`, utilize da seguinte forma:
-
-Bom - 😃
-
-```ts
-export const Button = styled.button`
-  ${({ theme }) => css`
-    color: ${theme.colors.text.contrast};
-    padding: ${theme.spacing.xs} ${theme.spacing.md};
-    border-radius: ${theme.shapes.borderRadius.xs};
-    background-color: ${theme.colors.primary.main};
-    :hover {
-      background-color: ${theme.colors.primary.dark};
-    }
-    :active {
-      background-color: ${theme.colors.primary.darker};
-    }
-    :disabled {
-      background-color: ${theme.colors.primary.lighter};
-    }
-  `}
-`;
-```
-
-Ruim - ☹️
-
-```ts
-export const Button = styled.button`
-  color: ${({ theme }) => colors.text.contrast};
-  padding: ${({ theme }) => theme.spacing.xs} ${theme.spacing.md};
-  border-radius: ${({ theme }) => theme.shapes.borderRadius.xs};
-  background-color: ${({ theme }) => theme.colors.primary.main};
-  :hover {
-    background-color: ${({ theme }) => theme.colors.primary.dark};
-  }
-  :active {
-    background-color: ${({ theme }) => theme.colors.primary.darker};
-  }
-  :disabled {
-    background-color: ${({ theme }) => theme.colors.primary.lighter};
-  }
-`;
-```
-
-### Variações
-
-Durante o desenvolvimento, se torna necessário criar variações de estilos para o mesmo componente, que variam dependendo do valor recebidos em suas `props`, exemplo:
-
-```jsx
-<Button color="primary" size="md">
-  Submit
-</Button>
-```
-
-A partir disso, é interessante encapsular essas estilizações, pois facilitar o entendimento do código, auxilia na manutenção e na adição de novas estilizações:
-
-```tsx
-const sizes = {
-  sm: css`
-    padding: ${({ theme }) => theme.spacing["2xs"]} ${({ theme }) =>
-        theme.spacing.sm};
-  `,
-  md: css`
-    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) =>
-        theme.spacing.md};
-  `,
-  lg: css`
-    padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) =>
-        theme.spacing.lg};
-  `,
+Highlight only the third to fifth instances of gap. Any numeric range can be placed after the last /.
+
+`/gap/3-5`
+
+```tsx showLineNumbers title="Stack.tsx" /gap/3-5
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
 };
 
-const colors = {
-  primary: css`
-    ${({ theme }) => css`
-      color: ${theme.colors.primary.light};
-      background-color: ${theme.colors.primary.main};
-      :hover {
-        background-color: ${theme.colors.primary.dark};
-      }
-      :active {
-        background-color: ${theme.colors.primary.darker};
-      }
-      :disabled {
-        background-color: ${theme.colors.primary.lighter};
-      }
-    `};
-  `,
-  secondary: css`
-    ${({ theme }) => css`
-      color: ${theme.colors.secondary.light};
-      background-color: ${theme.colors.secondary.main};
-      :hover {
-        background-color: ${theme.colors.secondary.dark};
-      }
-      :active {
-        background-color: ${theme.colors.secondary.darker};
-      }
-      :disabled {
-        background-color: ${theme.colors.secondary.lighter};
-      }
-    `};
-  `,
+type StackProps = {
+  children: React.ReactNode;
+  gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
 };
 
-type ButtonProps = {
-  size: keyof typeof sizes;
-  color: keyof typeof colors;
-};
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
 
-export const Button = styled.button<ButtonProps>`
-  ${({ theme, color }) => css`
-    border-radius: ${theme.shapes.borderRadius.xs};
-
-    // ...
-
-    ${sizes[size]}
-    ${colors[color]}
-  `}
-`;
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
 ```
-
-Por fim, não esqueça de utilizar `keyof` `typeof` para extrair os possíveis valores de cada variação e utilizar na tipagem das props;
-
-## Referências
-
-- [Typescript - styled-components](https://styled-components.com/docs/api#typescript)
-- [Codebase de exemplo - Spectrum](https://github.com/withspectrum/spectrum/blob/alpha/src/components/globals/index.js)
