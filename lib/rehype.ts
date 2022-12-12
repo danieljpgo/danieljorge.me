@@ -9,8 +9,10 @@ const autolinkHeadingsOptions: AutolinkHeadingsOptions = {
   behavior: "wrap",
   properties: {
     className: [
-      // @TODO fix here
-      "before:content-['#'] before:absolute before:-ml-[1em] before:text-gray-100/0 hover:before:text-gray-900 pl-[1em] -ml-[1em] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300",
+      "-ml-[0.85em] pl-[0.85em] no-underline",
+      "before:absolute before:-ml-[0.85em] before:text-gray-100/0 before:opacity-0 before:transition-opacity before:duration-300 before:content-['#']",
+      "hover:before:text-gray-900 hover:before:opacity-100",
+      "md:-ml-[1em] md:pl-[1em] md:before:-ml-[1em]",
     ],
   },
 };
@@ -18,8 +20,6 @@ const autolinkHeadingsOptions: AutolinkHeadingsOptions = {
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
   theme: "poimandres",
   onVisitLine(node) {
-    // Prevent lines from collapsing in `display: grid` mode, and
-    // allow empty lines to be copy/pasted
     if (node.children.length === 0) {
       node.children = [{ type: "text", value: " " }];
     }
@@ -44,6 +44,3 @@ export const rehype = {
     slug: slugOptions,
   },
 };
-
-// import poimandres from 'shiki/themes/poimandres.json'
-// poimandres.
