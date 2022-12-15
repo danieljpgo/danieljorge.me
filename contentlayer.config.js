@@ -1,5 +1,38 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import { rehype } from "./lib/rehype";
+import { formatDate } from "./lib/date";
+import GithubSlugger from "github-slugger";
+
+/** @type {import('contentlayer/source-files').ComputedFields} */
+const computedFields = {
+  slug: {
+    type: "string",
+    resolve: (writing) => writing._raw.sourceFileName.replace(/\.mdx$/, ""),
+  },
+  publishedAtFormatted: {
+    type: "string",
+    resolve: (doc) => formatDate(doc.publishedAt),
+  },
+  headings: {
+    type: "list",
+    resolve: (doc) => {
+      // rehype-slug algorithm packages
+      const slugger = new GithubSlugger();
+      const regexHeadings = /\n\n(?<flag>#{1,6})\s+(?<content>.+)/g;
+      return Array.from(doc.body.raw.matchAll(regexHeadings)).map(
+        ({ groups }) => {
+          const flag = groups?.flag;
+          const content = groups?.content;
+          return {
+            level: flag?.length,
+            content: content,
+            slug: content ? slugger.slug(content) : undefined,
+          };
+        },
+      );
+    },
+  },
+};
 
 export const Writing = defineDocumentType(() => ({
   name: "Writing",
@@ -14,22 +47,21 @@ export const Writing = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
-    date: {
+    publishedAt: {
       type: "date",
       required: true,
     },
-    published: {
-      type: "boolean",
-      default: false,
+    status: {
+      type: "enum",
+      options: ["draft", "published"],
       required: true,
     },
+    // tags: {
+    //   type: "list",
+    //   of: Tag,
+    // },
   },
-  computedFields: {
-    slug: {
-      type: "string",
-      resolve: (writing) => writing._raw.sourceFileName.replace(/\.mdx$/, ""),
-    },
-  },
+  computedFields,
 }));
 
 export const Notes = defineDocumentType(() => ({
@@ -45,22 +77,21 @@ export const Notes = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
-    date: {
+    publishedAt: {
       type: "date",
       required: true,
     },
-    published: {
-      type: "boolean",
-      default: false,
+    status: {
+      type: "enum",
+      options: ["draft", "published"],
       required: true,
     },
+    // tags: {
+    //   type: "list",
+    //   of: Tag,
+    // },
   },
-  computedFields: {
-    slug: {
-      type: "string",
-      resolve: (notes) => notes._raw.sourceFileName.replace(/\.mdx$/, ""),
-    },
-  },
+  computedFields,
 }));
 
 export default makeSource({
@@ -74,3 +105,5 @@ export default makeSource({
     ],
   },
 });
+
+// @TODO Voltar aqui e adicionar tags

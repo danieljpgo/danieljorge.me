@@ -1,19 +1,16 @@
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.jpeg";
-import { allNotes } from "~/contentlayer";
-import { formatDate } from "~/lib/date";
+// import { notes } from "~/lib/contentlayer";
 import {
   GithubIcon,
-  Heading,
+  // Heading,
   LinkedinIcon,
   Text,
   TwitterIcon,
 } from "~/components";
 
 export default function Home() {
-  const notes = allNotes;
-
   return (
     <div className="grid gap-8 md:px-10">
       <div className="flex gap-4">

@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { allNotes } from "~/contentlayer";
-import { formatDate } from "~/lib/date";
 import { Heading, Text } from "~/components";
+import { notes } from "~/lib/contentlayer";
 
 export default function Notes() {
-  const notes = allNotes.filter((note) => note.published);
+  const notesPublished = notes.filter((note) => note.status === "published");
 
   return (
     <>
@@ -25,7 +24,7 @@ export default function Notes() {
       </div>
       <hr className="mt-4 py-4" />
       <ul className="grid gap-4">
-        {notes.map((note) => (
+        {notesPublished.map((note) => (
           <li key={note.slug}>
             <article className="grid gap-4">
               <div className="grid gap-1">
@@ -41,7 +40,7 @@ export default function Notes() {
                   </Heading>
                 </Link>
                 <Text size="sm" color="light">
-                  {formatDate(note.date)}
+                  {note.publishedAtFormatted}
                 </Text>
                 <div className="mt-2">
                   <Text color="base">{note.description}</Text>
