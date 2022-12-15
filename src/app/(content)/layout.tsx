@@ -1,10 +1,10 @@
-type BaseLayoutProps = {
+type ContentLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function BaseLayout({ children }: BaseLayoutProps) {
+export default function ContentLayout({ children }: ContentLayoutProps) {
   return (
-    <main className="relative flex flex-row-reverse justify-center gap-2 px-8 pt-16 pb-4 md:px-0">
+    <main className="relative flex flex-row-reverse justify-center gap-16 px-8 pt-16 pb-4 xl:gap-12 2xl:gap-20">
       {children}
     </main>
   );
