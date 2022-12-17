@@ -12,6 +12,8 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
 //
 // mx-auto max-w-2xl
 
+// @TODO adicionar o footer
+
 // @verificar se essa é a melhor forma de lidar com as mesmas rotas (slug)
 // alinhamento entre uma página e outra deve ser a mesma
 // organizar o html para ficar o mais bontio e semantico possivel
