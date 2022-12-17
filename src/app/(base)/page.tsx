@@ -15,7 +15,7 @@ export default function Home() {
   // const notesPublished = notes.filter((note) => note.status === "published");
 
   return (
-    <div className="grid gap-8 md:px-10">
+    <section className="grid gap-8 md:px-10">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -134,6 +134,6 @@ export default function Home() {
           </li>
         </ul>
       </div> */}
-    </div>
+    </section>
   );
 }

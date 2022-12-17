@@ -68,9 +68,9 @@ export default function Note({ params }: NoteProps) {
         <hr className="mt-4 py-4" />
         <Mdx code={note.body.code} />
         <hr className="mt-8 mb-8" />
-        <div className="flex justify-center">
-          <Link href="." className="flex gap-2">
-            <span className="block xl:hidden">← Home</span>
+        <div className="flex justify-center pb-8">
+          <Link href="." className="flex gap-2 text-sm">
+            <span className="block">← Home</span>
           </Link>
         </div>
       </article>
