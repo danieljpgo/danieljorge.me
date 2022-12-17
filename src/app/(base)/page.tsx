@@ -4,13 +4,16 @@ import profile from "~/public/profile.jpeg";
 // import { notes } from "~/lib/contentlayer";
 import {
   GithubIcon,
-  // Heading,
+  Heading,
   LinkedinIcon,
   Text,
   TwitterIcon,
 } from "~/components";
+// import Link from "next/link";
 
 export default function Home() {
+  // const notesPublished = notes.filter((note) => note.status === "published");
+
   return (
     <div className="grid gap-8 md:px-10">
       <div className="flex gap-4">
@@ -99,7 +102,7 @@ export default function Home() {
         </div>
         <hr className="mt-4 py-2" />
         <ul className="grid gap-4">
-          {notes.map((note) => (
+          {notesPublished.map((note) => (
             <li key={note.slug}>
               <article className="grid gap-4">
                 <div className="grid gap-1">
@@ -115,7 +118,7 @@ export default function Home() {
                     </Heading>
                   </Link>
                   <Text size="sm" color="light">
-                    {formatDate(note.date)}
+                    {note.publishedAtFormatted}
                   </Text>
                 </div>
               </article>

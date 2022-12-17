@@ -19,7 +19,7 @@ export default function Note({ params }: NoteProps) {
     <>
       <aside className="sticky top-8 mt-9 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
         <Heading as="h2" size="lg" weight="medium" color="darker">
-          Table of Content
+          Table of Contents
         </Heading>
         <hr />
         <nav className="grid gap-1">
@@ -30,7 +30,7 @@ export default function Note({ params }: NoteProps) {
                 <a
                   key={heading.slug}
                   href={`#${heading.slug}`}
-                  className={cn("text-sm text-gray-700", index !== 0 && "pt-1")}
+                  className={cn("text-sm text-gray-700", index !== 0 && "mt-1")}
                 >
                   {heading.content}
                 </a>
@@ -38,7 +38,7 @@ export default function Note({ params }: NoteProps) {
                 <a
                   key={heading.slug}
                   href={`#${heading.slug}`}
-                  className="pl-2 text-xs text-gray-700"
+                  className="ml-2 text-xs text-gray-700"
                 >
                   {heading.content}
                 </a>
