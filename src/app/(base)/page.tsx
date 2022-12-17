@@ -1,8 +1,7 @@
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.jpeg";
-import { allNotes } from "~/contentlayer";
-import { formatDate } from "~/lib/date";
+// import { notes } from "~/lib/contentlayer";
 import {
   GithubIcon,
   Heading,
@@ -10,12 +9,13 @@ import {
   Text,
   TwitterIcon,
 } from "~/components";
+// import Link from "next/link";
 
 export default function Home() {
-  const notes = allNotes;
+  // const notesPublished = notes.filter((note) => note.status === "published");
 
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-8 md:px-10">
       <div className="flex gap-4">
         <Image
           quality={100}
@@ -102,7 +102,7 @@ export default function Home() {
         </div>
         <hr className="mt-4 py-2" />
         <ul className="grid gap-4">
-          {notes.map((note) => (
+          {notesPublished.map((note) => (
             <li key={note.slug}>
               <article className="grid gap-4">
                 <div className="grid gap-1">
@@ -118,7 +118,7 @@ export default function Home() {
                     </Heading>
                   </Link>
                   <Text size="sm" color="light">
-                    {formatDate(note.date)}
+                    {note.publishedAtFormatted}
                   </Text>
                 </div>
               </article>

@@ -1,40 +1,140 @@
 ---
 title: Syntax Highlighting
 description: Demo
-date: "2023-04-09"
+publishedAt: "2023-04-09"
+status: "published"
 ---
 
-```html
-<article class="prose">
-  <h1>Garlic bread with cheese: What the science tells us</h1>
-  <p>
-    For years parents have espoused the health benefits of eating garlic bread
-    with cheese to their children, with the food earning such an iconic status
-    in our culture that kids will often dress up as warm, cheesy loaf for
-    Halloween.
-  </p>
-  <p>
-    But a recent study shows that the celebrated appetizer may be linked to a
-    series of rabies cases springing up around the country.
-  </p>
-</article>
-```
+We can add title annotations to our code blocks using the title="..." syntax:
 
-```js
-module.exports = {
-  purge: [],
-  theme: {
-    extend: {},
-  },
-  variants: {},
-  plugins: [],
-};
-```
+./content/posts/syntax-highlighting.mdx
 
-```js
+```js title="multiply.js" showLineNumbers
 const multiply = (a, b) => a * b;
 ```
 
-```ts
-const multiply = (a: number, b: number) => a * b;
+And we can style those titles using the data-rehype-pretty-code-title data attribute:
+
+Line Highlights
+We can highlight different lines using the `{<line number>}` annotation e.g. `{12}` . Multiple lines and ranges are supported e.g `{16-17}`.
+
+================
+
+## Titles
+
+Add a file title to your code block, with text inside double quotes (""):
+
+`title="Component.tsx"`
+
+```tsx title="Component.tsx"
+...
+```
+
+## Line numbers
+
+If you want to conditionally show them, use showLineNumbers:
+
+`showLineNumbers`
+
+```tsx title="Component.tsx" showLineNumbers
+...
+```
+
+If you want to start line number at specific number, use `showLineNumbers{number}`:
+
+`showLineNumbers{10}`
+
+```tsx title="Component.tsx" showLineNumbers{10}
+...
+```
+
+## Highlight lines
+
+Place a numeric range inside {}.
+
+`{12,16-17}`
+
+```tsx showLineNumbers title="Stack.tsx" {12,16-17}
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
+};
+
+type StackProps = {
+  children: React.ReactNode;
+  gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
+};
+
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
+
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
+```
+
+## Highlight inline code
+
+Append `{:lag} (e.g. {:js})` to the end of inline code to highlight it like a regular code block.
+
+This is an array `[1, 2, 3]{:js}` of numbers 1 through 3.
+
+## Highlight words
+
+Literal text, like a regex. Note regex itself is not yet supported.
+
+`/gap/ /tag/`
+
+```tsx showLineNumbers title="Stack.tsx" /gap/ /tag/
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
+};
+
+type StackProps = {
+  children: React.ReactNode;
+  gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
+};
+
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
+
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
+```
+
+Highlight only the third to fifth instances of gap. Any numeric range can be placed after the last /.
+
+`/gap/3-5`
+
+```tsx showLineNumbers title="Stack.tsx" /gap/3-5
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
+};
+
+type StackProps = {
+  children: React.ReactNode;
+  gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
+};
+
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
+
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
 ```
