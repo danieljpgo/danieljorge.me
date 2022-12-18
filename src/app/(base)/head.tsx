@@ -1,7 +1,10 @@
 import { HeadTags } from "~/components";
 
 export default function Head() {
-  const url = process.env.NEXT_PUBLIC_APP_URL ?? "";
+  const domain = process.env.VERCEL_URL || "";
+  const url = `${
+    process.env.VERCEL_URL ? "https://" + process.env.VERCEL_URL : ""
+  }/api/vercel`;
 
   return (
     <>
@@ -13,7 +16,7 @@ export default function Head() {
       />
 
       {/* <!-- Facebook Meta Tags --> */}
-      <meta property="og:url" content={`${url}`} />
+      <meta property="og:url" content={`${url}/api/og?title=teste og image`} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="teste og image" />
       <meta
@@ -27,8 +30,11 @@ export default function Head() {
 
       {/* <!-- Twitter Meta Tags --/> */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content={url} />
-      <meta property="twitter:url" content={`${url}`} />
+      <meta property="twitter:domain" content={domain} />
+      <meta
+        property="twitter:url"
+        content={`${url}/api/og?title=teste og image`}
+      />
       <meta name="twitter:title" content="teste og image" />
       <meta
         name="twitter:description"
