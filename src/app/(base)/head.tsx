@@ -4,7 +4,7 @@ export default function Head() {
   const domain = process.env.VERCEL_URL || "";
   const url = `${
     process.env.VERCEL_URL ? "https://" + process.env.VERCEL_URL : ""
-  }/api/vercel`;
+  }`;
 
   return (
     <>
