@@ -15,7 +15,22 @@ export default function Head() {
         content={`${url}/api/og?title=teste og image`}
       />
 
-      {/* <!-- Facebook Meta Tags --> */}
+      <meta name="og:title" content="Vercel Edge Network" />
+      <meta name="og:description" content="Vercel Edge Network" />
+      <meta
+        name="og:image"
+        content={
+          // Because OG images must have a absolute URL, we use the
+          // `VERCEL_URL` environment variable to get the deployment’s URL.
+          // More info:
+          // https://vercel.com/docs/concepts/projects/environment-variables
+          `${
+            process.env.VERCEL_URL ? "https://" + process.env.VERCEL_URL : ""
+          }/api/og?title=teste og image`
+        }
+      />
+
+      {/* <!-- Facebook Meta Tags -->
       <meta property="og:url" content={`${url}/api/og?title=teste og image`} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="teste og image" />
@@ -28,7 +43,7 @@ export default function Head() {
         content={`${url}/api/og?title=teste og image`}
       />
 
-      {/* <!-- Twitter Meta Tags --/> */}
+      <!-- Twitter Meta Tags --/>
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:domain" content={domain} />
       <meta
@@ -43,7 +58,7 @@ export default function Head() {
       <meta
         name="twitter:image"
         content={`${url}/api/og?title=teste og image`}
-      />
+      /> */}
 
       <HeadTags />
     </>
