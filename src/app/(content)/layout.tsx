@@ -63,7 +63,6 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
   );
 }
 
-// @verificar se essa é a melhor forma de lidar com as mesmas rotas (slug)
-// alinhamento entre uma página e outra deve ser a mesma
-// organizar o html para ficar o mais bontio e semantico possivel
-/* <footer className="mx-auto flex w-full max-w-[14rem] justify-between gap-2"> */
+// @TODO Melhorar container -> padding só no conteudo e não na página como um todo
+// @TODO verificar se essa é a melhor forma de lidar com as mesmas rotas (slug)
+// @TODO Aumentar o peso da fonte caso estiver no link corrent

@@ -30,7 +30,10 @@ export default function Note({ params }: NoteProps) {
                 <a
                   key={heading.slug}
                   href={`#${heading.slug}`}
-                  className={cn("text-sm text-gray-700", index !== 0 && "mt-1")}
+                  className={cn(
+                    "text-sm text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300",
+                    index !== 0 && "mt-1",
+                  )}
                 >
                   {heading.content}
                 </a>
@@ -38,14 +41,17 @@ export default function Note({ params }: NoteProps) {
                 <a
                   key={heading.slug}
                   href={`#${heading.slug}`}
-                  className="ml-2 text-xs text-gray-700"
+                  className="ml-2 text-xs text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
                 >
                   {heading.content}
                 </a>
               ),
             )}
           <hr className="my-1.5" />
-          <a href="#" className="text-sm">
+          <a
+            href="#"
+            className="text-sm text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+          >
             Back to top
           </a>
         </nav>
@@ -69,14 +75,21 @@ export default function Note({ params }: NoteProps) {
         <Mdx code={note.body.code} />
         <hr className="mt-8 mb-8" />
         <div className="flex justify-center pb-8">
-          <Link href="." className="flex gap-2 text-sm">
+          <Link
+            href="."
+            className="flex gap-2 text-sm text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+          >
             <span className="block">← Home</span>
           </Link>
         </div>
       </article>
-      <div className="sticky top-0 hidden w-full max-w-[14rem] justify-end xl:flex xl:max-w-[16rem]">
-        <Link href="." className="flex gap-2 pt-8 text-sm">
-          <span className="hidden xl:flex">← Home</span>
+      {/* sticky top-0 */}
+      <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
+        <Link
+          href="."
+          className="flex gap-2 text-sm text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+        >
+          ← Home
         </Link>
       </div>
     </>
@@ -90,3 +103,4 @@ export async function generateStaticParams(): Promise<
 }
 
 // @TODO Melhorar lidar com caso de não encontrar o note, 404?
+// @TODO Bug de renderização do botão voltar
