@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/og": "^0.0.21",
     "contentlayer": "^0.2.9",
     "github-slugger": "^2.0.0",
     "next": "^13.0.8-canary.0",
