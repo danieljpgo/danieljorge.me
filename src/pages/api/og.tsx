@@ -5,80 +5,53 @@ export const config = {
   runtime: "experimental-edge",
 };
 
-// @TODO try catch with status 500
-// https://vercel.com/docs/concepts/functions/edge-functions/og-image-examples#dynamic-text-generated-as-image
+// @TODO add protection
+//@TODO type diferent types for og tags pages vs content
+// const type = searchParams.get("type")?.slice(0, 120) ?? "None";
 
 export default function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+  const domain = "danieljorge.me";
 
-  // ?title=<title>
-  const hasTitle = searchParams.has("title");
-  const title = hasTitle
-    ? searchParams.get("title")?.slice(0, 100)
-    : "My default title";
+  const title = searchParams.get("title")?.slice(0, 80) ?? "None";
+  const description = searchParams.get("description")?.slice(0, 120) ?? "None";
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          letterSpacing: "-.02em",
-          fontWeight: 700,
-          background: "white",
-        }}
-      >
+  try {
+    return new ImageResponse(
+      (
         <div
-          style={{
-            left: 42,
-            top: 42,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-          }}
+          tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
+          style={{ letterSpacing: "-.02em" }}
         >
-          <span
-            style={{
-              width: 24,
-              height: 24,
-              background: "black",
-            }}
-          />
-          <span
-            style={{
-              marginLeft: 8,
-              fontSize: 20,
-            }}
-          >
-            danieljorge.me
-          </span>
+          <div tw="flex items-center">
+            <span tw="h-6 w-6 bg-black" />
+            <span tw="ml-2 text-xl">{domain}</span>
+          </div>
+          <div tw="flex items-center">
+            <img
+              src="https://danieljorge.me/profile.jpeg"
+              tw="rounded-full h-18"
+            />
+            <div tw="flex flex-col pl-4">
+              <div tw="flex text-4xl text-gray-800 mb-6 leading-4">{title}</div>
+              <div tw="flex text-3xl text-slate-400 leading-4">
+                {description}
+              </div>
+            </div>
+          </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            padding: "20px 50px",
-            margin: "0 42px",
-            fontSize: 40,
-            width: "auto",
-            maxWidth: 550,
-            textAlign: "center",
-            backgroundColor: "black",
-            color: "white",
-            lineHeight: 1.4,
-          }}
-        >
-          {title}
-        </div>
-      </div>
-    ),
-    {
-      width: 1200,
-      height: 630,
-    },
-  );
+      ),
+      {
+        width: 1200,
+        height: 630,
+      },
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`${error.message}`);
+    }
+    return new Response(`Failed to generate the image`, {
+      status: 500,
+    });
+  }
 }
