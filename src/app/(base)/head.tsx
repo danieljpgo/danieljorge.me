@@ -1,9 +1,9 @@
 import { HeadTags, SocialTags } from "~/components";
 
 export default function Head() {
-  const title = "Daniel Jorge";
-  const description = "My corner on the web";
-  const ogdescription = "Frontend Engineer at Bitso";
+  const title = "Daniel_Jorge";
+  const description = "My_corner_on_the_web";
+  const ogdescription = "Frontend_Engineer_at_Bitso";
 
   return (
     <>
