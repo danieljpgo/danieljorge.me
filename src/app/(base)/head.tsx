@@ -7,10 +7,10 @@ export default function Head() {
 
   return (
     <>
+      <HeadTags />
       <title>{title}</title>
       <meta name="description" content={description} />
       <SocialTags description={ogdescription} title={title} />
-      <HeadTags />
     </>
   );
 }

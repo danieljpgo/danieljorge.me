@@ -46,6 +46,7 @@ export default function SocialTags(props: SocialTags) {
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:type" content="image/png" />
+      {/* <meta property="og:image:type" content="image/jpeg" /> */}
       <meta property="og:site_name" content={title} />
       {/* <!-- Facebook Meta Tags --> */}
       <meta property="og:type" content={type} />
@@ -57,6 +58,8 @@ export default function SocialTags(props: SocialTags) {
       {/* <!-- Twitter Meta Tags --> */}
       <meta property="twitter:domain" content={domain} />
       <meta property="twitter:url" content={url} />
+      <meta name="twitter:url" content={url} />
+      <meta name="twitter:domain" content={domain} />
       {/* <meta name="twitter:card" content="summary" /> */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
