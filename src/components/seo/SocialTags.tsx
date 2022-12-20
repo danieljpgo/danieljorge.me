@@ -11,7 +11,12 @@ export default function SocialTags(props: SocialTags) {
     process.env.NODE_ENV === "development"
       ? ""
       : `https://${process.env.VERCEL_URL}`;
-  const image = `${url}/api/og?title=${title}&description=${description}`;
+
+  const image = `${url}/api/og?${new URLSearchParams({
+    title,
+    description,
+  }).toString()}`;
+
   const domain =
     process.env.NODE_ENV === "development" ? "" : process.env.VERCEL_URL;
 
@@ -43,6 +48,7 @@ export default function SocialTags(props: SocialTags) {
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />
       <meta name="og:image" content={image} />
+      <meta property="author" content="Daniel Jorge" />
       {/* <meta property="og:image:width" content="1200" /> */}
       {/* <meta property="og:image:height" content="630" /> */}
       <meta property="og:image:type" content="image/png" />
