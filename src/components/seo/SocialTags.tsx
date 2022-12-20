@@ -54,10 +54,10 @@ export default function SocialTags(props: SocialTags) {
       <meta property="og:image" itemProp="image" content={image} />
       <meta property="og:image:alt" content="Daniel Jorge" />
       {/* <!-- Twitter Meta Tags --> */}
-      {/* <meta name="twitter:card" content="summary_large_image" /> */}
       <meta property="twitter:domain" content={domain} />
       <meta property="twitter:url" content={url} />
-      <meta name="twitter:card" content="summary" />
+      {/* <meta name="twitter:card" content="summary" /> */}
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
