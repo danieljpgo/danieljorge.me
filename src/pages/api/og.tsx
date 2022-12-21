@@ -5,12 +5,12 @@ export const config = {
   runtime: "experimental-edge",
 };
 
+const domain = "danieljorge.me";
+
 // @TODO add protection
-//@TODO type diferent types for og tags pages vs content
 
 export default function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const domain = "danieljorge.me";
 
   const type = searchParams.get("type")?.slice(0, 120) ?? "None";
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
@@ -20,23 +20,15 @@ export default function handler(req: NextRequest) {
     return new ImageResponse(
       (() => {
         if (type === "home") {
-          return (
-            <Home description={description} title={title} domain={domain} />
-          );
+          return <Home />;
         }
         if (type === "content") {
-          return (
-            <Content description={description} title={title} domain={domain} />
-          );
+          return <Content title={title} description={description} />;
         }
         if (type === "hub") {
-          return (
-            <Hub description={description} title={title} domain={domain} />
-          );
+          return <Hub title={title} description={description} />;
         }
-        return (
-          <Content description={description} title={title} domain={domain} />
-        );
+        return <Content title={title} description={description} />;
       })(),
       {
         width: 1200,
@@ -53,15 +45,7 @@ export default function handler(req: NextRequest) {
   }
 }
 
-const Home = ({
-  domain,
-  title,
-  description,
-}: {
-  domain: string;
-  title: string;
-  description: string;
-}) => {
+const Home = () => {
   return (
     <div
       tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
@@ -86,15 +70,12 @@ const Home = ({
   );
 };
 
-const Content = ({
-  domain,
-  title,
-  description,
-}: {
-  domain: string;
+type ContentProps = {
   title: string;
   description: string;
-}) => {
+};
+
+const Content = ({ title, description }: ContentProps) => {
   return (
     <div
       tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
@@ -105,10 +86,8 @@ const Content = ({
         <span tw="ml-2 text-xl">{domain}</span>
       </div>
       <div tw="flex flex-col items-center justify-center w-full">
-        <div tw="flex text-5xl text-gray-800 mb-10 leading-4 font-bold">
-          {title}
-        </div>
-        <div tw="flex text-4xl text-slate-400 leading-4">{description}</div>
+        <div tw="flex text-5xl text-gray-800 text-center mb-2">{title}</div>
+        <div tw="flex text-4xl text-slate-400 text-center">{description}</div>
       </div>
       <div tw="flex items-center">
         <img src="https://danieljorge.me/profile.jpeg" tw="rounded-full h-20" />
@@ -125,15 +104,12 @@ const Content = ({
   );
 };
 
-const Hub = ({
-  domain,
-  title,
-  description,
-}: {
-  domain: string;
+type HubProps = {
   title: string;
   description: string;
-}) => {
+};
+
+const Hub = ({ title, description }: HubProps) => {
   return (
     <div
       tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
@@ -144,10 +120,8 @@ const Hub = ({
         <span tw="ml-2 text-xl">{domain}</span>
       </div>
       <div tw="flex flex-col items-center justify-center w-full">
-        <div tw="flex text-5xl text-gray-800 mb-10 leading-4 font-bold">
-          {title}
-        </div>
-        <div tw="flex text-4xl text-slate-400 leading-4">{description}</div>
+        <div tw="flex text-5xl text-gray-800 text-center mb-2">{title}</div>
+        <div tw="flex text-4xl text-slate-400 text-center">{description}</div>
       </div>
       <div tw="flex items-center">
         <img src="https://danieljorge.me/profile.jpeg" tw="rounded-full h-20" />
