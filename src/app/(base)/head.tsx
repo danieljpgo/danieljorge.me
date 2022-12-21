@@ -1,16 +1,16 @@
-import { HeadTags, SocialTags } from "~/components";
+import { HeadTags, OGTags } from "~/components";
+
+// ABCDE · ABCDE
 
 export default function Head() {
   const title = "Daniel Jorge";
-  const description = "My corner on the web";
-  const ogdescription = "Frontend Engineer at Bitso";
-
+  const description = "My corner on the web"; // @TODO Atualizar aqui
   return (
     <>
-      <HeadTags />
       <title>{title}</title>
       <meta name="description" content={description} />
-      <SocialTags description={ogdescription} title={title} />
+      <HeadTags />
+      <OGTags type="home" title={title} description="Frontend Engineer" />
     </>
   );
 }

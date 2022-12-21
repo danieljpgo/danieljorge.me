@@ -1,2 +1,2 @@
 export { default as HeadTags } from "./HeadTags";
-export { default as SocialTags } from "./SocialTags";
+export { default as OGTags } from "./OGTags";
