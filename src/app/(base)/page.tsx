@@ -30,7 +30,7 @@ export default function Home() {
           <h1 className="text-lg font-medium leading-4 text-gray-800 antialiased">
             Daniel Jorge
           </h1>
-          <p className="text-base font-medium leading-4 text-slate-600 antialiased">
+          <p className="text-base font-medium leading-4 text-slate-400 antialiased">
             Frontend Engineer
           </p>
         </div>

@@ -1,5 +1,5 @@
 import { allNotes } from "contentlayer/generated";
-import { HeadTags } from "~/components";
+import { HeadTags, OGTags } from "~/components";
 
 type HeadProps = {
   params: { slug: string };
@@ -23,6 +23,11 @@ export default function Head({ params }: HeadProps) {
       <title>{note.title}</title>
       <meta name="description" content={note.description} />
       <HeadTags />
+      <OGTags
+        type="content"
+        title={note.title}
+        description={note.description}
+      />
     </>
   );
 }
