@@ -9,7 +9,7 @@
 - [ ] Workspace - (vscode config)
 - [x] Antialiasing fonts
 - [x] Path Alias
-- [ ] Vercel analitics
+- [x] Vercel Analytics
 
 ### Features
 
