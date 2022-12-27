@@ -9,7 +9,7 @@ export default function Head() {
       <title>{title}</title>
       <meta name="description" content={description} />
       <HeadTags />
-      <OGTags type="hub" title={title} description={description} />
+      <OGTags type="content" title={title} description={description} />
     </>
   );
 }
