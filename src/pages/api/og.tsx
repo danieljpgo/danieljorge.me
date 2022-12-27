@@ -56,7 +56,7 @@ const Home = () => {
           <div tw="flex text-4xl text-gray-800 mb-6 leading-4">
             Daniel Jorge
           </div>
-          <div tw="flex text-3xl text-slate-400 leading-4">
+          <div tw="flex text-3xl text-slate-500 leading-4">
             Frontend Engineer
           </div>
         </div>
@@ -82,7 +82,7 @@ const Content = ({ title, description }: ContentProps) => {
       </div>
       <div tw="flex flex-col items-center justify-center w-full">
         <div tw="flex text-5xl text-gray-800 text-center mb-2">{title}</div>
-        <div tw="flex text-4xl text-slate-400 text-center">{description}</div>
+        <div tw="flex text-4xl text-slate-500 text-center">{description}</div>
       </div>
       <div tw="flex items-center">
         <img src="https://danieljorge.me/profile.jpeg" tw="rounded-full h-20" />
@@ -90,7 +90,7 @@ const Content = ({ title, description }: ContentProps) => {
           <div tw="flex text-4xl text-gray-800 mb-6 leading-4">
             Daniel Jorge
           </div>
-          <div tw="flex text-3xl text-slate-400 leading-4">
+          <div tw="flex text-3xl text-slate-500 leading-4">
             Frontend Engineer
           </div>
         </div>
