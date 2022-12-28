@@ -42,7 +42,7 @@ export default function Home() {
           href="https://bitso.com/"
           target="_blank"
           rel="noreferrer"
-          className="font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-300 hover:text-gray-500 hover:decoration-gray-500 active:text-gray-400 active:decoration-gray-400"
+          className="font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-200 hover:text-gray-500 hover:decoration-gray-500 active:text-gray-400 active:decoration-gray-400"
         >
           Bitso
         </a>
@@ -56,7 +56,7 @@ export default function Home() {
             href="https://github.com/danieljpgo"
             target="_blank"
             rel="noreferrer"
-            className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+            className="text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
           >
             <GithubIcon />
           </a>
@@ -67,7 +67,7 @@ export default function Home() {
             href="https://twitter.com/danieljpgo"
             target="_blank"
             rel="noreferrer"
-            className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+            className="text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
           >
             <TwitterIcon />
           </a>
@@ -78,7 +78,7 @@ export default function Home() {
             href="https://www.linkedin.com/in/danieljpgo/"
             target="_blank"
             rel="noreferrer"
-            className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+            className="text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
           >
             <LinkedinIcon />
           </a>

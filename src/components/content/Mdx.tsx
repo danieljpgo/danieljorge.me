@@ -16,7 +16,17 @@ export default function Mdx(props: MdxProps) {
           a: ({ className, ...props }) => (
             <a
               className={cn(
-                "font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-300 hover:text-gray-500 hover:decoration-gray-500 active:text-gray-400 active:decoration-gray-400",
+                "font-normal",
+                "text-gray-800",
+                "underline",
+                "decoration-gray-800",
+                "underline-offset-2",
+                "transition-colors",
+                "duration-200",
+                "hover:decoration-gray-500",
+                "active:decoration-gray-400",
+                "[&:not(h1>*,h2>*,h3>*,h4>*,h5>*,h6>*)]:hover:text-gray-500",
+                "[&:not(h1>*,h2>*,h3>*,h4>*,h5>*,h6>*)]:active:text-gray-400",
                 className,
               )}
               {...props}
@@ -41,6 +51,7 @@ export default function Mdx(props: MdxProps) {
           code: ({ className, ...props }) => (
             <code
               className={cn(
+                "[&:not(pre>*)]:selection:bg-[#add7ff21]",
                 "[&:not(pre>*)]:relative",
                 "[&:not(pre>*)]:border",
                 "[&:not(pre>*)]:rounded",

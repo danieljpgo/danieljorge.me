@@ -28,7 +28,7 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
                 href="https://github.com/danieljpgo"
                 target="_blank"
                 rel="noreferrer"
-                className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+                className="text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
               >
                 <GithubIcon />
               </a>
@@ -39,7 +39,7 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
                 href="https://twitter.com/danieljpgo"
                 target="_blank"
                 rel="noreferrer"
-                className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+                className="text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
               >
                 <TwitterIcon />
               </a>
@@ -50,7 +50,7 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
                 href="https://www.linkedin.com/in/danieljpgo/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-gray-700 transition-colors duration-300 hover:text-gray-400 active:text-gray-300"
+                className="text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
               >
                 <LinkedinIcon />
               </a>
