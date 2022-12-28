@@ -18,7 +18,8 @@ export default function Note({ params }: NoteProps) {
   return (
     <>
       <aside className="sticky top-8 mt-9 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
-        <Heading as="h2" size="lg" weight="medium" color="darker">
+        <Heading as="h2" size="lg" weight="semibold" color="darker">
+          {/* On This Page */}
           Table of Contents
         </Heading>
         <hr />
@@ -41,7 +42,7 @@ export default function Note({ params }: NoteProps) {
                 <a
                   key={heading.slug}
                   href={`#${heading.slug}`}
-                  className="ml-2 text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                  className="ml-1.5 text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
                 >
                   {heading.content}
                 </a>
