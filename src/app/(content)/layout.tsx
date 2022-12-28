@@ -17,7 +17,7 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
             <h1 className="text-base font-medium leading-4 text-gray-800 antialiased lg:text-lg lg:leading-4">
               Daniel Jorge
             </h1>
-            <p className="text-sm font-medium leading-4 text-slate-600 antialiased lg:text-base lg:leading-4">
+            <p className="text-sm font-medium leading-4 text-slate-500 antialiased lg:text-base lg:leading-4">
               Frontend Engineer
             </p>
           </div>

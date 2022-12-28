@@ -8,6 +8,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            "code::before": false,
+            "code::after": false,
+            // blockquote: false,
+          },
+        },
+      },
       screens: {
         standalone: {
           raw: "(display-mode: standalone)",
@@ -23,3 +32,21 @@ module.exports = {
   },
   plugins: [require("@tailwindcss/typography")],
 };
+
+// theme: {
+//   extend: {
+//     typography: {
+//       DEFAULT: {
+//         css: {
+//           color: '#333',
+//           a: {
+//             color: '#3182ce',
+//             '&:hover': {
+//               color: '#2c5282',
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// },

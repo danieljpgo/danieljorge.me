@@ -42,7 +42,7 @@ export default function Home() {
           href="https://bitso.com/"
           target="_blank"
           rel="noreferrer"
-          className="text-gray-800 underline decoration-gray-800 underline-offset-2"
+          className="font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-300 hover:text-gray-500 hover:decoration-gray-500 active:text-gray-400 active:decoration-gray-400"
         >
           Bitso
         </a>

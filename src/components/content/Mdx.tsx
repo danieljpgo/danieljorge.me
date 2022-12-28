@@ -1,4 +1,5 @@
 import { useMDXComponent } from "next-contentlayer/hooks";
+import { cn } from "~/lib/tailwindcss";
 
 type MdxProps = {
   code: string;
@@ -10,7 +11,54 @@ export default function Mdx(props: MdxProps) {
 
   return (
     <div className="prose max-w-none">
-      <MDXContent />
+      <MDXContent
+        components={{
+          a: ({ className, ...props }) => (
+            <a
+              className={cn(
+                "font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-300 hover:text-gray-500 hover:decoration-gray-500 active:text-gray-400 active:decoration-gray-400",
+                className,
+              )}
+              {...props}
+            />
+          ),
+          blockquote: ({ className, ...props }) => (
+            <blockquote
+              className={cn(
+                "mt-6",
+                "mb-6",
+                "pl-6",
+                "border-l",
+                "font-normal",
+                "italic",
+                "text-slate-800",
+                "[&>*]:text-slate-600",
+                className,
+              )}
+              {...props}
+            />
+          ),
+          code: ({ className, ...props }) => (
+            <code
+              className={cn(
+                "[&:not(pre>*)]:relative",
+                "[&:not(pre>*)]:border",
+                "[&:not(pre>*)]:rounded",
+                "[&:not(pre>*)]:bg-slate-300",
+                "[&:not(pre>*)]:bg-opacity-25",
+                "[&:not(pre>*)]:py-[0.2rem]",
+                "[&:not(pre>*)]:px-[0.3rem]",
+                "[&:not(pre>*)]:font-mono",
+                "[&:not(pre>*)]:font-normal",
+                "[&:not(pre>*)]:text-sm",
+                "[&:not(pre>*)]:text-slate-600",
+                className,
+              )}
+              {...props}
+            />
+          ),
+        }}
+      />
     </div>
   );
   // return (
@@ -70,15 +118,15 @@ export default function Mdx(props: MdxProps) {
   //           {...props}
   //         />
   //       ),
-  //       a: ({ className, ...props }) => (
-  //         <a
-  //           className={cn(
-  //             "font-medium text-slate-900 underline underline-offset-4",
-  //             className,
-  //           )}
-  //           {...props}
-  //         />
-  //       ),
+  // a: ({ className, ...props }) => (
+  //   <a
+  //     className={cn(
+  //       "font-medium text-slate-900 underline underline-offset-4",
+  //       className,
+  //     )}
+  //     {...props}
+  //   />
+  // ),
   //       p: ({ className, ...props }) => (
   //         <p
   //           className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
@@ -161,15 +209,6 @@ export default function Mdx(props: MdxProps) {
   //         <pre
   //           className={cn(
   //             "mt-6 mb-4 overflow-x-auto rounded-lg bg-slate-50 py-4",
-  //             className,
-  //           )}
-  //           {...props}
-  //         />
-  //       ),
-  //       code: ({ className, ...props }) => (
-  //         <code
-  //           className={cn(
-  //             "relative rounded border bg-slate-300 bg-opacity-25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-slate-600",
   //             className,
   //           )}
   //           {...props}
