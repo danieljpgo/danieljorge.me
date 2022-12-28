@@ -1,0 +1,79 @@
+---
+title: Utility First CSS is Functional Programming for CSS
+description: “Tailwind is good but hard to read (…)”, whit
+publishedAt: "2023-01-02"
+status: "published"
+---
+
+During a conversation at work, the following sentence was said:
+
+> Tailwind is good but hard to read (…)
+
+## Teste
+
+Initially, I understand where this thought comes from, because with [Tailwind]() and other [Utility First CSS]() solutions, it is possible to have long strings with classes. However, I believe the exact opposite, for me over time, Utility First CSS becomes more readability.
+
+If we agree that composition is the most readable way to build something, Tailwind and Utility First CSS is the composition of css classes to write CSS.
+
+Following this logic, when we analyze different forms of composition and their alternatives, it will become clearer:
+
+### Exemplos de composição - Código
+
+Following this logic, when we analyze different forms of composition and their alternatives...
+
+```tsx title="parse.ts" showLineNumbers /.filter/ /.map/ /.toString/
+data.filter(...).map(foo => foo.toString());
+```
+
+Following this logic, when we analyze different forms of composition and their alternatives...
+
+```tsx title="parse.ts" showLineNumbers /filterMapToString/
+filterMapToString(data);
+```
+
+### Exemplos de composição - Componente
+
+Following this logic, when we analyze different forms of composition and their alternatives...
+
+```tsx title="UserProfile.tsx" showLineNumbers {4-6}
+{...}
+<Card>
+  <Card.Title>
+    <Heading as="h3" size="lg" weight="medium">
+      {user.name}
+    </Heading>
+  </Card.Title>
+  <Card.Content>
+    {...}
+  </Card.Content>
+</Card>
+```
+
+Following this logic, when we analyze different forms of composition and their alternatives...
+
+```tsx showLineNumbers /heading="Title"/ title="UserProfile.tsx"
+{...}
+<Card heading="Title">
+  {...}
+</Card>
+```
+
+Using the same logic as above, we can represent the same composition concept with css.
+
+### Exemplos de composição - Tailwind
+
+Following this logic, when we analyze different forms of composition and their alternatives...
+
+```html showLineNumbers /rounded bg-white p-4 shadow/
+<div class="rounded bg-white p-4 shadow">{...}</div>
+```
+
+Following this logic, when we analyze different forms of composition and their alternatives...
+
+```html showLineNumbers /card/
+<div class="card">{...}</div>
+```
+
+## Conclusion
+
+Therefore, I believe that in the end readability is not a problem with Tailwind and I believe that those who like functional programming can see this more easily, but that is a topic for another day.
