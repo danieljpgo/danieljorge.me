@@ -2,6 +2,7 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import { rehype } from "./lib/rehype";
 import { formatDate } from "./lib/date";
 import GithubSlugger from "github-slugger";
+import remarkGfm from "remark-gfm";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -98,6 +99,7 @@ export default makeSource({
   contentDirPath: "content",
   documentTypes: [Writing, Notes],
   mdx: {
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [
       [rehype.slug],
       [rehype.prettyCode, rehype.options.prettyCode],
