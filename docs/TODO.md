@@ -10,6 +10,7 @@
 - [x] Antialiasing fonts
 - [x] Path Alias
 - [x] Vercel Analytics
+- [ ] Improve Voice Reading
 
 ### Features
 

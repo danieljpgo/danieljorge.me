@@ -10,7 +10,7 @@ const autolinkHeadingsOptions: AutolinkHeadingsOptions = {
   properties: {
     className: [
       "-ml-[0.85em] pl-[0.85em] no-underline text-inherit font-semibold",
-      "before:absolute before:-ml-[0.85em] before:text-gray-100/0 before:opacity-0 before:transition-opacity before:duration-300 before:content-['#']",
+      "before:absolute before:-ml-[0.85em] before:text-gray-100/0 before:opacity-0 before:transition-opacity before:duration-200 before:content-['#']",
       "hover:before:text-gray-900 hover:before:opacity-100",
       "md:-ml-[1em] md:pl-[1em] md:before:-ml-[1em]",
     ],
