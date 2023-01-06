@@ -21,7 +21,7 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
               Frontend Engineer
             </p>
           </div>
-          <ul aria-label="Social links" className="flex gap-1.5 lg:gap-3">
+          <ul aria-label="Social links" className="flex gap-3">
             <li>
               <a
                 aria-label="Github"
