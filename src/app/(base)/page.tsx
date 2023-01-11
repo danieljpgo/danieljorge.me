@@ -1,7 +1,7 @@
-// import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.jpeg";
-// import { notes } from "~/lib/contentlayer";
+import { notes } from "~/lib/contentlayer";
 import {
   GithubIcon,
   Heading,
@@ -9,10 +9,9 @@ import {
   Text,
   TwitterIcon,
 } from "~/components";
-// import Link from "next/link";
 
 export default function Home() {
-  // const notesPublished = notes.filter((note) => note.status === "published");
+  const notesPublished = notes.filter((note) => note.status === "published");
 
   return (
     <section className="grid gap-8 md:px-10">
@@ -85,7 +84,7 @@ export default function Home() {
         </li>
       </ul>
 
-      {/* <div>
+      <div>
         <Heading
           as="h2"
           size="xl"
@@ -133,7 +132,7 @@ export default function Home() {
             </Link>
           </li>
         </ul>
-      </div> */}
+      </div>
     </section>
   );
 }
