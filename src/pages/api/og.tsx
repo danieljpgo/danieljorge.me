@@ -1,9 +1,7 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
-export const config = {
-  runtime: "experimental-edge",
-};
+export const config = { runtime: "experimental-edge" };
 
 const domain = "danieljorge.me";
 
@@ -21,9 +19,21 @@ export default function handler(req: NextRequest) {
           return <Home />;
         }
         if (type === "content") {
-          return <Content title={title} description={description} />;
+          return (
+            <Content
+              title={title}
+              description={description}
+              origin={req.nextUrl.origin}
+            />
+          );
         }
-        return <Content title={title} description={description} />;
+        return (
+          <Content
+            title={title}
+            description={description}
+            origin={req.nextUrl.origin}
+          />
+        );
       })(),
       {
         width: 1200,
@@ -51,7 +61,11 @@ const Home = () => {
         <span tw="ml-2 text-xl">{domain}</span>
       </div>
       <div tw="flex items-center">
-        <img src="https://danieljorge.me/profile.jpeg" tw="rounded-full h-20" />
+        <img
+          src={`${origin}/profile.jpeg`}
+          tw="rounded-full h-20"
+          alt="profile"
+        />
         <div tw="flex flex-col pl-4">
           <div tw="flex text-4xl text-gray-800 mb-6 leading-4">
             Daniel Jorge
@@ -68,16 +82,17 @@ const Home = () => {
 type ContentProps = {
   title: string;
   description: string;
+  origin: string;
 };
 
-const Content = ({ title, description }: ContentProps) => {
+const Content = ({ title, description, origin }: ContentProps) => {
   return (
     <div
       tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
       style={{ letterSpacing: "-.02em" }}
     >
       <div tw="flex items-center">
-        <span tw="h-6 w-6 bg-black" />
+        <img src={`${origin}/logo.svg`} tw="h-6 w-6" alt="logo" />
         <span tw="ml-2 text-xl">{domain}</span>
       </div>
       <div tw="flex flex-col items-center justify-center w-full">
@@ -85,7 +100,11 @@ const Content = ({ title, description }: ContentProps) => {
         <div tw="flex text-4xl text-slate-500 text-center">{description}</div>
       </div>
       <div tw="flex items-center">
-        <img src="https://danieljorge.me/profile.jpeg" tw="rounded-full h-20" />
+        <img
+          src={`${origin}/profile.jpeg`}
+          tw="rounded-full h-20"
+          alt="profile"
+        />
         <div tw="flex flex-col pl-4">
           <div tw="flex text-4xl text-gray-800 mb-6 leading-4">
             Daniel Jorge
