@@ -1,19 +1,19 @@
-import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
+import { ImageResponse } from "@vercel/og";
 
 export const config = { runtime: "experimental-edge" };
 
 const fonts = Promise.all([
-  fetch(new URL("../../../public/Inter-Regular.ttf", import.meta.url)).then(
-    (res) => res.arrayBuffer(),
-  ),
-  fetch(new URL("../../../public/Inter-Medium.ttf", import.meta.url)).then(
-    (res) => res.arrayBuffer(),
-  ),
-  fetch(new URL("../../../public/Inter-SemiBold.ttf", import.meta.url)).then(
-    (res) => res.arrayBuffer(),
-  ),
-  fetch(new URL("../../../public/Inter-Bold.ttf", import.meta.url)).then(
+  fetch(
+    new URL("../../../public/fonts/Inter-Regular.ttf", import.meta.url),
+  ).then((res) => res.arrayBuffer()),
+  fetch(
+    new URL("../../../public/fonts/Inter-Medium.ttf", import.meta.url),
+  ).then((res) => res.arrayBuffer()),
+  fetch(
+    new URL("../../../public/fonts/Inter-SemiBold.ttf", import.meta.url),
+  ).then((res) => res.arrayBuffer()),
+  fetch(new URL("../../../public/fonts/Inter-Bold.ttf", import.meta.url)).then(
     (res) => res.arrayBuffer(),
   ),
 ]);
