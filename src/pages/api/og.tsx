@@ -13,15 +13,12 @@ const fonts = Promise.all([
   fetch(
     new URL("../../../public/fonts/Inter-SemiBold.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer()),
-  fetch(new URL("../../../public/fonts/Inter-Bold.ttf", import.meta.url)).then(
-    (res) => res.arrayBuffer(),
-  ),
 ]);
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
-  const [fontRegular, fontMedium, fontSemibold, fontBold] = await fonts;
+  const [fontRegular, fontMedium, fontSemibold] = await fonts;
 
   const type = searchParams.get("type")?.slice(0, 120) ?? "None";
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
@@ -48,12 +45,6 @@ export default async function handler(req: NextRequest) {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Inter",
-            data: fontBold,
-            weight: 700,
-            style: "normal",
-          },
           {
             name: "Inter",
             data: fontSemibold,
@@ -92,7 +83,7 @@ type HomeProps = {
 const Home = ({ origin }: HomeProps) => {
   return (
     <div
-      tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
+      tw="flex flex-col w-full h-full bg-white p-12 justify-between"
       style={{ letterSpacing: "-.02em" }}
     >
       <div tw="flex items-center">
@@ -127,7 +118,7 @@ type ContentProps = {
 const Content = ({ title, description, origin }: ContentProps) => {
   return (
     <div
-      tw="flex flex-col w-full h-full font-bold bg-white p-12 justify-between"
+      tw="flex flex-col w-full h-full bg-white p-12 justify-between"
       style={{ letterSpacing: "-.02em" }}
     >
       <div tw="flex items-center">
