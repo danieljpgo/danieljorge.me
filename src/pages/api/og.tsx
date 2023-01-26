@@ -28,7 +28,14 @@ export default async function handler(req: NextRequest) {
     return new ImageResponse(
       (() => {
         if (type === "home") {
-          return <Home origin={req.nextUrl.origin} />;
+          return (
+            <Content
+              title={title}
+              description={description}
+              origin={req.nextUrl.origin}
+            />
+          );
+          // return <Home origin={req.nextUrl.origin} />;
         }
         if (type === "content") {
           return (
@@ -39,7 +46,14 @@ export default async function handler(req: NextRequest) {
             />
           );
         }
-        return <Home origin={req.nextUrl.origin} />;
+        return (
+          <Content
+            title={title}
+            description={description}
+            origin={req.nextUrl.origin}
+          />
+        );
+        // return <Home origin={req.nextUrl.origin} />;
       })(),
       {
         width: 1200,
@@ -80,34 +94,34 @@ type HomeProps = {
   origin: string;
 };
 
-const Home = ({ origin }: HomeProps) => {
-  return (
-    <div
-      tw="flex flex-col w-full h-full bg-white p-12 justify-between"
-      style={{ letterSpacing: "-.02em" }}
-    >
-      <div tw="flex items-center">
-        <img src={`${origin}/logo.svg`} tw="h-6 w-6" alt="logo" />
-        <span tw="ml-2 text-xl font-normal">danieljorge.me</span>
-      </div>
-      <div tw="flex items-center">
-        <img
-          src={`${origin}/profile.jpeg`}
-          tw="rounded-full h-20"
-          alt="profile"
-        />
-        <div tw="flex flex-col pl-4">
-          <div tw="flex text-4xl text-gray-800 mb-6 leading-4 font-medium">
-            Daniel Jorge
-          </div>
-          <div tw="flex text-3xl text-slate-500 leading-4 font-normal">
-            Frontend Engineer at Bitso
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+// const Home = ({ origin }: HomeProps) => {
+//   return (
+//     <div
+//       tw="flex flex-col w-full h-full bg-white p-12 justify-between"
+//       style={{ letterSpacing: "-.02em" }}
+//     >
+//       <div tw="flex items-center">
+//         <img src={`${origin}/logo.svg`} tw="h-6 w-6" alt="logo" />
+//         <span tw="ml-2 text-xl font-normal">danieljorge.me</span>
+//       </div>
+//       <div tw="flex items-center">
+//         <img
+//           src={`${origin}/profile.jpeg`}
+//           tw="rounded-full h-20"
+//           alt="profile"
+//         />
+//         <div tw="flex flex-col pl-4">
+//           <div tw="flex text-4xl text-gray-800 mb-6 leading-4 font-medium">
+//             Daniel Jorge
+//           </div>
+//           <div tw="flex text-3xl text-slate-500 leading-4 font-normal">
+//             Frontend Engineer at Bitso
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 type ContentProps = {
   title: string;
@@ -151,4 +165,5 @@ const Content = ({ title, description, origin }: ContentProps) => {
     </div>
   );
 };
+
 // @TODO add protection
