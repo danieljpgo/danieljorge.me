@@ -10,15 +10,15 @@ const fonts = Promise.all([
   fetch(
     new URL("../../../public/fonts/Inter-Medium.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer()),
-  fetch(
-    new URL("../../../public/fonts/Inter-SemiBold.ttf", import.meta.url),
-  ).then((res) => res.arrayBuffer()),
+  // fetch(
+  //   new URL("../../../public/fonts/Inter-SemiBold.ttf", import.meta.url),
+  // ).then((res) => res.arrayBuffer()),
 ]);
 
 export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-
-  const [fontRegular, fontMedium, fontSemibold] = await fonts;
+  // fontSemibold
+  const [fontRegular, fontMedium] = await fonts;
 
   const type = searchParams.get("type")?.slice(0, 120) ?? "None";
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
@@ -59,12 +59,12 @@ export default async function handler(req: NextRequest) {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Inter",
-            data: fontSemibold,
-            weight: 600,
-            style: "normal",
-          },
+          // {
+          //   name: "Inter",
+          //   data: fontSemibold,
+          //   weight: 600,
+          //   style: "normal",
+          // },
           {
             name: "Inter",
             data: fontMedium,
@@ -140,7 +140,7 @@ const Content = ({ title, description, origin }: ContentProps) => {
         <span tw="ml-2 text-xl font-normal">danieljorge.me</span>
       </div>
       <div tw="flex flex-col items-center justify-center w-full">
-        <div tw="flex text-5xl text-gray-800 text-center mb-2 font-semibold">
+        <div tw="flex text-5xl text-gray-800 text-center mb-2 font-medium">
           {title}
         </div>
         <div tw="flex text-4xl text-slate-500 text-center font-normal">
