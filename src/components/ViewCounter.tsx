@@ -6,24 +6,64 @@ type ViewCounterProps = {
 };
 
 export default function ViewCounter({ slug }: ViewCounterProps) {
-  const [views, setViews] = useState<number>(1);
-  console.log(process.env.NODE_ENV);
-  console.log(slug);
+  const [views, setViews] = useState<number>(0);
+
+  console.log("ViewCounter render");
+
+  useEffect(() => {
+    async function getView() {
+      console.log("getView");
+      const response = await fetch(`/api/views/${slug}`, { method: "GET" });
+      if (!response.ok) return;
+
+      console.log("getView done");
+
+      const data = await response.json();
+      setViews(data.count);
+    }
+
+    getView();
+  }, [slug]);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
       return;
     }
 
-    setViews(120);
-    console.log("teste 1");
-    // console.log();
-    // const registerView = () =>
-    //   fetch(`/api/views/${slug}`, {
-    //     method: 'POST'
-    //   });
-    // registerView();
-  }, []);
+    async function registerView() {
+      const response = await fetch(`/api/views/${slug}`, { method: "POST" });
+      console.log("registerView");
+      if (!response.ok) return;
+
+      console.log("done");
+      const data = await response.json();
+      setViews(data.count);
+    }
+
+    registerView();
+  }, [slug]);
+
+  return <span>{`${views ? views.toLocaleString() : "–––"}`}</span>;
+}
+
+export function View({ slug }: ViewCounterProps) {
+  console.log("View render");
+
+  const [views, setViews] = useState<number>(0);
+
+  useEffect(() => {
+    async function getView() {
+      console.log("getView");
+      const response = await fetch(`/api/views/${slug}`, { method: "GET" });
+      if (!response.ok) return;
+
+      console.log("getView sucesso");
+      const data = await response.json();
+      setViews(data.count);
+    }
+
+    getView();
+  }, [slug]);
 
   return <span>{`${views ? views.toLocaleString() : "–––"}`}</span>;
 }

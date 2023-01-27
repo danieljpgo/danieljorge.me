@@ -8,11 +8,11 @@ import {
   LinkedinIcon,
   Text,
   TwitterIcon,
+  View,
 } from "~/components";
 
 export default function Home() {
   const notesPublished = notes.filter((note) => note.status === "published");
-  const views = "127";
 
   return (
     <section className="grid gap-8 md:px-10">
@@ -125,7 +125,7 @@ export default function Home() {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      {views} views
+                      <View slug={note.slug} /> views
                     </Text>
                   </div>
                 </div>
