@@ -12,6 +12,10 @@
 - [x] Vercel Analytics
 - [ ] Improve Voice Reading
 
+### Pages
+
+- /uses
+
 ### Features
 
 - Dark Mode
@@ -19,6 +23,10 @@
 - Manisfest / pwa
   - [x] Viewport tags
   - [ ] PWA support
+
+### SEO
+
+- sitemap
 
 ### Misc
 

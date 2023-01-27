@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { notes } from "~/lib/contentlayer";
-import { Heading, Text, Mdx } from "~/components";
+import { Heading, Text, Mdx, ViewCounter } from "~/components";
 
 type NoteProps = {
   params: { slug: string };
@@ -17,7 +17,7 @@ export default function Note({ params }: NoteProps) {
 
   return (
     <>
-      <aside className="sticky top-8 mt-9 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
+      <aside className="sticky top-8 mt-[68px] hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
         <Heading as="h2" size="lg" weight="semibold" color="darker">
           {/* On This Page */}
           Table of Contents
@@ -71,8 +71,30 @@ export default function Note({ params }: NoteProps) {
           >
             {note.title}
           </Heading>
+          <Text color="base">{note.description}</Text>
         </div>
-        <hr className="mt-4 py-4" />
+        <hr className="mt-4 py-4 pt-4 pb-0" />
+        <div className="flex items-baseline justify-between pb-8 sm:pb-4">
+          {/* <div className="flex items-baseline justify-between pb-8 text-right sm:flex-col sm:items-end sm:justify-end sm:pb-4"> */}
+          <div>
+            <Text color="light" size="xs" weight="medium">
+              Notes
+            </Text>
+            <div className="max-w-[180px] sm:max-w-none">
+              <Text color="lighter" size="xs">
+                Loose, short form thoughts, reflections and ideas
+              </Text>
+            </div>
+          </div>
+          <div className="gap-1 self-end text-right md:flex">
+            <Text color="lighter" size="xs">
+              <ViewCounter slug={params.slug} />
+            </Text>
+            <Text color="lighter" size="xs">
+              views
+            </Text>
+          </div>
+        </div>
         <Mdx code={note.body.code} />
         <hr className="mt-8 mb-8" />
         <div className="flex justify-center pb-8">
@@ -105,3 +127,5 @@ export async function generateStaticParams(): Promise<
 
 // @TODO Melhorar lidar com caso de não encontrar o note, 404?
 // @TODO Bug de renderização do botão voltar
+// animation for number
+// tabular number?

@@ -12,6 +12,7 @@ import {
 
 export default function Home() {
   const notesPublished = notes.filter((note) => note.status === "published");
+  const views = "127";
 
   return (
     <section className="grid gap-8 md:px-10">
@@ -116,9 +117,17 @@ export default function Home() {
                       {note.title}
                     </Heading>
                   </Link>
-                  <Text size="sm" color="light">
-                    {note.publishedAtFormatted}
-                  </Text>
+                  <div className="flex gap-2">
+                    <Text size="sm" color="light">
+                      {note.publishedAtFormatted}
+                    </Text>
+                    <Text size="sm" color="light">
+                      •
+                    </Text>
+                    <Text size="sm" color="light">
+                      {views} views
+                    </Text>
+                  </div>
                 </div>
               </article>
             </li>
