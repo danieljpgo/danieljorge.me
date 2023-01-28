@@ -11,6 +11,7 @@
 - [x] Path Alias
 - [x] Vercel Analytics
 - [ ] Improve Voice Reading
+- [ ] ZOD ?
 
 ### Pages
 

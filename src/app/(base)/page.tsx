@@ -8,7 +8,7 @@ import {
   LinkedinIcon,
   Text,
   TwitterIcon,
-  View,
+  Views,
 } from "~/components";
 
 export default function Home() {
@@ -125,7 +125,7 @@ export default function Home() {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      <View slug={note.slug} /> views
+                      <Views slug={note.slug} type="view" /> views
                     </Text>
                   </div>
                 </div>

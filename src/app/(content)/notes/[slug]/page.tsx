@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { notes } from "~/lib/contentlayer";
-import { Heading, Text, Mdx, ViewCounter } from "~/components";
+import { Heading, Text, Mdx, Views } from "~/components";
 
 type NoteProps = {
   params: { slug: string };
@@ -88,7 +88,7 @@ export default function Note({ params }: NoteProps) {
           </div>
           <div className="gap-1 self-end text-right md:flex">
             <Text color="lighter" size="xs">
-              <ViewCounter slug={params.slug} />
+              <Views slug={params.slug} type="counter" />
             </Text>
             <Text color="lighter" size="xs">
               views
