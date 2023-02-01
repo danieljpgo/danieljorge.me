@@ -15,3 +15,4 @@
 <!-- - Set of eslint roles que eu aprovo -->
 
 - craft section? exemplos
+- adicionar tipos para notas e artigos? (css, react, typescript)
