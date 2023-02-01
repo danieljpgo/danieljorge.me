@@ -48,7 +48,6 @@ export default function Home() {
         </a>
         .
       </Text>
-
       <ul aria-label="Social links" className="flex gap-3">
         <li>
           <a
@@ -84,61 +83,72 @@ export default function Home() {
           </a>
         </li>
       </ul>
-
-      <div>
-        <Heading
-          as="h2"
-          size="xl"
-          weight="semibold"
-          leading="tight"
-          color="darker"
-        >
-          Notes
-        </Heading>
-        <div className="mt-2">
+      <div className="grid gap-4">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            Notes
+          </Heading>
           <Text color="base">
             Loose, short form thoughts, reflections and ideas.
           </Text>
         </div>
-        <hr className="mt-4 py-2" />
+        <hr />
         <ul className="grid gap-4">
           {notesPublished.map((note) => (
             <li key={note.slug}>
-              <article className="grid gap-4">
-                <div className="grid gap-1">
-                  <Link href={note._raw.flattenedPath}>
-                    <Heading
-                      as="h3"
-                      size="base"
-                      weight="medium"
-                      leading="tight"
-                      color="darker"
-                    >
-                      {note.title}
-                    </Heading>
-                  </Link>
-                  <div className="flex gap-2">
-                    <Text size="sm" color="light">
-                      {note.publishedAtFormatted}
-                    </Text>
-                    <Text size="sm" color="light">
-                      •
-                    </Text>
-                    <Text size="sm" color="light">
-                      <Views slug={note.slug} type="view" /> views
-                    </Text>
-                  </div>
+              <article className="grid gap-1">
+                <Link href={note._raw.flattenedPath}>
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    {note.title}
+                  </Heading>
+                </Link>
+                <div className="flex gap-2">
+                  <Text size="sm" color="light">
+                    {note.publishedAtFormatted}
+                  </Text>
+                  <Text size="sm" color="light">
+                    •
+                  </Text>
+                  <Text size="sm" color="light">
+                    <Views slug={note.slug} type="view" /> views
+                  </Text>
                 </div>
               </article>
             </li>
           ))}
+        </ul>
+      </div>
+      <div className="grid gap-4">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            Writing
+          </Heading>
+          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+        </div>
+        <hr />
+        <ul className="grid gap-4">
           <li>
-            <Link
-              href="/notes"
-              className="text-gray-800 underline decoration-gray-800 underline-offset-2"
-            >
-              more
-            </Link>
+            <Text size="sm" color="light">
+              Soon ...
+            </Text>
           </li>
         </ul>
       </div>
