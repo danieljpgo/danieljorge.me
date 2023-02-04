@@ -63,6 +63,6 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
   );
 }
 
-// @TODO Melhorar container -> padding só no conteudo e não na página como um todo
-// @TODO verificar se essa é a melhor forma de lidar com as mesmas rotas (slug)
-// @TODO Aumentar o peso da fonte caso estiver no link corrent
+// @TODO: melhorar container -> padding só no conteudo e não na página como um todo
+// @TODO: verificar se essa é a melhor forma de lidar com as mesmas rotas (slug)
+// @TODO: aumentar o peso da fonte caso estiver no link corrent

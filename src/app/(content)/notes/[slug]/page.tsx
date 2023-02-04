@@ -17,58 +17,44 @@ export default function Note({ params }: NoteProps) {
 
   return (
     <>
-      <aside className="sticky top-8 mt-[68px] hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
-        {Boolean(note.headings.length) ? (
+      <aside
+        className={cn(
+          "sticky top-8 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]",
+          note.headings.length ? "mt-[68px]" : "mt-[100px]",
+        )}
+      >
+        {Boolean(note.headings.length) && (
           <>
             <Heading as="h2" size="lg" weight="semibold" color="darker">
               Table of Contents
             </Heading>
             <hr />
-            <nav className="grid gap-1">
-              {note.headings
-                .filter((heading) => heading.level === 2 || heading.level === 3)
-                .map((heading, index) =>
-                  heading.level === 2 ? (
-                    <a
-                      key={heading.slug}
-                      href={`#${heading.slug}`}
-                      className={cn(
-                        "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
-                        index !== 0 && "mt-1",
-                      )}
-                    >
-                      {heading.content}
-                    </a>
-                  ) : (
-                    <a
-                      key={heading.slug}
-                      href={`#${heading.slug}`}
-                      className="ml-1.5 text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-                    >
-                      {heading.content}
-                    </a>
-                  ),
-                )}
-              <hr className="my-1.5" />
-              <a
-                href="#"
-                className="text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-              >
-                Back to top
-              </a>
-            </nav>
           </>
-        ) : (
-          <nav className="mt-8 grid gap-1">
-            <hr className="my-1.5" />
-            <a
-              href="#"
-              className="text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-            >
-              Back to top
-            </a>
-          </nav>
         )}
+        <nav className="grid gap-1">
+          {note.headings
+            .filter((heading) => heading.level === 2 || heading.level === 3)
+            .map((heading, index) => (
+              <a
+                key={heading.slug}
+                href={`#${heading.slug}`}
+                className={cn(
+                  "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
+                  heading.level === 2 && index !== 0 && "mt-1",
+                  heading.level === 3 && "ml-1.5 text-xs",
+                )}
+              >
+                {heading.content}
+              </a>
+            ))}
+          <hr className="my-1.5" />
+          <a
+            href="#"
+            className="text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+          >
+            Back to top
+          </a>
+        </nav>
       </aside>
       <article className="w-full max-w-2xl">
         <div className="flex flex-col space-y-2">
@@ -88,7 +74,6 @@ export default function Note({ params }: NoteProps) {
         </div>
         <hr className="mt-4 py-4 pt-4 pb-0" />
         <div className="flex items-baseline justify-between pb-8 sm:pb-4">
-          {/* <div className="flex items-baseline justify-between pb-8 text-right sm:flex-col sm:items-end sm:justify-end sm:pb-4"> */}
           <div>
             <Text color="light" size="xs" weight="medium">
               Notes
@@ -122,7 +107,6 @@ export default function Note({ params }: NoteProps) {
           </Link>
         </div>
       </article>
-      {/* sticky top-0 */}
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
           href="/"
