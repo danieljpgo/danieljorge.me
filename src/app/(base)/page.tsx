@@ -95,7 +95,7 @@ export default function Home() {
             Notes
           </Heading>
           <Text color="base">
-            Loose, short form thoughts, reflections and ideas.
+            Loose, short-form thoughts, reflections, and ideas.
           </Text>
         </div>
         <hr />

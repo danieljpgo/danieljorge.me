@@ -81,7 +81,7 @@ export default function Note({ params }: NoteProps) {
               </Text>
               <div className="max-w-[180px] sm:max-w-none">
                 <Text color="lighter" size="xs">
-                  Loose, short form thoughts, reflections and ideas
+                  Loose, short-form thoughts, reflections, and ideas.
                 </Text>
               </div>
             </div>
