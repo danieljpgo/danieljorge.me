@@ -130,7 +130,7 @@ export default function Home() {
           ))}
         </ul>
       </div>
-      <div className="grid gap-4">
+      {/* <div className="grid gap-4">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -151,7 +151,7 @@ export default function Home() {
             </Text>
           </li>
         </ul>
-      </div>
+      </div> */}
     </section>
   );
 }

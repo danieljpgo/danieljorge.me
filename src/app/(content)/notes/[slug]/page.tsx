@@ -18,44 +18,57 @@ export default function Note({ params }: NoteProps) {
   return (
     <>
       <aside className="sticky top-8 mt-[68px] hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
-        <Heading as="h2" size="lg" weight="semibold" color="darker">
-          {/* On This Page */}
-          Table of Contents
-        </Heading>
-        <hr />
-        <nav className="grid gap-1">
-          {note.headings
-            .filter((heading) => heading.level === 2 || heading.level === 3)
-            .map((heading, index) =>
-              heading.level === 2 ? (
-                <a
-                  key={heading.slug}
-                  href={`#${heading.slug}`}
-                  className={cn(
-                    "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
-                    index !== 0 && "mt-1",
-                  )}
-                >
-                  {heading.content}
-                </a>
-              ) : (
-                <a
-                  key={heading.slug}
-                  href={`#${heading.slug}`}
-                  className="ml-1.5 text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-                >
-                  {heading.content}
-                </a>
-              ),
-            )}
-          <hr className="my-1.5" />
-          <a
-            href="#"
-            className="text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-          >
-            Back to top
-          </a>
-        </nav>
+        {Boolean(note.headings.length) ? (
+          <>
+            <Heading as="h2" size="lg" weight="semibold" color="darker">
+              Table of Contents
+            </Heading>
+            <hr />
+            <nav className="grid gap-1">
+              {note.headings
+                .filter((heading) => heading.level === 2 || heading.level === 3)
+                .map((heading, index) =>
+                  heading.level === 2 ? (
+                    <a
+                      key={heading.slug}
+                      href={`#${heading.slug}`}
+                      className={cn(
+                        "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
+                        index !== 0 && "mt-1",
+                      )}
+                    >
+                      {heading.content}
+                    </a>
+                  ) : (
+                    <a
+                      key={heading.slug}
+                      href={`#${heading.slug}`}
+                      className="ml-1.5 text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                    >
+                      {heading.content}
+                    </a>
+                  ),
+                )}
+              <hr className="my-1.5" />
+              <a
+                href="#"
+                className="text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+              >
+                Back to top
+              </a>
+            </nav>
+          </>
+        ) : (
+          <nav className="mt-8 grid gap-1">
+            <hr className="my-1.5" />
+            <a
+              href="#"
+              className="text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+            >
+              Back to top
+            </a>
+          </nav>
+        )}
       </aside>
       <article className="w-full max-w-2xl">
         <div className="flex flex-col space-y-2">
@@ -99,20 +112,26 @@ export default function Note({ params }: NoteProps) {
         <hr className="mt-8 mb-8" />
         <div className="flex justify-center pb-8">
           <Link
-            href="."
-            className="flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+            href="/"
+            className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
           >
-            <span className="block">← Home</span>
+            <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-[-2px]">
+              ←
+            </span>
+            Home
           </Link>
         </div>
       </article>
       {/* sticky top-0 */}
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href="."
-          className="flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+          href="/"
+          className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
-          ← Home
+          <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-[-2px]">
+            ←
+          </span>
+          Home
         </Link>
       </div>
     </>
@@ -125,7 +144,6 @@ export async function generateStaticParams(): Promise<
   return notes.map((page) => ({ slug: page.slug }));
 }
 
-// @TODO Melhorar lidar com caso de não encontrar o note, 404?
-// @TODO Bug de renderização do botão voltar
-// animation for number
-// tabular number?
+// @TODO: melhorar lidar com caso de não encontrar o note, 404?
+// @TODO: bug de renderização do botão voltar
+// @TODO: animação para views (tabular-nums?)

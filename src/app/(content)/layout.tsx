@@ -14,9 +14,9 @@ export default function ContentLayout({ children }: ContentLayoutProps) {
         <div className="hidden w-full max-w-[14rem] lg:block xl:max-w-[16rem]" />
         <div className="flex w-full max-w-2xl items-end justify-between">
           <div className="flex flex-col gap-1 self-center lg:gap-2">
-            <h1 className="text-base font-medium leading-4 text-gray-800 antialiased lg:text-lg lg:leading-4">
+            <p className="text-base font-medium leading-4 text-gray-800 antialiased lg:text-lg lg:leading-4">
               Daniel Jorge
-            </h1>
+            </p>
             <p className="text-sm font-medium leading-4 text-slate-500 antialiased lg:text-base lg:leading-4">
               Frontend Engineer
             </p>
