@@ -56,8 +56,8 @@ export default function Note({ params }: NoteProps) {
           </a>
         </nav>
       </aside>
-      <article className="w-full max-w-2xl">
-        <div className="flex flex-col space-y-2">
+      <article className="grid w-full max-w-2xl gap-4">
+        <div className="flex flex-col gap-2">
           <Text size="sm" color="light">
             {note.publishedAtFormatted}
           </Text>
@@ -72,39 +72,41 @@ export default function Note({ params }: NoteProps) {
           </Heading>
           <Text color="base">{note.description}</Text>
         </div>
-        <hr className="mt-4 py-4 pt-4 pb-0" />
-        <div className="flex items-baseline justify-between pb-8 sm:pb-4">
-          <div>
-            <Text color="light" size="xs" weight="medium">
-              Notes
-            </Text>
-            <div className="max-w-[180px] sm:max-w-none">
+        <hr />
+        <div className="grid gap-8">
+          <div className="flex items-baseline justify-between">
+            <div>
+              <Text color="light" size="xs" weight="medium">
+                Notes
+              </Text>
+              <div className="max-w-[180px] sm:max-w-none">
+                <Text color="lighter" size="xs">
+                  Loose, short form thoughts, reflections and ideas
+                </Text>
+              </div>
+            </div>
+            <div className="gap-1 self-end text-right md:flex">
               <Text color="lighter" size="xs">
-                Loose, short form thoughts, reflections and ideas
+                <Views slug={params.slug} type="counter" />
+              </Text>
+              <Text color="lighter" size="xs">
+                views
               </Text>
             </div>
           </div>
-          <div className="gap-1 self-end text-right md:flex">
-            <Text color="lighter" size="xs">
-              <Views slug={params.slug} type="counter" />
-            </Text>
-            <Text color="lighter" size="xs">
-              views
-            </Text>
+          <Mdx code={note.body.code} />
+          <hr />
+          <div className="flex justify-center pb-8">
+            <Link
+              href="/"
+              className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+            >
+              <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-[-2px]">
+                ←
+              </span>
+              Home
+            </Link>
           </div>
-        </div>
-        <Mdx code={note.body.code} />
-        <hr className="mt-8 mb-8" />
-        <div className="flex justify-center pb-8">
-          <Link
-            href="/"
-            className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-          >
-            <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-[-2px]">
-              ←
-            </span>
-            Home
-          </Link>
         </div>
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
