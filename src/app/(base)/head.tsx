@@ -2,7 +2,7 @@ import { HeadTags, OGTags } from "~/components";
 
 export default function Head() {
   const title = "Daniel Jorge";
-  const description = "My corner on the web"; // @TODO Atualizar aqui
+  const description = "Developer, writer.";
 
   return (
     <>
@@ -14,6 +14,4 @@ export default function Head() {
   );
 }
 
-// example
-// Welcome to my digital garden where I share what I'm learning about shipping great products, becoming a better developer and growing a career in tech.
-// ABCDE · ABCDE
+// @TODO: melhorar implementação do <Head/>

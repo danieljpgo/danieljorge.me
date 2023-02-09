@@ -11,6 +11,11 @@
 - [x] Path Alias
 - [x] Vercel Analytics
 - [ ] Improve Voice Reading
+- [ ] ZOD ?
+
+### Pages
+
+- /uses
 
 ### Features
 
@@ -19,6 +24,10 @@
 - Manisfest / pwa
   - [x] Viewport tags
   - [ ] PWA support
+
+### SEO
+
+- sitemap
 
 ### Misc
 
@@ -50,3 +59,4 @@ eslint
   "bracketSpacing": true
 } -->
 <!-- prettier ignore? -->
+<!-- give icons name -->

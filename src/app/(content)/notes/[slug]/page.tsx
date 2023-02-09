@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { notes } from "~/lib/contentlayer";
-import { Heading, Text, Mdx } from "~/components";
+import { Heading, Text, Mdx, Views } from "~/components";
 
 type NoteProps = {
   params: { slug: string };
@@ -17,37 +17,36 @@ export default function Note({ params }: NoteProps) {
 
   return (
     <>
-      <aside className="sticky top-8 mt-9 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]">
-        <Heading as="h2" size="lg" weight="semibold" color="darker">
-          {/* On This Page */}
-          Table of Contents
-        </Heading>
-        <hr />
+      <aside
+        className={cn(
+          "sticky top-8 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]",
+          note.headings.length ? "mt-[68px]" : "mt-[100px]",
+        )}
+      >
+        {Boolean(note.headings.length) && (
+          <>
+            <Heading as="h2" size="lg" weight="semibold" color="darker">
+              Table of Contents
+            </Heading>
+            <hr />
+          </>
+        )}
         <nav className="grid gap-1">
           {note.headings
             .filter((heading) => heading.level === 2 || heading.level === 3)
-            .map((heading, index) =>
-              heading.level === 2 ? (
-                <a
-                  key={heading.slug}
-                  href={`#${heading.slug}`}
-                  className={cn(
-                    "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
-                    index !== 0 && "mt-1",
-                  )}
-                >
-                  {heading.content}
-                </a>
-              ) : (
-                <a
-                  key={heading.slug}
-                  href={`#${heading.slug}`}
-                  className="ml-1.5 text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-                >
-                  {heading.content}
-                </a>
-              ),
-            )}
+            .map((heading, index) => (
+              <a
+                key={heading.slug}
+                href={`#${heading.slug}`}
+                className={cn(
+                  "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
+                  heading.level === 2 && index !== 0 && "mt-1",
+                  heading.level === 3 && "ml-1.5 text-xs",
+                )}
+              >
+                {heading.content}
+              </a>
+            ))}
           <hr className="my-1.5" />
           <a
             href="#"
@@ -57,8 +56,8 @@ export default function Note({ params }: NoteProps) {
           </a>
         </nav>
       </aside>
-      <article className="w-full max-w-2xl">
-        <div className="flex flex-col space-y-2">
+      <article className="grid w-full max-w-2xl gap-4">
+        <div className="flex flex-col gap-2">
           <Text size="sm" color="light">
             {note.publishedAtFormatted}
           </Text>
@@ -71,26 +70,54 @@ export default function Note({ params }: NoteProps) {
           >
             {note.title}
           </Heading>
+          <Text color="base">{note.description}</Text>
         </div>
-        <hr className="mt-4 py-4" />
-        <Mdx code={note.body.code} />
-        <hr className="mt-8 mb-8" />
-        <div className="flex justify-center pb-8">
-          <Link
-            href="."
-            className="flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-          >
-            <span className="block">← Home</span>
-          </Link>
+        <hr />
+        <div className="grid gap-8">
+          <div className="flex items-baseline justify-between">
+            <div>
+              <Text color="light" size="xs" weight="medium">
+                Notes
+              </Text>
+              <div className="max-w-[180px] sm:max-w-none">
+                <Text color="lighter" size="xs">
+                  Loose, short-form thoughts, reflections, and ideas.
+                </Text>
+              </div>
+            </div>
+            <div className="gap-1 self-end text-right md:flex">
+              <Text color="lighter" size="xs">
+                <Views slug={params.slug} type="counter" />
+              </Text>
+              <Text color="lighter" size="xs">
+                views
+              </Text>
+            </div>
+          </div>
+          <Mdx code={note.body.code} />
+          <hr />
+          <div className="flex justify-center pb-8">
+            <Link
+              href="/"
+              className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+            >
+              <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
+                ←
+              </span>
+              Home
+            </Link>
+          </div>
         </div>
       </article>
-      {/* sticky top-0 */}
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href="."
-          className="flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+          href="/"
+          className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
-          ← Home
+          <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
+            ←
+          </span>
+          Home
         </Link>
       </div>
     </>
@@ -103,5 +130,6 @@ export async function generateStaticParams(): Promise<
   return notes.map((page) => ({ slug: page.slug }));
 }
 
-// @TODO Melhorar lidar com caso de não encontrar o note, 404?
-// @TODO Bug de renderização do botão voltar
+// @TODO: melhorar lidar com caso de não encontrar o note, 404?
+// @TODO: bug de renderização do botão voltar
+// @TODO: animação para views (tabular-nums?)

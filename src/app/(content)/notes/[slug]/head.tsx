@@ -1,12 +1,12 @@
-import { allNotes } from "contentlayer/generated";
 import { HeadTags, OGTags } from "~/components";
+import { notes } from "~/lib/contentlayer";
 
 type HeadProps = {
   params: { slug: string };
 };
 
 export default function Head({ params }: HeadProps) {
-  const note = allNotes.find((notes) => notes.slug === params.slug);
+  const note = notes.find((notes) => notes.slug === params.slug);
 
   if (!note) {
     return (
@@ -32,4 +32,5 @@ export default function Head({ params }: HeadProps) {
   );
 }
 
-// @TODO Melhorar lidar com caso de não encontrar o slug, 404?
+// @TODO: melhorar implementação do <Head/>
+// @TODO: melhorar lidar com caso de não encontrar o slug, 404?

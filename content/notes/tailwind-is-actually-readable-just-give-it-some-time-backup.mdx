@@ -1,0 +1,99 @@
+---
+title: Utility-First CSS is actually readable Backup
+description: My take on Utility-First CSS' biggest pain, readability.
+publishedAt: "2023-01-18"
+status: "draft"
+---
+
+I'd like to start this note by recalling a conversation I had with a co-worker about [Tailwind](https://tailwindcss.com/), where he commented:
+
+> Tailwind is good but hard to read (…)
+
+Initially, this comes from Tailwind's own approach, the [Utility-First CSS](https://tailwindcss.com/docs/utility-first). This approach basically boils down to composing CSS classes to implement your styles, [Adam Wathan](https://twitter.com/adamwathan) has an excellent blog post on the subject, if you haven't read it yet I highly recommend it:
+
+- [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
+
+So, basically using this approach your code starts to get quite long, with several classes being applied to elements, which at first seems really hard to read, here's an example:
+
+```html showLineNumbers
+<div class="flex items-center space-x-4 rounded-xl p-6 shadow-lg">
+  <div class="shrink-0">
+    <img class="h-12 w-12" src="/img/logo.svg" alt="ChitChat Logo" />
+  </div>
+  <div>
+    <p class="text-xl font-medium text-black">ChitChat</p>
+    <p class="text-slate-500">You have a new message!</p>
+  </div>
+</div>
+```
+
+As you can see, it really has many classes, making the code more verbose, but actually, **that's better**, I'll explain that later.
+
+Let's get back to the conversation with my coworker, at the time I remember I brought a code example to demonstrate to him that composition will always be easier to read, but you just need to give it some time and the code in it was the following:
+
+```ts showLineNumbers
+users.filter((user) => user.status === "disabled").map((user) => user.id);
+```
+
+In the example, we used composition to solve our problem, just as it was used in the other example, but the difference in this one is that we are already used to doing this in JavaScript, but not in CSS.
+
+But if we reverse the approach, will it be easier to read? Let's have a look:
+
+```html showLineNumbers
+<div class="chat-notification">
+  <div class="chat-notification-logo-wrapper">
+    <img
+      class="chat-notification-logo"
+      src="/img/logo.svg"
+      alt="ChitChat Logo"
+    />
+  </div>
+  <div class="chat-notification-content">
+    <p class="chat-notification-title">ChitChat</p>
+    <p class="chat-notification-message">You have a new message!</p>
+  </div>
+</div>
+
+<style>
+  .chat-notification {
+    display: flex;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  .chat-notification-logo-wrapper {
+    flex-shrink: 0;
+  }
+  .chat-notification-logo {
+    height: 3rem;
+    width: 3rem;
+  }
+  .chat-notification-content {
+    margin-left: 1.5rem;
+    padding-top: 0.25rem;
+  }
+  .chat-notification-title {
+    color: #1a202c;
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+  .chat-notification-message {
+    color: #718096;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+</style>
+```
+
+What would be the equivalent of this in JavaScript code:
+
+```ts showLineNumbers
+filterDisabledUsers(users);
+```
+
+What we can understand from these comparisons is that in the second approach, the code actually became more difficult to read
+
+If we just look at the markup, we don't know what attributes were used to style our elements. On the other hand, when using Tailwind and other Utility First CSS approaches, you know which attributes were used to style your element, because you know the tokens and what each class does.
+
+Looking at the JavaScript code example, the same thing happens, we know that the function will _filter disabled users_, but we don't know how it was done, what methods were used, and if it agrees with what I'm looking for. **So even though the code was smaller, it became harder to read.**

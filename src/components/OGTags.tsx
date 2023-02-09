@@ -50,4 +50,4 @@ export default function OGTags(props: OGTagsProps) {
   );
 }
 
-// @TODO Remover o uso direto das env diretos aqui
+// @TODO: remover o uso direto das env diretos aqui
