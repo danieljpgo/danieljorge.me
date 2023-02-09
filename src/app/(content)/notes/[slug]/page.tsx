@@ -101,7 +101,7 @@ export default function Note({ params }: NoteProps) {
               href="/"
               className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
             >
-              <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-[-2px]">
+              <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
                 ←
               </span>
               Home
@@ -114,7 +114,7 @@ export default function Note({ params }: NoteProps) {
           href="/"
           className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
-          <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-[-2px]">
+          <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
             ←
           </span>
           Home

@@ -117,24 +117,36 @@ const Content = ({ title, description, origin }: ContentProps) => {
         <span tw="ml-2 text-xl font-normal">danieljorge.me</span>
       </div>
       <div tw="flex flex-col items-center justify-center w-full">
-        <div tw="flex text-5xl text-gray-800 text-center mb-2 font-medium">
+        <div
+          tw="flex text-5xl text-gray-800 text-center mb-2.5 font-medium"
+          style={{
+            fontFamily: "Kaisei Tokumin",
+            letterSpacing: "-0.05em",
+            fontStyle: "normal",
+          }}
+        >
           {title}
         </div>
-        <div tw="flex text-4xl text-slate-500 text-center font-normal">
+        <div
+          tw="flex text-4xl text-slate-500 text-center font-normal"
+          style={{
+            letterSpacing: "-0.05em",
+          }}
+        >
           {description}
         </div>
       </div>
       <div tw="flex items-center">
         <img
           src={`${origin}/profile.jpeg`}
-          tw="rounded-full h-20"
+          tw="rounded-full h-18"
           alt="profile"
         />
         <div tw="flex flex-col pl-4">
-          <div tw="flex text-4xl text-gray-800 mb-6 leading-4 font-medium">
+          <div tw="flex text-3xl text-gray-800 mb-4 leading-4 font-medium">
             Daniel Jorge
           </div>
-          <div tw="flex text-3xl text-slate-500 leading-4 font-normal">
+          <div tw="flex text-2xl text-slate-500 leading-4 font-normal">
             Frontend Engineer
           </div>
         </div>
