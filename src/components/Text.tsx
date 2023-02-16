@@ -54,9 +54,7 @@ export default function Text(props: TextProps) {
   const Tag = as;
 
   return (
-    <Tag
-      className={cn(sizes[size], weights[weight], colors[color], "antialiased")}
-    >
+    <Tag className={cn(sizes[size], weights[weight], colors[color])}>
       {children}
     </Tag>
   );
