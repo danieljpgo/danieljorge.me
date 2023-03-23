@@ -40,7 +40,7 @@ next-env.d.ts
 /.vscode
 
 # docs
-/docs/LINKS.md
+/doc
 
 # content
 .contentlayer
