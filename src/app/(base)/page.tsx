@@ -132,7 +132,7 @@ export default function Home() {
           ))}
         </ul>
       </section>
-      {/* <div className="grid gap-4">
+      {/* <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -153,7 +153,80 @@ export default function Home() {
             </Text>
           </li>
         </ul>
-      </div> */}
+      </section> */}
+      <section className="grid gap-4 md:px-10">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            Projects
+          </Heading>
+          {/* <Text color="base">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          </Text> */}
+        </div>
+        <hr />
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-1">
+              <a
+                href="https://iachef.danieljorge.me/"
+                target="_blank"
+                rel="noreferrer"
+                className="group flex gap-1 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+              >
+                <Heading
+                  as="h3"
+                  size="base"
+                  weight="medium"
+                  leading="tight"
+                  color="darker"
+                >
+                  IAChef
+                </Heading>
+                <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-hover:translate-y-[-2px] group-active:translate-x-[0px] group-active:translate-y-[0px]">
+                  ↗
+                </span>
+              </a>
+              <Text size="sm" color="light">
+                Your personal chef power by ChatGPT
+              </Text>
+            </article>
+          </li>
+        </ul>
+      </section>
     </>
   );
 }
+
+/* <li>
+            <article className="grid gap-1">
+              <Link href={"#"}>
+                <Heading
+                  as="h3"
+                  size="base"
+                  weight="medium"
+                  leading="tight"
+                  color="darker"
+                >
+                  Toolbelt
+                </Heading>
+              </Link>
+              <div className="flex gap-2">
+              <Text size="sm" color="light">
+                  2023
+                </Text>
+                <Text size="sm" color="light">
+                  •
+                </Text>
+              <Text size="sm" color="light">
+                An set components, customizable, opinionated with carefully
+                crafted APIs.
+              </Text>
+              </div>
+            </article>
+          </li> */
