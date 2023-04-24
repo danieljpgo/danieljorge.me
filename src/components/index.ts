@@ -1,4 +1,3 @@
-export { default as Analytics } from "./Analytics";
 export { default as Heading } from "./Heading";
 export { default as HeadTags } from "./HeadTags";
 export { default as Mdx } from "./Mdx";

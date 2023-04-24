@@ -1,4 +1,4 @@
-import { Analytics } from "~/components";
+import { Analytics } from "@vercel/analytics/react";
 import "~/styles/globals.css";
 
 type RootLayoutProps = {
