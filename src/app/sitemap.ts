@@ -1,7 +1,9 @@
-import type { MetadataRoute } from "next";
+// import type { MetadataRoute } from "next";
+// : MetadataRoute.Sitemap
+
 import { allNotes } from "contentlayer/generated";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function sitemap() {
   const notes = allNotes.map((note) => ({
     url: `https://danieljorge.me/notes/${note.slug}`,
     lastModified: note.publishedAt.split("T")[0],
