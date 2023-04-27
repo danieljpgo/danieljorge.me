@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import "~/styles/globals.css";
+import { genericMetadata } from "~/lib/metadata";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -18,75 +19,62 @@ export default function RootLayout({ children }: RootLayoutProps) {
   );
 }
 
-//missing favicon?
-
-{
-  /* <meta property="author" content="Daniel Jorge"></meta> */
-}
-
 export const metadata: Metadata = {
   title: "Daniel Jorge",
   description: "Developer, writer.",
-  // icons: {
-  //   shortcut: "/favicon.ico", @TODO auto?
-  // },
-  //   viewport: {
-  //     initialScale: '',
-  // viewportFit: 'cover'
-  //   },
-  themeColor: {
-    color: "#ffffff",
-  },
+  themeColor: { color: "#ffffff" },
+  colorScheme: "light", // @TODO: change when add dark mode
   authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
-  openGraph: {
-    type: "website",
-    url: "https://danieljorge.me/",
-    title: "Daniel Jorge",
-    description: "Developer, writer.",
-    siteName: "Daniel Jorge",
-    images: [
-      {
-        url: "https://danieljorge.me/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home",
-        width: 1200,
-        height: 630,
-        // width: 1920,
-        // height: 1080,
-      },
-    ],
-    locale: "en-US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@danieljpgo",
-    creator: "@danieljpgo",
-    title: "Daniel Jorge",
-    description: "Developer, writer.",
-    images:
-      "https://danieljorge.me/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home",
-  },
-  // @TODO: Entender melhor
+  openGraph: genericMetadata.openGraph,
+  twitter: genericMetadata.twitter,
   robots: {
     index: true,
     follow: true,
+    // nocache: true, // @TODO: verificar a necessidade ?
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: true, // ?
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
-
   // verification: {
-  //   google: "",
-  //   yandex: "",
+  //   google: 'google', // @TODO
   // },
-  // title: {
-  // default: "Daniel Jorge",
-  // template: "%s | Daniel Jorge",
+
+  // add?
+  // publisher: 'Daniel Jorge',
+  // creator: 'Daniel Jorge',
+
+  other: {
+    'property="author"': "author",
+  },
+  // verification: {
+  //   google: 'google', // @TODO
+  //   yandex: 'yandex',
+  //   yahoo: 'yahoo',
+  //   other: {
+  //     me: ['my-email', 'my-link'],
+  //   },
+  // },
+  // icons: {
+  //   shortcut: "/favicon.ico", @TODO auto?
   // },
 };
+
+/* <meta property="author" content="Daniel Jorge"></meta> */
+/* <meta property="og:image" itemProp="image" content={image} /> */
+
+// alternates: RSS FEED
+// formatDetection: { email: false, address: false, telephone: false }. // for web apps
+// applicationName: 'Next.js', // just for web apps
+// category ??
+// generator: 'Next.js',
+// referrer: 'origin-when-cross-origin',
 
 // mobile-web-app-capable" content="yes" />
 // apple-mobile-web-app-capable" content="yes" />
 // apple-mobile-web-app-status-bar-style"
+// metadataBase: new URL("https://danieljorge.me"),
