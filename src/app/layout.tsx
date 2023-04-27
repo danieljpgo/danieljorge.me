@@ -18,27 +18,53 @@ export default function RootLayout({ children }: RootLayoutProps) {
   );
 }
 
+//missing favicon?
+
+{
+  /* <meta property="author" content="Daniel Jorge"></meta> */
+}
+
 export const metadata: Metadata = {
-  title: {
-    default: "Daniel Jorge",
-    template: "%s | Daniel Jorge",
-  },
+  title: "Daniel Jorge",
   description: "Developer, writer.",
+  // icons: {
+  //   shortcut: "/favicon.ico", @TODO auto?
+  // },
+  //   viewport: {
+  //     initialScale: '',
+  // viewportFit: 'cover'
+  //   },
+  themeColor: {
+    color: "#ffffff",
+  },
+  authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: {
+    type: "website",
+    url: "https://danieljorge.me/",
     title: "Daniel Jorge",
     description: "Developer, writer.",
-    url: "http://danieljorge.me/",
     siteName: "Daniel Jorge",
-    // images: [
-    //   {
-    //     url: "http://danieljorge.me/og.jpg",
-    //     width: 1920,
-    //     height: 1080,
-    //   },
-    // ],
+    images: [
+      {
+        url: "https://danieljorge.me/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home",
+        width: 1200,
+        height: 630,
+        // width: 1920,
+        // height: 1080,
+      },
+    ],
     locale: "en-US",
-    type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@danieljpgo",
+    creator: "@danieljpgo",
+    title: "Daniel Jorge",
+    description: "Developer, writer.",
+    images:
+      "https://danieljorge.me/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home",
+  },
+  // @TODO: Entender melhor
   robots: {
     index: true,
     follow: true,
@@ -50,15 +76,17 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  twitter: {
-    title: "Daniel Jorge",
-    card: "summary_large_image",
-  },
-  icons: {
-    shortcut: "/favicon.ico",
-  },
+
   // verification: {
   //   google: "",
   //   yandex: "",
   // },
+  // title: {
+  // default: "Daniel Jorge",
+  // template: "%s | Daniel Jorge",
+  // },
 };
+
+// mobile-web-app-capable" content="yes" />
+// apple-mobile-web-app-capable" content="yes" />
+// apple-mobile-web-app-status-bar-style"
