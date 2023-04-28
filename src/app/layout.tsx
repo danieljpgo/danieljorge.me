@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   title: "Daniel Jorge",
   description: "Developer, writer.",
   themeColor: { color: "#ffffff" },
+  icons: { shortcut: "/favicon.ico" },
   colorScheme: "light", // @TODO: change when add dark mode
   authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: genericMetadata.openGraph,
