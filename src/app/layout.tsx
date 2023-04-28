@@ -44,14 +44,9 @@ export const metadata: Metadata = {
   // verification: {
   //   google: 'google', // @TODO
   // },
-
   // add?
   // publisher: 'Daniel Jorge',
   // creator: 'Daniel Jorge',
-
-  other: {
-    'property="author"': "author",
-  },
   // verification: {
   //   google: 'google', // @TODO
   //   yandex: 'yandex',

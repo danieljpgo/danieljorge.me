@@ -161,7 +161,7 @@ export async function generateMetadata({
       images: {
         ...genericMetadata.twitter.images,
         url,
-        alt: `Banner with title "${note.title}" and description "${note.description}"`,
+        // alt: `Banner with title "${note.title}" and description "${note.description}"`,
       },
     },
     openGraph: {
@@ -172,7 +172,7 @@ export async function generateMetadata({
         {
           ...genericMetadata.openGraph.images[0],
           url,
-          alt: `Banner with title "${note.title}" and description "${note.description}"`,
+          // alt: `Banner with title "${note.title}" and description "${note.description}"`,
         },
       ],
     },
