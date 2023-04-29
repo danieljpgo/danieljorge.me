@@ -145,7 +145,11 @@ export async function generateMetadata({
     notFound();
   }
 
-  const url = `http://danieljorge.me/api/og?${new URLSearchParams({
+  const url = `${
+    process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL
+      : "http://localhost:3000"
+  }/api/og?${new URLSearchParams({
     title: note.title,
     description: note.description,
     type: "content",
