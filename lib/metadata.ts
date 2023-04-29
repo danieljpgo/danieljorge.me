@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
+
 export const genericMetadata = {
+  title: "Daniel Jorge",
+  description: "Developer, writer.",
+  themeColor: { color: "#ffffff" },
+  icons: { shortcut: "/favicon.ico" },
+  colorScheme: "light", // @TODO: change when add dark mode
+  authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: {
     type: "website",
     url: "https://danieljorge.me",
@@ -30,4 +38,49 @@ export const genericMetadata = {
     // creatorId: "",
     // siteId: '',
   },
-};
+  robots: {
+    index: true,
+    follow: true,
+    // nocache: true, // @TODO: verificar a necessidade ?
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true, // ?
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  // verification: {
+  //   google: 'google', // @TODO
+  // },
+  // add?
+  // publisher: 'Daniel Jorge',
+  // creator: 'Daniel Jorge',
+  // verification: {
+  //   google: 'google', // @TODO
+  //   yandex: 'yandex',
+  //   yahoo: 'yahoo',
+  //   other: {
+  //     me: ['my-email', 'my-link'],
+  //   },
+  // },
+  // icons: {
+  //   shortcut: "/favicon.ico", @TODO auto?
+  // },
+} satisfies Metadata;
+
+/* <meta property="author" content="Daniel Jorge"></meta> */
+/* <meta property="og:image" itemProp="image" content={image} /> */
+
+// alternates: RSS FEED
+// formatDetection: { email: false, address: false, telephone: false }. // for web apps
+// applicationName: 'Next.js', // just for web apps
+// category ??
+// generator: 'Next.js',
+// referrer: 'origin-when-cross-origin',
+
+// mobile-web-app-capable" content="yes" />
+// apple-mobile-web-app-capable" content="yes" />
+// apple-mobile-web-app-status-bar-style"
+// metadataBase: new URL("https://danieljorge.me"),
