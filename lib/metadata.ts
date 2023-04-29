@@ -9,13 +9,21 @@ export const genericMetadata = {
   authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: {
     type: "website",
-    url: "https://danieljorge.me",
+    url: `${
+      process.env.VERCEL_URL
+        ? "https://" + process.env.VERCEL_URL
+        : "http://localhost:3000"
+    }`,
     title: "Daniel Jorge",
     description: "Frontend Engineer",
     siteName: "Daniel Jorge",
     images: [
       {
-        url: "https://danieljorge.me/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home",
+        url: `${
+          process.env.VERCEL_URL
+            ? "https://" + process.env.VERCEL_URL
+            : "http://localhost:3000"
+        }/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home`,
         width: 1200, // width: 1920,
         height: 630, // height: 1080,
         type: "image/png",
@@ -31,7 +39,11 @@ export const genericMetadata = {
     title: "Daniel Jorge",
     description: "Frontend Engineer",
     images: {
-      url: "https://danieljorge.me/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home",
+      url: `${
+        process.env.VERCEL_URL
+          ? "https://" + process.env.VERCEL_URL
+          : "http://localhost:3000"
+      }/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home`,
       type: "image/png",
       // alt: "", //@TODO: redesign og first
     },
