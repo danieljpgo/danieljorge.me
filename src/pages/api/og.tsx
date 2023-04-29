@@ -1,5 +1,4 @@
-import { NextRequest } from "next/server";
-import { ImageResponse } from "@vercel/og";
+import { NextRequest, ImageResponse } from "next/server";
 
 export const config = { runtime: "experimental-edge" };
 
@@ -83,7 +82,7 @@ const Home = ({ origin }: HomeProps) => {
       </div>
       <div tw="flex items-center">
         <img
-          src={`${origin}/profile.jpeg`}
+          src={`${origin}/profile.png`}
           tw="rounded-full h-20"
           alt="profile"
         />
