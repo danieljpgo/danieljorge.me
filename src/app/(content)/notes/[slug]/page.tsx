@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { notes } from "~/lib/contentlayer";
+import { genericMetadata } from "~/lib/metadata";
 import { Heading, Text, Mdx, Views } from "~/components";
 
 type NoteProps = {
@@ -128,6 +130,53 @@ export async function generateStaticParams(): Promise<
   Array<NoteProps["params"]>
 > {
   return notes.map((page) => ({ slug: page.slug }));
+}
+
+type generateMetadataProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+export async function generateMetadata({
+  params,
+}: generateMetadataProps): Promise<Metadata> {
+  const note = notes.find((post) => post.slug === params.slug);
+
+  if (!note) {
+    notFound();
+  }
+
+  const url = `http://danieljorge.me/api/og?${new URLSearchParams({
+    title: note.title,
+    description: note.description,
+    type: "content",
+  }).toString()}`;
+
+  return {
+    title: note.title,
+    description: note.description,
+    twitter: {
+      ...genericMetadata.twitter,
+      title: note.title,
+      description: note.description,
+      images: {
+        ...genericMetadata.twitter.images,
+        url,
+        // alt: `Banner with title "${note.title}" and description "${note.description}"`,
+      },
+    },
+    openGraph: {
+      ...genericMetadata.openGraph,
+      title: note.title,
+      description: note.description,
+      images: [
+        {
+          ...genericMetadata.openGraph.images[0],
+          url,
+          // alt: `Banner with title "${note.title}" and description "${note.description}"`,
+        },
+      ],
+    },
+  };
 }
 
 // @TODO: melhorar lidar com caso de não encontrar o note, 404?

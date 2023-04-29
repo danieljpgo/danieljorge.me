@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import profile from "~/public/profile.jpeg";
+import profile from "~/public/profile.png";
 import { notes } from "~/lib/contentlayer";
 import {
   GithubIcon,
@@ -23,6 +23,7 @@ export default function Home() {
             src={profile}
             height={72}
             width={72}
+            priority
             placeholder="blur"
             alt="Daniel Jorge profile picture"
             className="rounded-full"

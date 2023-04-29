@@ -1,7 +1,5 @@
 export { default as Heading } from "./Heading";
-export { default as HeadTags } from "./HeadTags";
 export { default as Mdx } from "./Mdx";
-export { default as OGTags } from "./OGTags";
 export { default as Text } from "./Text";
 export { default as Views } from "./Views";
 export * from "./Icons";
