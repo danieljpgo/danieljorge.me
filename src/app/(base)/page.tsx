@@ -24,6 +24,7 @@ export default function Home() {
             height={72}
             width={72}
             priority
+            placeholder="blur"
             alt="Daniel Jorge profile picture"
             className="rounded-full"
           />
