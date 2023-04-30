@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 export const genericMetadata = {
   title: "Daniel Jorge",
   description: "Developer, writer.",
-  themeColor: { color: "#ffffff" },
   icons: { shortcut: "/favicon.ico" },
+  themeColor: "#fff", // @TODO: change when add dark mode
   colorScheme: "light", // @TODO: change when add dark mode
+  appleWebApp: { statusBarStyle: "black-translucent" },
   authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: {
     type: "website",
@@ -77,9 +78,6 @@ export const genericMetadata = {
   //     me: ['my-email', 'my-link'],
   //   },
   // },
-  // icons: {
-  //   shortcut: "/favicon.ico", @TODO auto?
-  // },
 } satisfies Metadata;
 
 /* <meta property="author" content="Daniel Jorge"></meta> */
@@ -94,5 +92,4 @@ export const genericMetadata = {
 
 // mobile-web-app-capable" content="yes" />
 // apple-mobile-web-app-capable" content="yes" />
-// apple-mobile-web-app-status-bar-style"
 // metadataBase: new URL("https://danieljorge.me"),
