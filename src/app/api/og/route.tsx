@@ -1,20 +1,26 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 
-export const config = { runtime: "experimental-edge" };
+export const runtime = "edge";
 
-const fonts = Promise.all([
-  fetch(
-    new URL("../../../public/fonts/Inter-Regular.ttf", import.meta.url),
-  ).then((res) => res.arrayBuffer()),
-  fetch(
-    new URL("../../../public/fonts/Inter-Medium.ttf", import.meta.url),
-  ).then((res) => res.arrayBuffer()),
-]);
-
-export default async function handler(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+
+  const profileImg = fetch(
+    new URL("../../../../public/profile.png", import.meta.url),
+  ).then((res) => res.arrayBuffer());
+
+  const fonts = Promise.all([
+    fetch(
+      new URL("../../../../public/fonts/Inter-Regular.ttf", import.meta.url),
+    ).then((res) => res.arrayBuffer()),
+    fetch(
+      new URL("../../../../public/fonts/Inter-Medium.ttf", import.meta.url),
+    ).then((res) => res.arrayBuffer()),
+  ]);
+
   const [fontRegular, fontMedium] = await fonts;
+  const profile = await profileImg;
 
   const type = searchParams.get("type")?.slice(0, 120) ?? "None";
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
@@ -24,19 +30,20 @@ export default async function handler(req: NextRequest) {
     return new ImageResponse(
       (() => {
         if (type === "home") {
-          return <Home origin={req.nextUrl.origin} />;
+          return <Home origin={req.nextUrl.origin} profile={profile} />;
         }
         if (type === "content") {
           return (
             <Content
               title={title}
               description={description}
+              profile={profile}
               origin={req.nextUrl.origin}
             />
           );
         }
 
-        return <Home origin={req.nextUrl.origin} />;
+        return <Home origin={req.nextUrl.origin} profile={profile} />;
       })(),
       {
         width: 1200,
@@ -69,9 +76,10 @@ export default async function handler(req: NextRequest) {
 
 type HomeProps = {
   origin: string;
+  profile: ArrayBuffer;
 };
 
-const Home = ({ origin }: HomeProps) => {
+const Home = ({ origin, profile }: HomeProps) => {
   return (
     <div
       tw="flex flex-col w-full h-full bg-white p-12 justify-between"
@@ -83,7 +91,10 @@ const Home = ({ origin }: HomeProps) => {
       </div>
       <div tw="flex items-center">
         <img
-          src={`${origin}/profile.png`}
+          // src={`${origin}/profile.png`}
+          src={`data:image/png;base64,${Buffer.from(profile).toString(
+            "base64",
+          )}`}
           tw="rounded-full h-20"
           alt="profile"
         />
@@ -104,9 +115,10 @@ type ContentProps = {
   title: string;
   description: string;
   origin: string;
+  profile: ArrayBuffer;
 };
 
-const Content = ({ title, description, origin }: ContentProps) => {
+const Content = ({ title, description, origin, profile }: ContentProps) => {
   return (
     <div
       tw="flex flex-col w-full h-full bg-white p-12 justify-between"
@@ -138,7 +150,10 @@ const Content = ({ title, description, origin }: ContentProps) => {
       </div>
       <div tw="flex items-center">
         <img
-          src={`${origin}/profile.png`}
+          // src={`${origin}/profile.png`}
+          src={`data:image/png;base64,${Buffer.from(profile).toString(
+            "base64",
+          )}`}
           tw="rounded-full h-18"
           alt="profile"
         />
