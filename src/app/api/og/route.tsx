@@ -1,4 +1,5 @@
-import { type NextRequest, ImageResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { ImageResponse } from "@vercel/og";
 
 export const runtime = "edge";
 
