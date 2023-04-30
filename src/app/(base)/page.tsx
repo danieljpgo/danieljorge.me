@@ -189,13 +189,46 @@ export default function Home() {
                 >
                   IAChef
                 </Heading>
-                <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-hover:translate-y-[-2px] group-active:translate-x-[0px] group-active:translate-y-[0px]">
+                <span className="group-hover:translate-x-[2px] group-hover:translate-y-[-2px] group-active:translate-x-[0px] group-active:translate-y-[0px] translate-x-0 transition-transform duration-200">
                   ↗
                 </span>
               </a>
               <Text size="sm" color="light">
                 Your personal chef power by ChatGPT
               </Text>
+            </article>
+          </li>
+        </ul>
+      </section>
+
+      <section className="grid gap-4 md:px-10">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            More
+          </Heading>
+          <Text color="base">A collection of items I would like to share.</Text>
+        </div>
+        <hr />
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-1">
+              <Link href="/diagrams">
+                <Heading
+                  as="h3"
+                  size="base"
+                  weight="medium"
+                  leading="tight"
+                  color="darker"
+                >
+                  Diagrams
+                </Heading>
+              </Link>
             </article>
           </li>
         </ul>
