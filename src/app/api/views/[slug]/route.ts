@@ -7,8 +7,6 @@ export async function GET(
   request: Request,
   { params }: { params: { slug: string } },
 ) {
-  console.log(request.url);
-
   try {
     const slug = params.slug;
     if (!slug) {
