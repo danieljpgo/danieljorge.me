@@ -35,7 +35,7 @@ const computedFields = {
   },
 };
 
-export const Writing = defineDocumentType(() => ({
+export const writing = defineDocumentType(() => ({
   name: "Writing",
   contentType: "mdx",
   filePathPattern: "writing/*.mdx",
@@ -65,7 +65,7 @@ export const Writing = defineDocumentType(() => ({
   computedFields,
 }));
 
-export const Notes = defineDocumentType(() => ({
+export const notes = defineDocumentType(() => ({
   name: "Notes",
   contentType: "mdx",
   filePathPattern: "notes/*.mdx",
@@ -95,9 +95,34 @@ export const Notes = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const diagrams = defineDocumentType(() => ({
+  name: "Diagrams",
+  contentType: "mdx",
+  filePathPattern: "diagrams/*.mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: true,
+    },
+    createdAt: {
+      type: "date",
+      required: true,
+    },
+    // tags: {
+    //   type: "list",
+    //   of: Tag,
+    // },
+  },
+  computedFields,
+}));
+
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Writing, Notes],
+  documentTypes: [writing, notes, diagrams],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
