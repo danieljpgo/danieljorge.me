@@ -1,7 +1,6 @@
-import { NextRequest } from "next/server";
-import { ImageResponse } from "@vercel/og";
+import { type NextRequest, ImageResponse } from "next/server";
 
-export const config = { runtime: "experimental-edge" };
+export const config = { runtime: "edge" };
 
 const fonts = Promise.all([
   fetch(
