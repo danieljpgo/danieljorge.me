@@ -92,7 +92,7 @@ const Home = ({ origin, profile }: HomeProps) => {
       <div tw="flex items-center">
         <img
           // src={`${origin}/profile.png`}
-          src={`data:image/jpeg;base64,${Buffer.from(profile).toString(
+          src={`data:image/png;base64,${Buffer.from(profile).toString(
             "base64",
           )}`}
           tw="rounded-full h-20"
