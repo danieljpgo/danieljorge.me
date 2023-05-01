@@ -61,7 +61,7 @@ export default function Diagram({ params }: DiagramProps) {
       <article className="grid w-full max-w-2xl gap-4">
         <div className="flex flex-col gap-2">
           <Text size="sm" color="light">
-            {diagram.createdAt}
+            {diagram.createdAtFormatted}
           </Text>
           <Heading
             as="h1"
@@ -83,7 +83,7 @@ export default function Diagram({ params }: DiagramProps) {
               </Text>
               <div className="max-w-[180px] sm:max-w-none">
                 <Text color="lighter" size="xs">
-                  Loose, short-form thoughts, reflections, and ideas.
+                  Explanations, concepts, design solutions, created over time.
                 </Text>
               </div>
             </div>
@@ -100,26 +100,26 @@ export default function Diagram({ params }: DiagramProps) {
           <hr />
           <div className="flex justify-center pb-8">
             <Link
-              href="/"
+              href="/diagrams"
               className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
             >
               <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
                 ←
               </span>
-              Home
+              Diagrams
             </Link>
           </div>
         </div>
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href="/"
+          href="/diagrams"
           className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
           <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
             ←
           </span>
-          Home
+          Diagrams
         </Link>
       </div>
     </>
@@ -139,9 +139,9 @@ type generateMetadataProps = {
 export async function generateMetadata({
   params,
 }: generateMetadataProps): Promise<Metadata> {
-  const note = diagrams.find((diagram) => diagram.slug === params.slug);
+  const diagram = diagrams.find((diagram) => diagram.slug === params.slug);
 
-  if (!note) {
+  if (!diagram) {
     notFound();
   }
 
@@ -150,18 +150,18 @@ export async function generateMetadata({
       ? "https://" + process.env.VERCEL_URL
       : "http://localhost:3000"
   }/api/og?${new URLSearchParams({
-    title: note.title,
-    description: note.description,
+    title: diagram.title,
+    description: diagram.description,
     type: "content",
   }).toString()}`;
 
   return {
-    title: note.title,
-    description: note.description,
+    title: diagram.title,
+    description: diagram.description,
     twitter: {
       ...genericMetadata.twitter,
-      title: note.title,
-      description: note.description,
+      title: diagram.title,
+      description: diagram.description,
       images: {
         ...genericMetadata.twitter.images,
         url,
@@ -170,8 +170,8 @@ export async function generateMetadata({
     },
     openGraph: {
       ...genericMetadata.openGraph,
-      title: note.title,
-      description: note.description,
+      title: diagram.title,
+      description: diagram.description,
       images: [
         {
           ...genericMetadata.openGraph.images[0],
