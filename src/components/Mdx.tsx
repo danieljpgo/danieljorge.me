@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { cn } from "~/lib/tailwindcss";
 
@@ -73,6 +74,9 @@ export default function Mdx(props: MdxProps) {
               )}
               {...props}
             />
+          ),
+          Image: ({ className, ...props }) => (
+            <Image alt={props.alt} {...props} />
           ),
         }}
       />
@@ -236,3 +240,11 @@ export default function Mdx(props: MdxProps) {
 //     }}
 //   />
 // );
+
+// <img
+//   className={cn(
+//     props.bleed
+//       ? "md:mx-0 md:max-w-[100%]"
+//       : "-mx-4 max-w-[calc(100%+(2*1rem))] md:mx-0 md:max-w-[100%]",
+//     className,
+//   )}
