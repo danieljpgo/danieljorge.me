@@ -189,7 +189,7 @@ export default function Home() {
                 >
                   IAChef
                 </Heading>
-                <span className="group-hover:translate-x-[2px] group-hover:translate-y-[-2px] group-active:translate-x-[0px] group-active:translate-y-[0px] translate-x-0 transition-transform duration-200">
+                <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-hover:translate-y-[-2px] group-active:translate-x-[0px] group-active:translate-y-[0px]">
                   ↗
                 </span>
               </a>
@@ -229,6 +229,11 @@ export default function Home() {
                   Diagrams
                 </Heading>
               </Link>
+              <div className="flex gap-2">
+                <Text size="sm" color="light">
+                  Explanations, concepts, design solutions, created over time.
+                </Text>
+              </div>
             </article>
           </li>
         </ul>
