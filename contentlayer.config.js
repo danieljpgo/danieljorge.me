@@ -10,10 +10,6 @@ const computedFields = {
     type: "string",
     resolve: (writing) => writing._raw.sourceFileName.replace(/\.mdx$/, ""),
   },
-  publishedAtFormatted: {
-    type: "string",
-    resolve: (doc) => formatDate(doc.publishedAt),
-  },
   headings: {
     type: "list",
     resolve: (doc) => {
@@ -62,7 +58,13 @@ export const writing = defineDocumentType(() => ({
     //   of: Tag,
     // },
   },
-  computedFields,
+  computedFields: {
+    ...computedFields,
+    publishedAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.publishedAt),
+    },
+  },
 }));
 
 export const notes = defineDocumentType(() => ({
@@ -92,7 +94,13 @@ export const notes = defineDocumentType(() => ({
     //   of: Tag,
     // },
   },
-  computedFields,
+  computedFields: {
+    ...computedFields,
+    publishedAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.publishedAt),
+    },
+  },
 }));
 
 export const diagrams = defineDocumentType(() => ({
@@ -117,7 +125,13 @@ export const diagrams = defineDocumentType(() => ({
     //   of: Tag,
     // },
   },
-  computedFields,
+  computedFields: {
+    ...computedFields,
+    createdAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.createdAt),
+    },
+  },
 }));
 
 export default makeSource({
