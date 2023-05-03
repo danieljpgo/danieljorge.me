@@ -152,7 +152,7 @@ export async function generateMetadata({
   }/api/og?${new URLSearchParams({
     title: diagram.title,
     description: diagram.description,
-    type: "content",
+    type: "diagram",
   }).toString()}`;
 
   return {
