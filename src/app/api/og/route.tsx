@@ -15,13 +15,10 @@ export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-
   const type = searchParams.get("type")?.slice(0, 120) ?? "None";
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
   const description = searchParams.get("description")?.slice(0, 120) ?? "None";
   const images = searchParams.get("images") ?? "None";
-
-  // console.log(images);
 
   const [fontRegular, fontMedium] = await fonts;
 
@@ -145,43 +142,20 @@ function Diagram({
         <div tw="flex w-140 pr-10">
           <Title>{title}</Title>
         </div>
-        <div tw="flex flex-col relative">
+        <div tw="flex flex-col-reverse relative self-center justify-center ">
           {images
             .split(",")
             .sort(() => -1)
-            .map(
-              (image, i) =>
-                console.log(image) || (
-                  <img
-                    key={i}
-                    src={`${origin}${image}`}
-                    // src={`${origin}/content/diagrams/url-as-a-way-to-compose-your-interface/4.png`}
-                    alt="diagram"
-                    tw="w-200 absolute" //left-30
-                    style={{ left: i * -20, top: -100 * i }}
-                    // style={{ top: i * -20 + -160 }}
-                    // style={{ top: -160 }}
-                  />
-                ),
-            )}
-          {/* <img
-            src={`${origin}/content/diagrams/url-as-a-way-to-compose-your-interface/3.png`}
-            tw="w-200 absolute left-20"
-            style={{ top: -260 }}
-            alt="diagram"
-          />
-          <img
-            src={`${origin}/content/diagrams/url-as-a-way-to-compose-your-interface/2.png`}
-            tw="w-200 absolute left-10"
-            style={{ top: -200 }}
-            alt="diagram"
-          />
-          <img
-            src={`${origin}/content/diagrams/url-as-a-way-to-compose-your-interface/1.png`}
-            tw="w-200 absolute"
-            style={{ top: -244 }}
-            alt="diagram"
-          /> */}
+            .map((image, i) => (
+              <img
+                key={i}
+                src={`${origin}${image}`}
+                alt="diagram"
+                className=""
+                tw="w-200 absolute"
+                style={{ left: (images.split(",").length - i) * 60 }}
+              />
+            ))}
         </div>
       </Main>
       <Footer origin={origin} />
@@ -210,7 +184,7 @@ function Header({ origin }: { origin: string }) {
 }
 
 function Main({ children }: { children: React.ReactNode }) {
-  return <div tw="flex">{children}</div>;
+  return <div tw="flex w-full">{children}</div>;
 }
 
 function Footer({ origin }: { origin: string }) {
