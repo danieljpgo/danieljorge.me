@@ -120,6 +120,11 @@ export const diagrams = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
+    images: {
+      type: "list",
+      required: true,
+      of: { type: "string" },
+    },
     // tags: {
     //   type: "list",
     //   of: Tag,

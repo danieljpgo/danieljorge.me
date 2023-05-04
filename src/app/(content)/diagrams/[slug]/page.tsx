@@ -151,7 +151,7 @@ export async function generateMetadata({
       : "http://localhost:3000"
   }/api/og?${new URLSearchParams({
     title: diagram.title,
-    description: diagram.description,
+    images: diagram.images.toString(),
     type: "diagram",
   }).toString()}`;
 
