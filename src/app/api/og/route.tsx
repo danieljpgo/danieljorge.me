@@ -149,7 +149,7 @@ function List({
   origin: string;
   items: string;
 }) {
-  const diagrams = items.split(",").slice(0, 10);
+  const content = items.split(",").slice(0, 10);
   return (
     <Panel>
       <Section>
@@ -170,10 +170,10 @@ function List({
         <ul
           tw={cn(
             "flex flex-col self-center justify-center border-t border-gray-300 w-134",
-            diagrams.length > 8 && "absolute top-0",
+            content.length > 8 && "absolute top-0",
           )}
         >
-          {diagrams.map((post, i) => (
+          {content.map((post, i) => (
             <li
               key={post}
               tw="flex py-4 text-xl border-gray-300 border-b w-full items-center"
