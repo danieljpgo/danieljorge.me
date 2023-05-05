@@ -151,13 +151,10 @@ function List({
 }) {
   const diagrams = items.split(",").slice(0, 10);
   return (
-    <div
-      tw="flex w-full h-full bg-white p-12 justify-between"
-      style={{ letterSpacing: "-.02em" }}
-    >
-      <section tw="h-full justify-between flex flex-col w-140">
+    <Panel>
+      <Section>
         <Header origin={origin} />
-        <main tw="flex w-140 pr-10 items-center" className="items-center">
+        <main tw="flex w-140 pr-10 items-center">
           <div tw="flex flex-col">
             <div tw="flex mb-2.5">
               <Title>{title}</Title>
@@ -168,8 +165,8 @@ function List({
           </div>
         </main>
         <Footer origin={origin} />
-      </section>
-      <aside tw="w-full h-full flex relative">
+      </Section>
+      <Aside>
         <ul
           tw={cn(
             "flex flex-col self-center justify-center border-t border-gray-300 w-134",
@@ -187,8 +184,8 @@ function List({
             </li>
           ))}
         </ul>
-      </aside>
-    </div>
+      </Aside>
+    </Panel>
   );
 }
 
@@ -202,12 +199,17 @@ function Diagram({
   images: string;
 }) {
   return (
-    <Layout>
-      <Header origin={origin} />
-      <Main>
-        <div tw="flex w-140 pr-10">
-          <Title>{title}</Title>
-        </div>
+    <Panel>
+      <Section>
+        <Header origin={origin} />
+        <main tw="flex w-full">
+          <div tw="flex w-140 pr-10">
+            <Title>{title}</Title>
+          </div>
+        </main>
+        <Footer origin={origin} />
+      </Section>
+      <Aside>
         <div tw="flex flex-col-reverse relative self-center justify-center">
           {images
             .split(",")
@@ -223,9 +225,8 @@ function Diagram({
               />
             ))}
         </div>
-      </Main>
-      <Footer origin={origin} />
-    </Layout>
+      </Aside>
+    </Panel>
   );
 }
 
@@ -239,57 +240,69 @@ function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
+function Panel({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      tw="flex w-full h-full bg-white p-12 justify-between"
+      style={{ letterSpacing: "-.02em" }}
+    >
+      {children}
+    </div>
+  );
+}
+function Section({ children }: { children: React.ReactNode }) {
+  return (
+    <section tw="h-full justify-between flex flex-col w-140">
+      {children}
+    </section>
+  );
+}
+function Aside({ children }: { children: React.ReactNode }) {
+  return <aside tw="w-full h-full flex">{children}</aside>;
+}
 function Header({ origin }: { origin: string }) {
   return (
-    <div tw="flex items-center">
+    <header tw="flex items-center">
       <img src={`${origin}/logo.svg`} tw="h-6 w-6" alt="logo" />
-      <span tw="pl-2 text-xl font-normal">danieljorge.me</span>
-    </div>
+      <p tw="m-0 pl-2 text-xl font-normal">danieljorge.me</p>
+    </header>
   );
 }
-
-function Main({ children }: { children: React.ReactNode }) {
-  return <div tw="flex w-full">{children}</div>;
-}
-
 function Footer({ origin }: { origin: string }) {
   return (
-    <div tw="flex items-center">
+    <footer tw="flex items-center">
       <img src={`${origin}/profile.png`} tw="rounded-full h-18" alt="profile" />
       <div tw="flex flex-col pl-4">
-        <span tw="flex text-3xl text-gray-800 mb-4 leading-4 font-medium">
+        <h2 tw="m-0 flex text-3xl text-gray-800 mb-4 leading-4 font-medium">
           Daniel Jorge
-        </span>
-        <span tw="flex text-2xl text-slate-500 leading-4 font-normal">
+        </h2>
+        <p tw="m-0 flex text-2xl text-slate-500 leading-4 font-normal">
           Frontend Engineer
-        </span>
+        </p>
       </div>
-    </div>
+    </footer>
   );
 }
-
 function Title({ children }: { children: string }) {
   return (
-    <span
-      tw="text-5xl text-gray-800 font-medium"
+    <h1
+      tw="m-0 text-5xl text-gray-800 font-medium"
       style={{ letterSpacing: "-0.05em" }}
     >
       {children}
-    </span>
+    </h1>
   );
 }
-
 function Description({ children }: { children: string }) {
   return (
-    <span
-      tw="flex text-4xl text-slate-500 font-normal"
+    <p
+      tw="m-0 flex text-4xl text-slate-500 font-normal"
       style={{
         letterSpacing: "-0.05em",
       }}
     >
       {children}
-    </span>
+    </p>
   );
 }
 
