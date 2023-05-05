@@ -1,7 +1,60 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Heading, Text, Views } from "~/components";
 import { diagrams } from "~/lib/contentlayer";
+import { genericMetadata } from "~/lib/metadata";
 import { cn } from "~/lib/tailwindcss";
+
+export const metadata: Metadata = {
+  title: "Diagrams",
+  description: "Explanations, concepts, design solutions, created over time.",
+  twitter: {
+    ...genericMetadata.twitter,
+    title: "Diagrams",
+    description: "Explanations, concepts, design solutions, created over time.",
+    images: {
+      ...genericMetadata.twitter.images,
+      url: `${
+        process.env.VERCEL_URL
+          ? "https://" + process.env.VERCEL_URL
+          : "http://localhost:3000"
+      }/api/og?${new URLSearchParams({
+        title: "Diagrams",
+        description:
+          "Explanations, concepts, design solutions, created over time.",
+        type: "list",
+        items: diagrams
+          .map((a) => a.title)
+          .slice(0, 10)
+          .toString(),
+      }).toString()}`,
+    },
+  },
+  openGraph: {
+    ...genericMetadata.openGraph,
+    title: "Diagrams",
+    description: "Explanations, concepts, design solutions, created over time.",
+    images: [
+      {
+        ...genericMetadata.openGraph.images[0],
+        url: `${
+          process.env.VERCEL_URL
+            ? "https://" + process.env.VERCEL_URL
+            : "http://localhost:3000"
+        }/api/og?${new URLSearchParams({
+          title: "Diagrams",
+          description:
+            "Explanations, concepts, design solutions, created over time.",
+          type: "list",
+          items: diagrams
+            .map((a) => a.title)
+            .slice(0, 10)
+            .toString(),
+        }).toString()}`,
+      },
+    ],
+  },
+};
 
 export default function Diagrams() {
   return (

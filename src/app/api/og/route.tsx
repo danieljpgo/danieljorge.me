@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
+import { cn } from "~/lib/tailwindcss";
 
 const fonts = Promise.all([
   fetch(
@@ -19,6 +20,7 @@ export async function GET(req: NextRequest) {
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
   const description = searchParams.get("description")?.slice(0, 120) ?? "None";
   const images = searchParams.get("images") ?? "None";
+  const items = searchParams.get("items") ?? "";
 
   const [fontRegular, fontMedium] = await fonts;
 
@@ -34,6 +36,16 @@ export async function GET(req: NextRequest) {
               title={title}
               description={description}
               origin={req.nextUrl.origin}
+            />
+          );
+        }
+        if (type === "list") {
+          return (
+            <List
+              title={title}
+              description={description}
+              origin={req.nextUrl.origin}
+              items={items}
             />
           );
         }
@@ -117,12 +129,66 @@ function Content({
         <div tw="flex mb-2.5">
           <Title>{title}</Title>
         </div>
-        <div tw="flex text-center">
+        <div tw="flex">
           <Description>{description}</Description>
         </div>
       </div>
       <Footer origin={origin} />
     </Layout>
+  );
+}
+
+function List({
+  title,
+  description,
+  origin,
+  items,
+}: {
+  title: string;
+  description: string;
+  origin: string;
+  items: string;
+}) {
+  const diagrams = items.split(",").slice(0, 10);
+  return (
+    <div
+      tw="flex w-full h-full bg-white p-12 justify-between"
+      style={{ letterSpacing: "-.02em" }}
+    >
+      <section tw="h-full justify-between flex flex-col w-140">
+        <Header origin={origin} />
+        <main tw="flex w-140 pr-10 items-center" className="items-center">
+          <div tw="flex flex-col">
+            <div tw="flex mb-2.5">
+              <Title>{title}</Title>
+            </div>
+            <div tw="flex">
+              <Description>{description}</Description>
+            </div>
+          </div>
+        </main>
+        <Footer origin={origin} />
+      </section>
+      <aside tw="w-full h-full flex relative">
+        <ul
+          tw={cn(
+            "flex flex-col self-center justify-center border-t border-gray-300 w-134",
+            diagrams.length > 8 && "absolute top-0",
+          )}
+        >
+          {diagrams.map((post, i) => (
+            <li
+              key={post}
+              tw="flex py-4 text-xl border-gray-300 border-b w-full items-center"
+            >
+              <small tw="flex text-gray-400 text-lg">23/06/01</small>
+              <p tw="pl-7 flex m-0">{post}</p>
+              {/* <p tw="flex m-0 text-gray-400 pl-7">{"11"}</p> */}
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
   );
 }
 
@@ -142,7 +208,7 @@ function Diagram({
         <div tw="flex w-140 pr-10">
           <Title>{title}</Title>
         </div>
-        <div tw="flex flex-col-reverse relative self-center justify-center ">
+        <div tw="flex flex-col-reverse relative self-center justify-center">
           {images
             .split(",")
             .sort(() => -1)
