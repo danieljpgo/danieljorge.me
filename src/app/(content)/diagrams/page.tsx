@@ -87,7 +87,7 @@ export default function Diagrams() {
             Diagrams
           </Heading>
           <Text color="base">
-            {`Here is a list of diagrams I've created over time to help me explain
+            {`A list of diagrams I've created over time to help me explain
            and think about concepts, design solutions and more.`}
           </Text>
         </div>
