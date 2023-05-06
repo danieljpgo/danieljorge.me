@@ -10,10 +10,6 @@ const computedFields = {
     type: "string",
     resolve: (writing) => writing._raw.sourceFileName.replace(/\.mdx$/, ""),
   },
-  publishedAtFormatted: {
-    type: "string",
-    resolve: (doc) => formatDate(doc.publishedAt),
-  },
   headings: {
     type: "list",
     resolve: (doc) => {
@@ -35,7 +31,7 @@ const computedFields = {
   },
 };
 
-export const Writing = defineDocumentType(() => ({
+export const writing = defineDocumentType(() => ({
   name: "Writing",
   contentType: "mdx",
   filePathPattern: "writing/*.mdx",
@@ -62,10 +58,16 @@ export const Writing = defineDocumentType(() => ({
     //   of: Tag,
     // },
   },
-  computedFields,
+  computedFields: {
+    ...computedFields,
+    publishedAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.publishedAt),
+    },
+  },
 }));
 
-export const Notes = defineDocumentType(() => ({
+export const notes = defineDocumentType(() => ({
   name: "Notes",
   contentType: "mdx",
   filePathPattern: "notes/*.mdx",
@@ -92,12 +94,54 @@ export const Notes = defineDocumentType(() => ({
     //   of: Tag,
     // },
   },
-  computedFields,
+  computedFields: {
+    ...computedFields,
+    publishedAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.publishedAt),
+    },
+  },
+}));
+
+export const diagrams = defineDocumentType(() => ({
+  name: "Diagrams",
+  contentType: "mdx",
+  filePathPattern: "diagrams/*.mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: true,
+    },
+    createdAt: {
+      type: "date",
+      required: true,
+    },
+    images: {
+      type: "list",
+      required: true,
+      of: { type: "string" },
+    },
+    // tags: {
+    //   type: "list",
+    //   of: Tag,
+    // },
+  },
+  computedFields: {
+    ...computedFields,
+    createdAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.createdAt),
+    },
+  },
 }));
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Writing, Notes],
+  documentTypes: [writing, notes, diagrams],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

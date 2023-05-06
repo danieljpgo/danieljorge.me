@@ -200,6 +200,44 @@ export default function Home() {
           </li>
         </ul>
       </section>
+
+      <section className="grid gap-4 md:px-10">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            More
+          </Heading>
+          <Text color="base">A collection of items I would like to share.</Text>
+        </div>
+        <hr />
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-1">
+              <Link href="/diagrams">
+                <Heading
+                  as="h3"
+                  size="base"
+                  weight="medium"
+                  leading="tight"
+                  color="darker"
+                >
+                  Diagrams
+                </Heading>
+              </Link>
+              <div className="flex gap-2">
+                <Text size="sm" color="light">
+                  Explanations, concepts, design solutions, created over time.
+                </Text>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </section>
     </>
   );
 }

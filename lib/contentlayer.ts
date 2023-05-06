@@ -1,4 +1,9 @@
-import { allNotes, Notes } from "contentlayer/generated";
+import {
+  allNotes,
+  allDiagrams,
+  type Notes,
+  type Diagrams,
+} from "contentlayer/generated";
 
 export type Heading = {
   level: number;
@@ -9,3 +14,7 @@ export type Heading = {
 export const notes: Array<
   Omit<Notes, "headings"> & { headings: Array<Heading> }
 > = allNotes;
+
+export const diagrams: Array<
+  Omit<Diagrams, "headings"> & { headings: Array<Heading> }
+> = allDiagrams;
