@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="flex flex-col gap-8 md:px-10">
+      <section className="grid gap-8 md:px-10">
         <div className="flex gap-4">
           <Image
             quality={100}
@@ -26,7 +26,7 @@ export default function Home() {
             priority
             placeholder="blur"
             alt="Daniel Jorge profile picture"
-            className="rounded-full"
+            className="h-[72px] w-[72px] rounded-full"
           />
           <div className="flex flex-col gap-2 self-center">
             <h1 className="text-lg font-medium leading-4 text-gray-800 antialiased">
