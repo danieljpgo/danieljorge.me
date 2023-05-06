@@ -57,6 +57,10 @@ export const metadata: Metadata = {
 };
 
 export default function Diagrams() {
+  const sortedDiagrams = [...diagrams].sort(
+    (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+  );
+
   return (
     <>
       <aside
@@ -94,7 +98,7 @@ export default function Diagrams() {
         <hr />
         <div className="grid gap-4">
           <ul className="grid gap-4">
-            {diagrams.map((diagram) => (
+            {sortedDiagrams.map((diagram) => (
               <li key={diagram.slug}>
                 <article className="grid gap-1">
                   <Link href={diagram._raw.flattenedPath}>
