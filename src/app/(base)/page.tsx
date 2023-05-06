@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="grid gap-8 md:px-10">
+      <section className="flex flex-col gap-8 md:px-10">
         <div className="flex gap-4">
           <Image
             quality={100}
