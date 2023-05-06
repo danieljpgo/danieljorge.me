@@ -151,7 +151,7 @@ function List({
 }) {
   const content = items
     .split("|")
-    .map((item) => item.split("-"))
+    .map((item) => item.split(";"))
     .slice(0, 10);
   return (
     <Panel>
@@ -176,7 +176,7 @@ function List({
             content.length > 8 && "absolute top-0",
           )}
         >
-          {content.map(([data, post], i) => (
+          {content.map(([data, post]) => (
             <li
               key={post}
               tw="flex py-4 text-xl border-gray-300 border-b w-full items-center"

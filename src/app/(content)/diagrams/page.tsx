@@ -25,9 +25,9 @@ export const metadata: Metadata = {
           "Explanations, concepts, design solutions, created over time.",
         type: "list",
         items: diagrams
-          .map((a) => `${formatDateNumerical(a.createdAt)}-${a.title}`)
+          .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
           .slice(0, 10)
-          .toString(),
+          .join("|"),
       }).toString()}`,
     },
   },
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
             "Explanations, concepts, design solutions, created over time.",
           type: "list",
           items: diagrams
-            .map((a) => `${formatDateNumerical(a.createdAt)}-${a.title}`)
+            .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
             .slice(0, 10)
             .join("|"),
         }).toString()}`,
