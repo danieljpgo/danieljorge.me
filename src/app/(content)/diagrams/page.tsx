@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Heading, Text, Views } from "~/components";
 import { diagrams } from "~/lib/contentlayer";
+import { formatDateNumerical } from "~/lib/date";
 import { genericMetadata } from "~/lib/metadata";
 import { cn } from "~/lib/tailwindcss";
 
@@ -24,9 +25,9 @@ export const metadata: Metadata = {
           "Explanations, concepts, design solutions, created over time.",
         type: "list",
         items: diagrams
-          .map((a) => `${a.createdAtFormatted}-${a.title}`)
+          .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
           .slice(0, 10)
-          .toString(),
+          .join("|"),
       }).toString()}`,
     },
   },
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
             "Explanations, concepts, design solutions, created over time.",
           type: "list",
           items: diagrams
-            .map((a) => `${a.createdAtFormatted}-${a.title}`)
+            .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
             .slice(0, 10)
             .join("|"),
         }).toString()}`,
@@ -57,6 +58,10 @@ export const metadata: Metadata = {
 };
 
 export default function Diagrams() {
+  const sortedDiagrams = [...diagrams].sort(
+    (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+  );
+
   return (
     <>
       <aside
@@ -94,7 +99,7 @@ export default function Diagrams() {
         <hr />
         <div className="grid gap-4">
           <ul className="grid gap-4">
-            {diagrams.map((diagram) => (
+            {sortedDiagrams.map((diagram) => (
               <li key={diagram.slug}>
                 <article className="grid gap-1">
                   <Link href={diagram._raw.flattenedPath}>
