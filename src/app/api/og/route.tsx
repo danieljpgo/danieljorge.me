@@ -149,7 +149,10 @@ function List({
   origin: string;
   items: string;
 }) {
-  const content = items.split(",").slice(0, 10);
+  const content = items
+    .split("|")
+    .map((item) => item.split("-"))
+    .slice(0, 10);
   return (
     <Panel>
       <Section>
@@ -173,13 +176,13 @@ function List({
             content.length > 8 && "absolute top-0",
           )}
         >
-          {content.map((post, i) => (
+          {content.map(([data, post], i) => (
             <li
               key={post}
               tw="flex py-4 text-xl border-gray-300 border-b w-full items-center"
             >
-              <small tw="flex text-gray-400 text-lg">23/06/01</small>
-              <p tw="pl-7 flex m-0">{post}</p>
+              <small tw="flex text-gray-400 text-lg">{data}</small>
+              <p tw="pl-4 flex m-0">{post}</p>
               {/* <p tw="flex m-0 text-gray-400 pl-7">{"11"}</p> */}
             </li>
           ))}
