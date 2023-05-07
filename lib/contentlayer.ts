@@ -17,4 +17,6 @@ export const notes: Array<
 
 export const diagrams: Array<
   Omit<Diagrams, "headings"> & { headings: Array<Heading> }
-> = allDiagrams;
+> = [...allDiagrams].sort(
+  (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+);
