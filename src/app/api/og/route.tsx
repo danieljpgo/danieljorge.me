@@ -222,7 +222,6 @@ function Diagram({
                 key={i}
                 src={`${origin}${image}`}
                 alt="diagram"
-                className=""
                 tw="w-200 absolute"
                 style={{ left: (images.split(",").length - i) * 60 }}
               />
