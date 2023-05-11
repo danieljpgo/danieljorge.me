@@ -1,0 +1,56 @@
+---
+title: Re-render in React is not a problem
+description: 100 re-renders can be faster than 1 slow render.
+publishedAt: "2023-04-09"
+status: "published"
+# 100 rerender rápidos são melhores que 1 rerender lento.
+---
+
+I would like to start by going straight to the point on the topic with the following sentence:
+
+> 100 renders can be faster than 1 slow render.
+
+I like that phrase, because it's a good mental model to have on the subject, always try to optimize slow renders and not necessarily the renders.
+
+---
+
+## Supposed problem, re-renders
+
+Returning to the topic of the post, I always see discussions about some things using React are not good because it will generate a lot of re-rendering, but I never understood it right, because re-rendering was never a problem, the real problem was always slow renders.
+
+> You only optimize what you measure
+
+I like to use this phrase above when it comes to improving performance because it is very easy to get the wrong performance metrics, perform optimizations and the end result is worse than it was.
+
+### 1
+
+```tsx showLineNumbers {2,8}
+function Foo() {
+  console.log("render: FOO");
+  return <div>FOO!</div>;
+}
+
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  console.log("render: Counter");
+
+  return (
+    <>
+      <Foo />
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
+    </>
+  );
+}
+```
+
+---
+
+## The real problem, slow renders
+
+### 2
+
+---
+
+## In summary
+
+### 3
