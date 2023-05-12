@@ -1,18 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 
-type ViewsProps = {
+type ViewCounterProps = {
   type: "counter" | "view";
   slug: string;
-  defaultView?: number;
+  initialValue?: number;
 };
 
-export default function Views({
+export default function ViewCounter({
   slug,
   type = "view",
-  defaultView = 0,
-}: ViewsProps) {
-  const [views, setViews] = useState<number>(defaultView);
+  initialValue = 0,
+}: ViewCounterProps) {
+  const [views, setViews] = useState<number>(initialValue);
 
   useEffect(() => {
     async function getView() {
