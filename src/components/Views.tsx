@@ -4,10 +4,15 @@ import { useEffect, useState } from "react";
 type ViewsProps = {
   type: "counter" | "view";
   slug: string;
+  defaultView?: number;
 };
 
-export default function Views({ slug, type = "view" }: ViewsProps) {
-  const [views, setViews] = useState<number>(0);
+export default function Views({
+  slug,
+  type = "view",
+  defaultView = 0,
+}: ViewsProps) {
+  const [views, setViews] = useState<number>(defaultView);
 
   useEffect(() => {
     async function getView() {
@@ -34,5 +39,16 @@ export default function Views({ slug, type = "view" }: ViewsProps) {
     }
   }, [slug, type]);
 
-  return <>{views ? views.toLocaleString() : "–––"}</>;
+  return (
+    <>
+      <span
+        className="number-animation tabular-nums"
+        style={{
+          // @ts-expect-error:
+          "--number": views ? views : 0,
+        }}
+      ></span>
+      <span className="sr-only">{views ? views.toLocaleString() : 0}</span>
+    </>
+  );
 }

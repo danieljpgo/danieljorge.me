@@ -77,3 +77,20 @@ div[data-rehype-pretty-code-fragment] {
 /* @TODO: Add and remove line with + green and - red */
 /* @TODO: Highligh line number */
 /* #a6accd */
+
+/* @TODO animation number */
+
+@property --number {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.number-animation {
+  transition: --number 1s;
+  counter-reset: number var(--number);
+}
+
+.number-animation::before {
+  content: counter(number);
+}
