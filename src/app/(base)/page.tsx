@@ -8,7 +8,7 @@ import {
   LinkedinIcon,
   Text,
   TwitterIcon,
-  Views,
+  View,
 } from "~/components";
 
 export default function Home() {
@@ -125,7 +125,8 @@ export default function Home() {
                     •
                   </Text>
                   <Text size="sm" color="light">
-                    <Views slug={note.slug} type="view" /> views
+                    {/* @ts-expect-error: */}
+                    <View slug={note.slug} type="view" /> views
                   </Text>
                 </div>
               </article>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heading, Text, Views } from "~/components";
+import { Heading, Text, View } from "~/components";
 import { diagrams } from "~/lib/contentlayer";
 import { formatDateNumerical } from "~/lib/date";
 import { genericMetadata } from "~/lib/metadata";
@@ -117,7 +117,8 @@ export default function Diagrams() {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      <Views slug={diagram.slug} type="view" /> views
+                      {/* @ts-expect-error: */}
+                      <View slug={diagram.slug} type="view" /> views
                     </Text>
                   </div>
                 </article>

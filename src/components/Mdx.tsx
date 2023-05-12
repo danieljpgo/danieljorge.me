@@ -6,12 +6,12 @@ type MdxProps = {
   code: string;
 };
 
-export default function Mdx(props: MdxProps) {
-  const { code } = props;
+export default function Mdx({ code }: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
   return (
     <div className="prose max-w-none">
+      {/* @ts-expect-error: */}
       <MDXContent
         components={{
           a: ({ className, ...props }) => (
