@@ -6,11 +6,9 @@ type ViewProps = {
 };
 
 export default async function View({ type, slug }: ViewProps) {
-  const view = await fetch(
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/api/views/${slug}`
-      : `http://localhost:3000/api/views/${slug}`,
-  ).then((response) => response.json());
+  const view = await fetch(`https://danieljorge.me/api/views/${slug}`).then(
+    (response) => response.json(),
+  );
 
   return (
     <ViewCounter slug={slug} type={type} initialValue={view?.count ?? 0} />
