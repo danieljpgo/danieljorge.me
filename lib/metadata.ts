@@ -3,7 +3,14 @@ import type { Metadata } from "next";
 export const genericMetadata = {
   title: "Daniel Jorge",
   description: "Developer, writer.",
-  icons: { shortcut: "/favicon.ico" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", rel: "icon", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any", rel: "icon" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
+  manifest: "/manifest.webmanifest",
   themeColor: "#fff", // @TODO: change when add dark mode
   colorScheme: "light", // @TODO: change when add dark mode
   appleWebApp: { statusBarStyle: "black-translucent" },
