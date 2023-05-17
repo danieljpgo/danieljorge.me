@@ -11,9 +11,11 @@ export const genericMetadata = {
     apple: [{ url: "/apple-touch-icon.png" }],
   },
   manifest: "/manifest.webmanifest",
+
   themeColor: "#fff", // @TODO: change when add dark mode
   colorScheme: "light", // @TODO: change when add dark mode
   appleWebApp: { statusBarStyle: "black-translucent" },
+
   authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: {
     type: "website",
@@ -58,6 +60,7 @@ export const genericMetadata = {
     // creatorId: "",
     // siteId: '',
   },
+
   robots: {
     index: true,
     follow: true,
