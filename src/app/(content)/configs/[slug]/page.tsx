@@ -127,62 +127,62 @@ export default function Config({ params }: ConfigProps) {
   );
 }
 
-// export async function generateStaticParams(): Promise<
-//   Array<NoteProps["params"]>
-// > {
-//   return notes.map((page) => ({ slug: page.slug }));
-// }
+export async function generateStaticParams(): Promise<
+  Array<ConfigProps["params"]>
+> {
+  return configs.map((page) => ({ slug: page.slug }));
+}
 
-// type generateMetadataProps = {
-//   params: { slug: string };
-//   searchParams: { [key: string]: string | string[] | undefined };
-// };
-// export async function generateMetadata({
-//   params,
-// }: generateMetadataProps): Promise<Metadata> {
-//   const note = notes.find((post) => post.slug === params.slug);
+type generateMetadataProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+export async function generateMetadata({
+  params,
+}: generateMetadataProps): Promise<Metadata> {
+  const config = configs.find((config) => config.slug === params.slug);
 
-//   if (!note) {
-//     notFound();
-//   }
+  if (!config) {
+    notFound();
+  }
 
-//   const url = `${
-//     process.env.VERCEL_URL
-//       ? "https://" + process.env.VERCEL_URL
-//       : "http://localhost:3000"
-//   }/api/og?${new URLSearchParams({
-//     title: note.title,
-//     description: note.description,
-//     type: "content",
-//   }).toString()}`;
+  const url = `${
+    process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL
+      : "http://localhost:3000"
+  }/api/og?${new URLSearchParams({
+    title: config.title,
+    description: config.description,
+    type: "content",
+  }).toString()}`;
 
-//   return {
-//     title: note.title,
-//     description: note.description,
-//     twitter: {
-//       ...genericMetadata.twitter,
-//       title: note.title,
-//       description: note.description,
-//       images: {
-//         ...genericMetadata.twitter.images,
-//         url,
-//         // alt: `Banner with title "${note.title}" and description "${note.description}"`,
-//       },
-//     },
-//     openGraph: {
-//       ...genericMetadata.openGraph,
-//       title: note.title,
-//       description: note.description,
-//       images: [
-//         {
-//           ...genericMetadata.openGraph.images[0],
-//           url,
-//           // alt: `Banner with title "${note.title}" and description "${note.description}"`,
-//         },
-//       ],
-//     },
-//   };
-// }
+  return {
+    title: config.title,
+    description: config.description,
+    twitter: {
+      ...genericMetadata.twitter,
+      title: config.title,
+      description: config.description,
+      images: {
+        ...genericMetadata.twitter.images,
+        url,
+        // alt: `Banner with title "${note.title}" and description "${note.description}"`,
+      },
+    },
+    openGraph: {
+      ...genericMetadata.openGraph,
+      title: config.title,
+      description: config.description,
+      images: [
+        {
+          ...genericMetadata.openGraph.images[0],
+          url,
+          // alt: `Banner with title "${note.title}" and description "${note.description}"`,
+        },
+      ],
+    },
+  };
+}
 
 // @TODO: melhorar lidar com caso de não encontrar o note, 404?
 // @TODO: bug de renderização do botão voltar
