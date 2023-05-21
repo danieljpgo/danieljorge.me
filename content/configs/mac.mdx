@@ -1,0 +1,59 @@
+---
+title: Mac
+description: Demo
+createdAt: "2023-04-09"
+status: "draft"
+# {/\* Dock instantly leap back
+
+# ```bash title="Terminal"
+# defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock
+# ```
+
+# With a quick animation
+
+# ```bash title="Terminal"
+# defaults write com.apple.dock autohide-time-modifier -float 0.05;killall Dock
+# ```
+
+# Revert
+
+# ````bash title="Terminal"
+# defaults delete com.apple.dock autohide-time-modifier;killall Dock
+# ``` */}
+# ````
+---
+
+## Remove here
+
+## Faster key repeat rate
+
+{/* ## Faster keyboard response (minimum is 2) */}
+
+```bash title="Terminal"
+defaults write NSGlobalDomain KeyRepeat -int 1
+```
+
+## Reduced delay until repeat
+
+{/* ## Reduced key repeat delay (minimumis is 15) */}
+
+```bash title="Terminal"
+defaults write NSGlobalDomain InitialKeyRepeat -int 12
+```
+
+## Remove dock show/hide delay
+
+First, activate auto-hide in System Preferences → Dock → Autohide
+
+0 is the time it takes for the Dock to appear in seconds. You can choose floats and integers e.g. 2, 0.5,...
+killall Dock causes the Dock to restart.
+
+```bash title="Terminal"
+defaults write com.apple.dock autohide-delay -float 0; killall Dock
+```
+
+Revert
+
+```bash title="Terminal"
+defaults delete com.apple.dock autohide-delay; killall Dock
+```
