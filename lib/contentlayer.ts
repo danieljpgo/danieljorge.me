@@ -1,8 +1,10 @@
 import {
   allNotes,
   allDiagrams,
+  allConfigs,
   type Notes,
   type Diagrams,
+  type Configs,
 } from "contentlayer/generated";
 
 export type Heading = {
@@ -20,3 +22,7 @@ export const diagrams: Array<
 > = [...allDiagrams].sort(
   (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
 );
+
+export const configs: Array<
+  Omit<Configs, "headings"> & { headings: Array<Heading> }
+> = allConfigs;
