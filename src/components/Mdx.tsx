@@ -10,7 +10,7 @@ export default function Mdx({ code }: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
   return (
-    <div className="prose max-w-none">
+    <div className="prose max-w-none overflow-x-hidden">
       {/* @ts-expect-error: */}
       <MDXContent
         components={{
