@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { cn } from "~/lib/tailwindcss";
+import { Tweet } from "react-tweet";
 
 type MdxProps = {
   code: string;
@@ -77,6 +78,11 @@ export default function Mdx({ code }: MdxProps) {
           ),
           Image: ({ className, ...props }) => (
             <Image alt={props.alt} {...props} />
+          ),
+          Tweet: ({ id }) => (
+            <div data-theme="light" className="not-prose flex justify-center">
+              <Tweet id={id} />
+            </div>
           ),
         }}
       />
