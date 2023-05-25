@@ -160,6 +160,11 @@ export const configs = defineDocumentType(() => ({
       type: "date",
       required: false,
     },
+    status: {
+      type: "enum",
+      options: ["draft", "published"],
+      required: true,
+    },
     // tags: {
     //   type: "list",
     //   of: Tag,

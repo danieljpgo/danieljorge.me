@@ -11,7 +11,7 @@ Performance is always a concern among developers, often before it's even necessa
 
 But how can re-rendering not be an issue?
 
-## The Non-Issue
+## The Non-Issue: Re-render
 
 First, to understand why it's not an issue, we must understand how React rendering happens.
 
@@ -45,7 +45,7 @@ function Counter() {
 
 So when can re-rendering be an issue?
 
-## The Actual Issue
+## The Actual Issue: Slow rendering
 
 {/* ## Slow rendering */}
 
@@ -59,11 +59,11 @@ To solve this problem there are several ways, but first it is important to measu
 
 For that, we can use @ChromeDevTools Performance tab. In addition, we can also use React DevTools to view the rendering time in detail and ensure that improvements are being made and not regressions.
 
-> tweet 1
+<Tweet id="1171158009277403136" />
 
-> tweet 1
+<Tweet id="1126950967201546240" />
 
-### Performance hooks
+### Performance Techniques
 
 Now that we can measure improvements or ~make regressions~, we can use [Performance Hooks](https://react.dev/reference/react#performance-hooks):
 
