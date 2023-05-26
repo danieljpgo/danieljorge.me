@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
-import { allNotes, allDiagrams } from "contentlayer/generated";
+import { notes, diagrams } from "~/lib/contentlayer";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const notes = allNotes.map((note) => ({
+  const notesRoute = notes.map((note) => ({
     url: `https://danieljorge.me/notes/${note.slug}`,
     lastModified: note.publishedAt.split("T")[0],
   }));
 
-  const diagrams = allDiagrams.map((diagram) => ({
+  const diagramsRoute = diagrams.map((diagram) => ({
     url: `https://danieljorge.me/diagrams/${diagram.slug}`,
     lastModified: diagram.createdAt.split("T")[0],
   }));
@@ -17,5 +17,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
-  return [...routes, ...notes, ...diagrams];
+  return [...routes, ...notesRoute, ...diagramsRoute];
 }
