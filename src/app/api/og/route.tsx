@@ -214,18 +214,15 @@ function Diagram({
       </Section>
       <Aside>
         <div tw="flex flex-col-reverse relative self-center justify-center">
-          {images
-            .split(",")
-            .sort(() => -1)
-            .map((image, i) => (
-              <img
-                key={i}
-                src={`${origin}${image}`}
-                alt="diagram"
-                tw="w-200 absolute"
-                style={{ left: (images.split(",").length - i) * 60 }}
-              />
-            ))}
+          {images.split(",").map((image, i) => (
+            <img
+              key={i}
+              src={`${origin}${image}`}
+              alt="diagram"
+              tw="w-200 absolute"
+              style={{ left: (images.split(",").length - i) * 60 }}
+            />
+          ))}
         </div>
       </Aside>
     </Panel>
