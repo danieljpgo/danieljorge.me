@@ -139,6 +139,47 @@ export const diagrams = defineDocumentType(() => ({
   },
 }));
 
+export const crafts = defineDocumentType(() => ({
+  name: "Crafts",
+  contentType: "mdx",
+  filePathPattern: "crafts/*.mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: true,
+    },
+    createdAt: {
+      type: "date",
+      required: true,
+    },
+    // images: {
+    //   type: "list",
+    //   required: true,
+    //   of: { type: "string" },
+    // },
+    status: {
+      type: "enum",
+      options: ["draft", "published"],
+      required: true,
+    },
+    // tags: {
+    //   type: "list",
+    //   of: Tag,
+    // },
+  },
+  computedFields: {
+    ...computedFields,
+    createdAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.createdAt),
+    },
+  },
+}));
+
 export const configs = defineDocumentType(() => ({
   name: "Configs",
   contentType: "mdx",
@@ -176,7 +217,7 @@ export const configs = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [writing, notes, diagrams, configs],
+  documentTypes: [writing, notes, diagrams, crafts, configs],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
