@@ -95,6 +95,28 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
+            Writing
+          </Heading>
+          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+        </div>
+        <hr />
+        <ul className="grid gap-4">
+          <li>
+            <Text size="sm" color="light">
+              Soon ...
+            </Text>
+          </li>
+        </ul>
+      </section>
+      <section className="grid gap-4 md:px-10">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
             Notes
           </Heading>
           <Text color="base">
@@ -134,7 +156,7 @@ export default function Home() {
           ))}
         </ul>
       </section>
-      {/* <section className="grid gap-4 md:px-10">
+      <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -143,9 +165,9 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Writing
+            Craft
           </Heading>
-          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+          <Text color="base">Lorem</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
@@ -155,7 +177,7 @@ export default function Home() {
             </Text>
           </li>
         </ul>
-      </section> */}
+      </section>
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading

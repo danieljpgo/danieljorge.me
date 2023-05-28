@@ -7,7 +7,7 @@ import {
   type Configs,
 } from "contentlayer/generated";
 
-export type Heading = {
+type Heading = {
   level: number;
   content: string;
   slug: string;
