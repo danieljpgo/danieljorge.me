@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.png";
-import { notes } from "~/lib/contentlayer";
+import { notes, crafts } from "~/lib/contentlayer";
 import {
   GithubIcon,
   Heading,
@@ -13,6 +13,8 @@ import {
 
 export default function Home() {
   const notesPublished = notes.filter((note) => note.status === "published");
+  const craftsPublised = crafts;
+  // const craftsPublised = crafts.filter((craft) => craft.status === "published");
 
   return (
     <>
@@ -165,17 +167,41 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Craft
+            Crafts
           </Heading>
           <Text color="base">Lorem</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
-          <li>
-            <Text size="sm" color="light">
-              Soon ...
-            </Text>
-          </li>
+          {craftsPublised.map((craft) => (
+            <li key={craft.slug}>
+              <article className="grid gap-1">
+                <Link href={craft._raw.flattenedPath}>
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    {craft.title}
+                  </Heading>
+                </Link>
+                <div className="flex gap-2">
+                  <Text size="sm" color="light">
+                    {craft.createdAtFormatted}
+                  </Text>
+                  <Text size="sm" color="light">
+                    •
+                  </Text>
+                  <Text size="sm" color="light">
+                    {/* @ts-expect-error: */}
+                    <View slug={craft.slug} type="view" /> views
+                  </Text>
+                </div>
+              </article>
+            </li>
+          ))}
         </ul>
       </section>
       <section className="grid gap-4 md:px-10">
