@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import * as content from "~/components/content";
 import { cn } from "~/lib/tailwindcss";
 
 type MdxProps = {
@@ -78,6 +79,7 @@ export default function Mdx({ code }: MdxProps) {
           Image: ({ className, ...props }) => (
             <Image alt={props.alt} {...props} />
           ),
+          ...content,
         }}
       />
     </div>
