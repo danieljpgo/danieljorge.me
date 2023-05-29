@@ -83,7 +83,8 @@ export default function Crafts({ params }: CraftsProps) {
               </Text>
               <div className="max-w-[180px] sm:max-w-none">
                 <Text color="lighter" size="xs">
-                  Lorem
+                  Build, concepts, techniques, solutions and explaining in
+                  detail.
                 </Text>
               </div>
             </div>

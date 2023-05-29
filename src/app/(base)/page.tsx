@@ -13,8 +13,7 @@ import {
 
 export default function Home() {
   const notesPublished = notes.filter((note) => note.status === "published");
-  const craftsPublised = crafts;
-  // const craftsPublised = crafts.filter((craft) => craft.status === "published");
+  const craftsPublised = crafts.filter((craft) => craft.status === "published");
 
   return (
     <>
@@ -88,7 +87,7 @@ export default function Home() {
           </li>
         </ul>
       </section>
-      <section className="grid gap-4 md:px-10">
+      {/* <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -109,7 +108,7 @@ export default function Home() {
             </Text>
           </li>
         </ul>
-      </section>
+      </section> */}
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
@@ -169,7 +168,9 @@ export default function Home() {
           >
             Crafts
           </Heading>
-          <Text color="base">Lorem</Text>
+          <Text color="base">
+            Build, concepts, techniques, solutions and explaining in detail.
+          </Text>
         </div>
         <hr />
         <ul className="grid gap-4">
