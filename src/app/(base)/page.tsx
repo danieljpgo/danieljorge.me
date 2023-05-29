@@ -157,7 +157,7 @@ export default function Home() {
           ))}
         </ul>
       </section>
-      <section className="grid gap-4 md:px-10">
+      {/* <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -196,7 +196,6 @@ export default function Home() {
                     •
                   </Text>
                   <Text size="sm" color="light">
-                    {/* @ts-expect-error: */}
                     <View slug={craft.slug} type="view" /> views
                   </Text>
                 </div>
@@ -204,7 +203,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-      </section>
+      </section> */}
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
