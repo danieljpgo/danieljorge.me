@@ -32,3 +32,9 @@ export const crafts: Array<
 export const configs: Array<
   Omit<Configs, "headings"> & { headings: Array<Heading> }
 > = allConfigs;
+
+export const tags = {
+  web: "Web",
+  css: "CSS",
+  react: "React",
+};

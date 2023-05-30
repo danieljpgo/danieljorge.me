@@ -1,6 +1,7 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import { rehype } from "./lib/rehype";
 import { formatDate } from "./lib/date";
+import { tags } from "./lib/contentlayer";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
 
@@ -89,10 +90,11 @@ export const notes = defineDocumentType(() => ({
       options: ["draft", "published"],
       required: true,
     },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
-    // },
+    tags: {
+      type: "enum",
+      options: Object.values(tags),
+      required: true,
+    },
   },
   computedFields: {
     ...computedFields,
@@ -202,8 +204,9 @@ export const configs = defineDocumentType(() => ({
       required: false,
     },
     // tags: {
-    //   type: "list",
-    //   of: Tag,
+    //   type: "enum",
+    //   options: Object.values(tags),
+    //   required: true,
     // },
   },
   computedFields: {
