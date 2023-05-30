@@ -17,7 +17,9 @@ type Heading = {
 
 export const notes: Array<
   Omit<Notes, "headings"> & { headings: Array<Heading> }
-> = allNotes;
+> = [...allNotes].sort(
+  (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
+);
 
 export const diagrams: Array<
   Omit<Diagrams, "headings"> & { headings: Array<Heading> }
@@ -27,14 +29,12 @@ export const diagrams: Array<
 
 export const crafts: Array<
   Omit<Crafts, "headings"> & { headings: Array<Heading> }
-> = allCrafts;
+> = [...allCrafts].sort(
+  (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+);
 
 export const configs: Array<
   Omit<Configs, "headings"> & { headings: Array<Heading> }
-> = allConfigs;
-
-export const tags = {
-  web: "Web",
-  css: "CSS",
-  react: "React",
-};
+> = [...allConfigs].sort(
+  (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+);

@@ -1,9 +1,9 @@
-import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import { rehype } from "./lib/rehype";
-import { formatDate } from "./lib/date";
-import { tags } from "./lib/contentlayer";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
+import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import { formatDate } from "./lib/date";
+import { rehype } from "./lib/rehype";
+import { topics } from "./lib/content";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -90,9 +90,12 @@ export const notes = defineDocumentType(() => ({
       options: ["draft", "published"],
       required: true,
     },
-    tags: {
-      type: "enum",
-      options: Object.values(tags),
+    topics: {
+      type: "list",
+      of: {
+        type: "enum",
+        options: Object.keys(topics),
+      },
       required: true,
     },
   },
@@ -127,10 +130,6 @@ export const diagrams = defineDocumentType(() => ({
       required: true,
       of: { type: "string" },
     },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
-    // },
   },
   computedFields: {
     ...computedFields,
@@ -158,19 +157,15 @@ export const crafts = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
-    // images: {
-    //   type: "list",
-    //   required: true,
-    //   of: { type: "string" },
-    // },
     status: {
       type: "enum",
       options: ["draft", "published"],
       required: true,
     },
-    // tags: {
+    // images: {
     //   type: "list",
-    //   of: Tag,
+    //   required: true,
+    //   of: { type: "string" },
     // },
   },
   computedFields: {
@@ -203,11 +198,6 @@ export const configs = defineDocumentType(() => ({
       type: "date",
       required: false,
     },
-    // tags: {
-    //   type: "enum",
-    //   options: Object.values(tags),
-    //   required: true,
-    // },
   },
   computedFields: {
     ...computedFields,
