@@ -54,10 +54,14 @@ export const writing = defineDocumentType(() => ({
       options: ["draft", "published"],
       required: true,
     },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
-    // },
+    topics: {
+      type: "list",
+      of: {
+        type: "enum",
+        options: Object.keys(topics),
+      },
+      required: true,
+    },
   },
   computedFields: {
     ...computedFields,
@@ -130,6 +134,14 @@ export const diagrams = defineDocumentType(() => ({
       required: true,
       of: { type: "string" },
     },
+    topics: {
+      type: "list",
+      of: {
+        type: "enum",
+        options: Object.keys(topics),
+      },
+      required: true,
+    },
   },
   computedFields: {
     ...computedFields,
@@ -160,6 +172,14 @@ export const crafts = defineDocumentType(() => ({
     status: {
       type: "enum",
       options: ["draft", "published"],
+      required: true,
+    },
+    topics: {
+      type: "list",
+      of: {
+        type: "enum",
+        options: Object.keys(topics),
+      },
       required: true,
     },
     // images: {

@@ -1,12 +1,12 @@
 import {
-  allNotes,
-  allDiagrams,
-  allConfigs,
-  allCrafts,
   type Notes,
   type Diagrams,
   type Configs,
   type Crafts,
+  allNotes,
+  allDiagrams,
+  allConfigs,
+  allCrafts,
 } from "contentlayer/generated";
 
 type Heading = {
