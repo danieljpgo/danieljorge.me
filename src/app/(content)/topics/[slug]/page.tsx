@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Heading, Text, View } from "~/components";
 
 type TopicProps = {
-  params: { slug: string };
+  params: { slug: keyof typeof topics };
 };
 
 export default function Topic({ params }: TopicProps) {
@@ -77,5 +77,7 @@ export default function Topic({ params }: TopicProps) {
 export async function generateStaticParams(): Promise<
   Array<TopicProps["params"]>
 > {
-  return Object.keys(topics).map((slug) => ({ slug }));
+  return (Object.keys(topics) as Array<keyof typeof topics>).map((slug) => ({
+    slug,
+  }));
 }
