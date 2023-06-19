@@ -5,6 +5,31 @@ import { formatDate } from "./lib/date";
 import { rehype } from "./lib/rehype";
 import { topics } from "./lib/content";
 
+/** @type {import("contentlayer/source-files").FieldDef} */
+const fields = {
+  title: {
+    type: "string",
+    required: true,
+  },
+  description: {
+    type: "string",
+    required: true,
+  },
+  status: {
+    type: "enum",
+    options: ["draft", "published"],
+    required: true,
+  },
+  topics: {
+    type: "list",
+    of: {
+      type: "enum",
+      options: Object.keys(topics),
+    },
+    required: true,
+  },
+};
+
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
   slug: {
@@ -37,29 +62,9 @@ export const writing = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "writing/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     publishedAt: {
       type: "date",
-      required: true,
-    },
-    status: {
-      type: "enum",
-      options: ["draft", "published"],
-      required: true,
-    },
-    topics: {
-      type: "list",
-      of: {
-        type: "enum",
-        options: Object.keys(topics),
-      },
       required: true,
     },
   },
@@ -77,29 +82,9 @@ export const notes = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "notes/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     publishedAt: {
       type: "date",
-      required: true,
-    },
-    status: {
-      type: "enum",
-      options: ["draft", "published"],
-      required: true,
-    },
-    topics: {
-      type: "list",
-      of: {
-        type: "enum",
-        options: Object.keys(topics),
-      },
       required: true,
     },
   },
@@ -117,14 +102,7 @@ export const diagrams = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "diagrams/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     createdAt: {
       type: "date",
       required: true,
@@ -133,14 +111,6 @@ export const diagrams = defineDocumentType(() => ({
       type: "list",
       required: true,
       of: { type: "string" },
-    },
-    topics: {
-      type: "list",
-      of: {
-        type: "enum",
-        options: Object.keys(topics),
-      },
-      required: true,
     },
   },
   computedFields: {
@@ -157,36 +127,11 @@ export const crafts = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "crafts/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     createdAt: {
       type: "date",
       required: true,
     },
-    status: {
-      type: "enum",
-      options: ["draft", "published"],
-      required: true,
-    },
-    topics: {
-      type: "list",
-      of: {
-        type: "enum",
-        options: Object.keys(topics),
-      },
-      required: true,
-    },
-    // images: {
-    //   type: "list",
-    //   required: true,
-    //   of: { type: "string" },
-    // },
   },
   computedFields: {
     ...computedFields,
@@ -202,14 +147,7 @@ export const configs = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "configs/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     createdAt: {
       type: "date",
       required: true,
