@@ -57,8 +57,8 @@ const computedFields = {
   },
 };
 
-export const writing = defineDocumentType(() => ({
-  name: "Writing",
+export const writings = defineDocumentType(() => ({
+  name: "Writings",
   contentType: "mdx",
   filePathPattern: "writing/*.mdx",
   fields: {
@@ -168,7 +168,7 @@ export const configs = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [writing, notes, diagrams, crafts, configs],
+  documentTypes: [writings, notes, diagrams, crafts, configs],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
