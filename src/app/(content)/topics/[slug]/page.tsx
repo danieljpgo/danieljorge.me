@@ -1,7 +1,7 @@
-import { configs, crafts, diagrams, notes } from "~/lib/contentlayer";
-import { topics } from "~/lib/content";
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { topics } from "~/lib/content";
+import { documents } from "~/lib/contentlayer";
 import { Heading, Text, View } from "~/components";
 
 type TopicProps = {
@@ -13,31 +13,31 @@ export default function Topic({ params }: TopicProps) {
     notFound();
   }
 
-  const selectedNotes = notes.filter((notes) =>
-    notes.topics.includes(params.slug),
+  const selectedDocuments = documents.filter((document) =>
+    document.topics.includes(params.slug),
   );
-  const selectedCraft = crafts.filter((craft) =>
-    craft.topics.includes(params.slug),
-  );
-  const selectedDiagrams = diagrams.filter((diagram) =>
-    diagram.topics.includes(params.slug),
-  );
-  // const selectedConfigs = configs.find((config) =>
-  //   config.topics.includes(params.slug),
-  // );
 
-  console.log(selectedNotes.map((data) => data.title));
-  console.log(selectedCraft.map((data) => data.title));
-  console.log(selectedDiagrams.map((data) => data.title));
-  // console.log(selectedConfigs);
   return (
-    <div>
-      <ul className="grid gap-4">
-        {[...selectedNotes, ...selectedCraft, ...selectedDiagrams].map(
-          (diagram) => (
-            <li key={diagram.slug}>
+    <>
+      <div className="flex flex-col gap-2 pt-7">
+        <Heading
+          as="h1"
+          size="2xl"
+          weight="semibold"
+          leading="tight"
+          color="darker"
+        >
+          {topics[params.slug]}
+        </Heading>
+        <Text color="base">{`lorem`}</Text>
+      </div>
+      <hr />
+      <div className="grid gap-4">
+        <ul className="grid gap-4">
+          {selectedDocuments.map((content) => (
+            <li key={content.slug}>
               <article className="grid gap-1">
-                <Link href={diagram._raw.flattenedPath}>
+                <Link href={content._raw.flattenedPath}>
                   <Heading
                     as="h3"
                     size="base"
@@ -45,16 +45,16 @@ export default function Topic({ params }: TopicProps) {
                     leading="tight"
                     color="darker"
                   >
-                    {diagram.title}
+                    {content.title}
                   </Heading>
                 </Link>
                 <div className="flex gap-2">
                   <Text size="sm" color="light">
                     {(() => {
-                      if ("createdAtFormatted" in diagram) {
-                        return diagram.createdAtFormatted;
+                      if ("createdAt" in content) {
+                        return content.createdAtFormatted;
                       }
-                      return diagram.publishedAtFormatted;
+                      return content.publishedAtFormatted;
                     })()}
                   </Text>
                   <Text size="sm" color="light">
@@ -62,15 +62,27 @@ export default function Topic({ params }: TopicProps) {
                   </Text>
                   <Text size="sm" color="light">
                     {/* @ts-expect-error: */}
-                    <View slug={diagram.slug} type="view" /> views
+                    <View slug={content.slug} type="view" /> views
                   </Text>
                 </div>
               </article>
             </li>
-          ),
-        )}
-      </ul>
-    </div>
+          ))}
+        </ul>
+        <hr />
+        <div className="flex justify-center pb-8">
+          <Link
+            href="/"
+            className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+          >
+            <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
+              ←
+            </span>
+            Home
+          </Link>
+        </div>
+      </div>
+    </>
   );
 }
 
