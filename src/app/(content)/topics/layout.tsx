@@ -33,7 +33,7 @@ export default function TopicsLayout({ children }: TopicsLayoutProps) {
             </li>
           ))}
         </ul>
-        <div>{children}</div>
+        {children}
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
