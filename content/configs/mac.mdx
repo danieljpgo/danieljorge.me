@@ -1,5 +1,5 @@
 ---
-title: Mac
+title: Mac OS
 description: Demo
 createdAt: "2023-05-21"
 status: "draft"
@@ -19,32 +19,43 @@ status: "draft"
 
 # ````bash title="Terminal"
 # defaults delete com.apple.dock autohide-time-modifier;killall Dock
-# ``` */}
-# ````
+# ```
 
 # http://hints.macworld.com/article.php?story=20090823193018149
 # https://gist.github.com/mbinna/2357277
 ---
 
-## Remove here
+## .
 
-## Faster key repeat rate
+## Keyboard
 
-{/* ## Faster keyboard response (minimum is 2) */}
+Here's a list of essential commands to improve keyboard efficiency on **macOS** and streamline your workflow.
+
+{/* ## Faster key repeat rate */}
+
+### Faster keyboard response
+
+{/* (minimum is 2) */}
 
 ```bash title="Terminal"
 defaults write NSGlobalDomain KeyRepeat -int 1
 ```
 
-## Reduced delay until repeat
+{/* ## Reduced delay until repeat */}
 
-{/* ## Reduced key repeat delay (minimumis is 15) */}
+### Reduced key repeat delay
+
+{/* (minimumis is 15) */}
 
 ```bash title="Terminal"
 defaults write NSGlobalDomain InitialKeyRepeat -int 12
 ```
 
-## Remove dock show/hide delay
+## OS
+
+Here's is a list of changes, settings and commands to improve the use of the operating system.
+
+### Remove dock show/hide delay
 
 First, activate auto-hide in System Preferences → Dock → Autohide
 
@@ -60,3 +71,11 @@ Revert
 ```bash title="Terminal"
 defaults delete com.apple.dock autohide-delay; killall Dock
 ```
+
+remover Siri Suggestions no spotlight
+
+## Apps
+
+### Rectangle
+
+@TODO adicionar uma foto da keys utilizadas no rectangle
