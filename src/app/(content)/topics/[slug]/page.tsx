@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { topics } from "~/lib/content";
 import { documents } from "~/lib/contentlayer";
 import { Heading, Text, View } from "~/components";
+import { formatDateNumerical } from "~/lib/date";
+import { genericMetadata } from "~/lib/metadata";
 
 type TopicProps = {
   params: { slug: keyof typeof topics };
@@ -92,4 +95,65 @@ export async function generateStaticParams(): Promise<
   return (Object.keys(topics) as Array<keyof typeof topics>).map((slug) => ({
     slug,
   }));
+}
+
+type generateMetadataProps = {
+  params: TopicProps["params"];
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+export async function generateMetadata({
+  params,
+}: generateMetadataProps): Promise<Metadata> {
+  const selectedDocuments = documents.filter((document) =>
+    document.topics.includes(params.slug),
+  );
+  if (!selectedDocuments.length) {
+    notFound();
+  }
+
+  const url = `${
+    process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL
+      : "http://localhost:3000"
+  }/api/og?${new URLSearchParams({
+    title: topics[params.slug],
+    description: "lorem",
+    type: "list",
+    items: selectedDocuments
+      .map((a) => {
+        if ("createdAt" in a) {
+          return `${formatDateNumerical(a.createdAt)};${a.title}`;
+        }
+        return `${formatDateNumerical(a.publishedAt)};${a.title}`;
+      })
+      .slice(0, 10)
+      .join("|"),
+  }).toString()}`;
+
+  return {
+    title: topics[params.slug],
+    description: "lorem",
+    twitter: {
+      ...genericMetadata.twitter,
+      title: topics[params.slug],
+      description: "lorem",
+      images: {
+        ...genericMetadata.twitter.images,
+        url,
+        // alt: `Banner with title "${note.title}" and description "${note.description}"`,
+      },
+    },
+    openGraph: {
+      ...genericMetadata.openGraph,
+      title: topics[params.slug],
+      description: "lorem",
+      images: [
+        {
+          ...genericMetadata.openGraph.images[0],
+          url,
+          // alt: `Banner with title "${note.title}" and description "${note.description}"`,
+        },
+      ],
+    },
+  };
 }
