@@ -26,13 +26,13 @@ export default function TopicsLayout({ children }: TopicsLayoutProps) {
         </nav>
       </aside>
       <article className="grid w-full max-w-2xl gap-4">
-        <ul className="flex gap-2">
+        {/* <ul className="flex gap-2">
           {(Object.keys(topics) as Array<keyof typeof topics>).map((topic) => (
             <li key={topic}>
               <Link href={`/topics/${topic}`}>{topics[topic]}</Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
         {children}
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">

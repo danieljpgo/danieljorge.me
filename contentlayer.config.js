@@ -178,5 +178,3 @@ export default makeSource({
     ],
   },
 });
-
-// @TODO Voltar aqui e adicionar tags
