@@ -186,4 +186,3 @@ export async function generateMetadata({
 
 // @TODO: melhorar lidar com caso de não encontrar o note, 404?
 // @TODO: bug de renderização do botão voltar
-// @TODO: animação para views (tabular-nums?)
