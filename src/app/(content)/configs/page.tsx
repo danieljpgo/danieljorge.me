@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         description:
           "Settings, shortcuts and everything related to productivity.",
         type: "list",
-        items: diagrams
+        items: configs
           .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
           .slice(0, 10)
           .join("|"),
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ...genericMetadata.openGraph,
-    title: "Diagrams",
+    title: "Configs",
     description: "Settings, shortcuts and everything related to productivity.",
     images: [
       {
@@ -43,11 +43,11 @@ export const metadata: Metadata = {
             ? "https://" + process.env.VERCEL_URL
             : "http://localhost:3000"
         }/api/og?${new URLSearchParams({
-          title: "Diagrams",
+          title: "Configs",
           description:
             "Settings, shortcuts and everything related to productivity.",
           type: "list",
-          items: diagrams
+          items: configs
             .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
             .slice(0, 10)
             .join("|"),
@@ -88,8 +88,7 @@ export default function Configs() {
             Configs
           </Heading>
           <Text color="base">
-            {`A list of diagrams I've created over time to help me explain
-           and think about concepts, design solutions and more.`}
+            {`Settings, shortcuts and everything related to productivity.`}
           </Text>
         </div>
         <hr />
