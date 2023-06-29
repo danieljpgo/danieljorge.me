@@ -175,4 +175,121 @@ Lorem
 }
 ```
 
+## Snippets
+
+### react.code-snippets
+
+```json
+{
+  "rfc": {
+    "prefix": "rfc",
+    "body": [
+      "type ${1:Name}Props = {};",
+      "",
+      "export default function ${1:Name}(props: ${1:Name}Props) {",
+      "  const {} = props",
+      "",
+      "  return (",
+      "    <div>${2:JSX}</div>",
+      "  );",
+      "}",
+      ""
+    ],
+    "description": "Create a React Component with TypeScript"
+  },
+  "rfct": {
+    "prefix": "rfct",
+    "body": [
+      "type ${1:Name}Props = {",
+      " ${2}",
+      "};",
+      "export default function ${1:Name}(props: ${1:Name}Props) {",
+      "  const { ${2} } = props",
+      "",
+      "  return (",
+      "    <div>Hello ${1:Name}</div>",
+      "  );",
+      "}",
+      ""
+    ],
+    "description": "Create a React Component with TypeScript"
+  },
+  "han": {
+    "prefix": "handle",
+    "body": [
+      "function handle${1:name}(${2:args}: ${3:type}) {",
+      "  ${4:code}",
+      "}"
+    ],
+    "description": "Function"
+  },
+  "reducer": {
+    "prefix": "rcr",
+    "body": [
+      "import * as React from 'react';",
+      "",
+      "type ${1:Name} = {};",
+      "",
+      "type ${1:Name}Action =",
+      "| { type: 'ADD' }",
+      "| { type: 'EDIT' }",
+      "| { type: 'REMOVE' };",
+      "",
+      "const initialState: ${1:Name} = {};",
+      "",
+      "function ${1:Name}Reducer(",
+      "  state: typeof initialState,",
+      "  action: ${1:Name}Action,",
+      "): ${1:Name} {",
+      "  switch (action.type) {",
+      "    case 'ADD':",
+      "      return {};",
+      "    case 'EDIT':",
+      "      return {};",
+      "    case 'REMOVE':",
+      "      return {};",
+      "",
+      "    default:",
+      "      throw new Error(`Unhandled action type: ${action}`);",
+      "  }",
+      "}",
+      "",
+      "type ${1:Name}ContextType = [${1:Name}, React.Dispatch<${1:Name}Action>] | undefined;",
+      "const ${1:Name}Context =",
+      "  React.createContext<${1:Name}ContextType>(undefined);",
+      "${1:Name}Context.displayName = '${1:Name}Context';",
+      "",
+      "type ${1:Name}ContextProps = {",
+      "  children: React.ReactNode;",
+      "};",
+      "export function ${1:Name}Provider(props: ${1:Name}ContextProps) {",
+      "  const { children } = props;",
+      "  const [state, dispatch] = React.useReducer(",
+      "    ${1:Name}Reducer,",
+      "    initialState,",
+      "  );",
+      "",
+      "  return (",
+      "    <${1:Name}Context.Provider value={[state, dispatch]}>",
+      "      {children}",
+      "    </${1:Name}Context.Provider>",
+      "  );",
+      "}",
+      "",
+      "export function use${1:Name}() {",
+      "  const context = React.useContext(${1:Name}Context);",
+      "  if (context === undefined) {",
+      "    throw new Error(",
+      "      'use${1:Name} must be used within a ${1:Name}Context.',",
+      "    );",
+      "  }",
+      "  return context;",
+      "}",
+      ""
+    ],
+    "description": "reducer"
+  }
+}
+```
+
 ## Extension
