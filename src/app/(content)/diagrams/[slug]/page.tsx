@@ -5,6 +5,7 @@ import { cn } from "~/lib/tailwindcss";
 import { diagrams } from "~/lib/contentlayer";
 import { genericMetadata } from "~/lib/metadata";
 import { Heading, Text, Mdx, View } from "~/components";
+import { topics } from "~/lib/content";
 
 type DiagramProps = {
   params: { slug: string };
@@ -60,9 +61,20 @@ export default function Diagram({ params }: DiagramProps) {
       </aside>
       <article className="grid w-full max-w-2xl gap-4">
         <div className="flex flex-col gap-2">
-          <Text size="sm" color="light">
-            {diagram.createdAtFormatted}
-          </Text>
+          <div className="flex items-baseline justify-between">
+            <Text size="sm" color="light">
+              {diagram.createdAtFormatted}
+            </Text>
+            <div className="flex justify-end gap-1 text-right">
+              <Text color="lighter" size="xs">
+                {/* @ts-expect-error: */}
+                <View slug={params.slug} type="counter" />
+              </Text>
+              <Text color="lighter" size="xs">
+                views
+              </Text>
+            </div>
+          </div>
           <Heading
             as="h1"
             size="2xl"
@@ -77,7 +89,18 @@ export default function Diagram({ params }: DiagramProps) {
         <hr />
         <div className="grid gap-8">
           <div className="flex items-baseline justify-between">
-            <div>
+            <div className="flex flex-col flex-wrap">
+              {/* {diagram.topics.map((topic) => (
+                <Link
+                  href={`/topics/${topic}`}
+                  prefetch={false}
+                  key={topic}
+                  className="group flex gap-2 whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                >
+                  {topics[topic]}
+                </Link>
+              ))} */}
+
               <Text color="light" size="xs" weight="medium">
                 Diagrams
               </Text>
@@ -87,14 +110,22 @@ export default function Diagram({ params }: DiagramProps) {
                 </Text>
               </div>
             </div>
-            <div className="gap-1 self-end text-right md:flex">
-              <Text color="lighter" size="xs">
-                {/* @ts-expect-error: */}
-                <View slug={params.slug} type="counter" />
-              </Text>
-              <Text color="lighter" size="xs">
-                views
-              </Text>
+            {/* <div className="gap-1 self-end text-right md:flex"> */}
+            <div>
+              <div className="column-gap-1 flex max-w-[100px] flex-wrap justify-end md:flex-row">
+                {[...diagram.topics]
+                  .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
+                  .map((topic) => (
+                    <Link
+                      href={`/topics/${topic}`}
+                      prefetch={false}
+                      key={topic}
+                      className="group flex whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                    >
+                      {topics[topic]}
+                    </Link>
+                  ))}
+              </div>
             </div>
           </div>
           <Mdx code={diagram.body.code} />
