@@ -7,11 +7,11 @@ import { genericMetadata } from "~/lib/metadata";
 import { Heading, Text, Mdx, View } from "~/components";
 import { topics } from "~/lib/content";
 
-type NoteProps = {
+type WritingProps = {
   params: { slug: string };
 };
 
-export default function Note({ params }: NoteProps) {
+export default function Writing({ params }: WritingProps) {
   const writing = writings.find((writing) => writing.slug === params.slug);
 
   if (!writing) {
@@ -91,17 +91,17 @@ export default function Note({ params }: NoteProps) {
           <div className="flex items-baseline justify-between">
             <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
-                Notes
+                Writings
               </Text>
               <div className="max-w-[180px] sm:max-w-none">
                 <Text color="lighter" size="xs">
-                  Loose, short-form thoughts, reflections, and ideas.
+                  Crafted, long form thoughts and ideas.
                 </Text>
               </div>
             </div>
             <div>
               <div className="flex max-w-[100px] flex-wrap justify-end gap-x-1 md:flex-row">
-                {[...writing.topics]
+                {writing.topics
                   .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
                   .map((topic) => (
                     <Link
@@ -147,7 +147,7 @@ export default function Note({ params }: NoteProps) {
 }
 
 export async function generateStaticParams(): Promise<
-  Array<NoteProps["params"]>
+  Array<WritingProps["params"]>
 > {
   return writings.map((page) => ({ slug: page.slug }));
 }
@@ -203,5 +203,5 @@ export async function generateMetadata({
   };
 }
 
-// @TODO: melhorar lidar com caso de não encontrar o note, 404?
+// @TODO: melhorar lidar com caso de não encontrar o , 404?
 // @TODO: bug de renderização do botão voltar
