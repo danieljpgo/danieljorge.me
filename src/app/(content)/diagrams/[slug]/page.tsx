@@ -90,17 +90,6 @@ export default function Diagram({ params }: DiagramProps) {
         <div className="grid gap-8">
           <div className="flex items-baseline justify-between">
             <div className="flex flex-col flex-wrap">
-              {/* {diagram.topics.map((topic) => (
-                <Link
-                  href={`/topics/${topic}`}
-                  prefetch={false}
-                  key={topic}
-                  className="group flex gap-2 whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
-                >
-                  {topics[topic]}
-                </Link>
-              ))} */}
-
               <Text color="light" size="xs" weight="medium">
                 Diagrams
               </Text>
@@ -110,17 +99,16 @@ export default function Diagram({ params }: DiagramProps) {
                 </Text>
               </div>
             </div>
-            {/* <div className="gap-1 self-end text-right md:flex"> */}
             <div>
-              <div className="column-gap-1 flex max-w-[100px] flex-wrap justify-end md:flex-row">
+              <div className="flex max-w-[100px] flex-wrap justify-end gap-x-1 md:flex-row">
                 {[...diagram.topics]
                   .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
                   .map((topic) => (
                     <Link
+                      key={topic}
                       href={`/topics/${topic}`}
                       prefetch={false}
-                      key={topic}
-                      className="group flex whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                      className="whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
                     >
                       {topics[topic]}
                     </Link>
