@@ -1,8 +1,14 @@
 import type { MetadataRoute } from "next";
-import { topics } from "~/lib/content";
-import { notes, diagrams, documents } from "~/lib/contentlayer";
+import { notes, writings, diagrams, documents } from "~/lib/contentlayer";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const writingsRoute = writings
+    .filter((writing) => writing.status === "published")
+    .map((writing) => ({
+      url: `https://danieljorge.me/writings/${writing.slug}`,
+      lastModified: writing.publishedAt.split("T")[0],
+    }));
+
   const notesRoute = notes
     .filter((note) => note.status === "published")
     .map((note) => ({
@@ -27,5 +33,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
-  return [...routes, ...notesRoute, ...diagramsRoute, ...topicsRoute];
+  return [
+    ...routes,
+    ...writingsRoute,
+    ...notesRoute,
+    ...diagramsRoute,
+    ...topicsRoute,
+  ];
 }
