@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.png";
-import { notes, crafts } from "~/lib/contentlayer";
+import { notes } from "~/lib/contentlayer";
 import {
   GithubIcon,
   Heading,
@@ -12,9 +12,6 @@ import {
 } from "~/components";
 
 export default function Home() {
-  const notesPublished = notes.filter((note) => note.status === "published");
-  const craftsPublised = crafts.filter((craft) => craft.status === "published");
-
   return (
     <>
       <section className="grid gap-8 md:px-10">
@@ -126,7 +123,7 @@ export default function Home() {
         </div>
         <hr />
         <ul className="grid gap-4">
-          {notesPublished.map((note) => (
+          {notes.map((note) => (
             <li key={note.slug}>
               <article className="grid gap-1">
                 <Link href={note._raw.flattenedPath}>
