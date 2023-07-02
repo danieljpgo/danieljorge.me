@@ -5,6 +5,7 @@ import { cn } from "~/lib/tailwindcss";
 import { notes } from "~/lib/contentlayer";
 import { genericMetadata } from "~/lib/metadata";
 import { Heading, Text, Mdx, View } from "~/components";
+import { topics } from "~/lib/content";
 
 type NoteProps = {
   params: { slug: string };
@@ -60,9 +61,20 @@ export default function Note({ params }: NoteProps) {
       </aside>
       <article className="grid w-full max-w-2xl gap-4">
         <div className="flex flex-col gap-2">
-          <Text size="sm" color="light">
-            {note.publishedAtFormatted}
-          </Text>
+          <div className="flex items-baseline justify-between">
+            <Text size="sm" color="light">
+              {note.publishedAtFormatted}
+            </Text>
+            <div className="flex justify-end gap-1 text-right">
+              <Text color="lighter" size="xs">
+                {/* @ts-expect-error: */}
+                <View slug={params.slug} type="counter" />
+              </Text>
+              <Text color="lighter" size="xs">
+                views
+              </Text>
+            </div>
+          </div>
           <Heading
             as="h1"
             size="2xl"
@@ -77,7 +89,7 @@ export default function Note({ params }: NoteProps) {
         <hr />
         <div className="grid gap-8">
           <div className="flex items-baseline justify-between">
-            <div>
+            <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
                 Notes
               </Text>
@@ -87,14 +99,21 @@ export default function Note({ params }: NoteProps) {
                 </Text>
               </div>
             </div>
-            <div className="gap-1 self-end text-right md:flex">
-              <Text color="lighter" size="xs">
-                {/* @ts-expect-error: */}
-                <View slug={params.slug} type="counter" />
-              </Text>
-              <Text color="lighter" size="xs">
-                views
-              </Text>
+            <div>
+              <div className="flex max-w-[100px] flex-wrap justify-end gap-x-1 md:flex-row">
+                {[...note.topics]
+                  .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
+                  .map((topic) => (
+                    <Link
+                      key={topic}
+                      href={`/topics/${topic}`}
+                      prefetch={false}
+                      className="whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                    >
+                      {topics[topic]}
+                    </Link>
+                  ))}
+              </div>
             </div>
           </div>
           <Mdx code={note.body.code} />
@@ -186,4 +205,3 @@ export async function generateMetadata({
 
 // @TODO: melhorar lidar com caso de não encontrar o note, 404?
 // @TODO: bug de renderização do botão voltar
-// @TODO: animação para views (tabular-nums?)
