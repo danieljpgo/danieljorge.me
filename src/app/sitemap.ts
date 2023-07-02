@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { topics } from "~/lib/content";
-import { notes, diagrams } from "~/lib/contentlayer";
+import { notes, diagrams, documents } from "~/lib/contentlayer";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const notesRoute = notes.map((note) => ({
@@ -13,7 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: diagram.createdAt.split("T")[0],
   }));
 
-  const topicsRoute = Object.keys(topics).map((slug) => ({
+  const topicsRoute = [
+    ...new Set(documents.map((content) => content.topics).flat()),
+  ].map((slug) => ({
     url: `https://danieljorge.me/topics/${slug}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));

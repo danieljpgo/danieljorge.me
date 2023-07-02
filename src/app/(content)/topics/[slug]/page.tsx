@@ -50,7 +50,7 @@ export default function Topic({ params }: TopicProps) {
           >
             {topics[params.slug]}
           </Heading>
-          <Text color="base">{`Writings, notes, and more related to ${
+          <Text color="base">{`Writings, notes, diagrams, and more related to ${
             topics[params.slug]
           }`}</Text>
         </div>
@@ -149,7 +149,9 @@ export async function generateMetadata({
       : "http://localhost:3000"
   }/api/og?${new URLSearchParams({
     title: topics[params.slug],
-    description: `Writings, notes, and more related to ${topics[params.slug]}`,
+    description: `Writings, notes, diagrams and more related to ${
+      topics[params.slug]
+    }`,
     type: "list",
     items: selectedDocuments
       .map((a) => {
@@ -163,12 +165,14 @@ export async function generateMetadata({
   }).toString()}`;
 
   return {
-    title: topics[params.slug],
-    description: `Writings, notes, and more related to ${topics[params.slug]}`,
+    title: `${topics[params.slug]} - Topics`,
+    description: `Writings, notes, diagrams and more related to ${
+      topics[params.slug]
+    }`,
     twitter: {
       ...genericMetadata.twitter,
       title: topics[params.slug],
-      description: `Writings, notes, and more related to ${
+      description: `Writings, notes, diagrams and more related to ${
         topics[params.slug]
       }`,
       images: {
@@ -180,7 +184,7 @@ export async function generateMetadata({
     openGraph: {
       ...genericMetadata.openGraph,
       title: topics[params.slug],
-      description: `Writings, notes, and more related to ${
+      description: `Writings, notes, diagrams and more related to ${
         topics[params.slug]
       }`,
       images: [
