@@ -60,7 +60,7 @@ const computedFields = {
 export const writings = defineDocumentType(() => ({
   name: "Writings",
   contentType: "mdx",
-  filePathPattern: "writing/*.mdx",
+  filePathPattern: "writings/*.mdx",
   fields: {
     ...fields,
     publishedAt: {
@@ -152,18 +152,9 @@ export const configs = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
-    updatedAt: {
-      type: "date",
-      required: false,
-    },
-    status: {
-      type: "enum",
-      options: ["draft", "published"],
-      required: true,
-    },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
+    // updatedAt: {
+    //   type: "date",
+    //   required: false,
     // },
   },
   computedFields: {

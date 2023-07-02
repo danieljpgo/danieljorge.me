@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.png";
-import { notes } from "~/lib/contentlayer";
+import { notes, writings } from "~/lib/contentlayer";
 import {
   GithubIcon,
   Heading,
@@ -84,7 +84,7 @@ export default function Home() {
           </li>
         </ul>
       </section>
-      {/* <section className="grid gap-4 md:px-10">
+      <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -93,19 +93,43 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Writing
+            Writings
           </Heading>
           <Text color="base">Crafted, long form thoughts and ideas.</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
-          <li>
-            <Text size="sm" color="light">
-              Soon ...
-            </Text>
-          </li>
+          {writings.map((writing) => (
+            <li key={writing.slug}>
+              <article className="grid gap-1">
+                <Link href={writing._raw.flattenedPath}>
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    {writing.title}
+                  </Heading>
+                </Link>
+                <div className="flex gap-2">
+                  <Text size="sm" color="light">
+                    {writing.publishedAtFormatted}
+                  </Text>
+                  <Text size="sm" color="light">
+                    •
+                  </Text>
+                  <Text size="sm" color="light">
+                    {/* @ts-expect-error: */}
+                    <View slug={writing.slug} type="view" /> views
+                  </Text>
+                </div>
+              </article>
+            </li>
+          ))}
         </ul>
-      </section> */}
+      </section>
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
