@@ -12,8 +12,6 @@ import {
 } from "~/components";
 
 export default function Home() {
-  const notesPublished = notes.filter((note) => note.status === "published");
-
   return (
     <>
       <section className="grid gap-8 md:px-10">
@@ -86,6 +84,28 @@ export default function Home() {
           </li>
         </ul>
       </section>
+      {/* <section className="grid gap-4 md:px-10">
+        <div className="grid gap-2">
+          <Heading
+            as="h2"
+            size="xl"
+            weight="semibold"
+            leading="tight"
+            color="darker"
+          >
+            Writing
+          </Heading>
+          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+        </div>
+        <hr />
+        <ul className="grid gap-4">
+          <li>
+            <Text size="sm" color="light">
+              Soon ...
+            </Text>
+          </li>
+        </ul>
+      </section> */}
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
@@ -103,7 +123,7 @@ export default function Home() {
         </div>
         <hr />
         <ul className="grid gap-4">
-          {notesPublished.map((note) => (
+          {notes.map((note) => (
             <li key={note.slug}>
               <article className="grid gap-1">
                 <Link href={note._raw.flattenedPath}>
@@ -143,17 +163,42 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Writing
+            Crafts
           </Heading>
-          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+          <Text color="base">
+            Build, concepts, techniques, solutions and explaining in detail.
+          </Text>
         </div>
         <hr />
         <ul className="grid gap-4">
-          <li>
-            <Text size="sm" color="light">
-              Soon ...
-            </Text>
-          </li>
+          {craftsPublised.map((craft) => (
+            <li key={craft.slug}>
+              <article className="grid gap-1">
+                <Link href={craft._raw.flattenedPath}>
+                  <Heading
+                    as="h3"
+                    size="base"
+                    weight="medium"
+                    leading="tight"
+                    color="darker"
+                  >
+                    {craft.title}
+                  </Heading>
+                </Link>
+                <div className="flex gap-2">
+                  <Text size="sm" color="light">
+                    {craft.createdAtFormatted}
+                  </Text>
+                  <Text size="sm" color="light">
+                    •
+                  </Text>
+                  <Text size="sm" color="light">
+                    <View slug={craft.slug} type="view" /> views
+                  </Text>
+                </div>
+              </article>
+            </li>
+          ))}
         </ul>
       </section> */}
       <section className="grid gap-4 md:px-10">

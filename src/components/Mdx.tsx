@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import * as content from "~/components/content";
 import { cn } from "~/lib/tailwindcss";
 import { Tweet } from "react-tweet";
 
@@ -84,6 +85,7 @@ export default function Mdx({ code }: MdxProps) {
               <Tweet id={id} />
             </div>
           ),
+          ...content,
         }}
       />
     </div>

@@ -1,8 +1,34 @@
-import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import { rehype } from "./lib/rehype";
-import { formatDate } from "./lib/date";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
+import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import { formatDate } from "./lib/date";
+import { rehype } from "./lib/rehype";
+import { topics } from "./lib/content";
+
+/** @type {import("contentlayer/source-files").FieldDef} */
+const fields = {
+  title: {
+    type: "string",
+    required: true,
+  },
+  description: {
+    type: "string",
+    required: true,
+  },
+  status: {
+    type: "enum",
+    options: ["draft", "published"],
+    required: true,
+  },
+  topics: {
+    type: "list",
+    of: {
+      type: "enum",
+      options: Object.keys(topics),
+    },
+    required: true,
+  },
+};
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -31,32 +57,16 @@ const computedFields = {
   },
 };
 
-export const writing = defineDocumentType(() => ({
-  name: "Writing",
+export const writings = defineDocumentType(() => ({
+  name: "Writings",
   contentType: "mdx",
   filePathPattern: "writing/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     publishedAt: {
       type: "date",
       required: true,
     },
-    status: {
-      type: "enum",
-      options: ["draft", "published"],
-      required: true,
-    },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
-    // },
   },
   computedFields: {
     ...computedFields,
@@ -72,27 +82,11 @@ export const notes = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "notes/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     publishedAt: {
       type: "date",
       required: true,
     },
-    status: {
-      type: "enum",
-      options: ["draft", "published"],
-      required: true,
-    },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
-    // },
   },
   computedFields: {
     ...computedFields,
@@ -108,14 +102,7 @@ export const diagrams = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "diagrams/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     createdAt: {
       type: "date",
       required: true,
@@ -125,10 +112,26 @@ export const diagrams = defineDocumentType(() => ({
       required: true,
       of: { type: "string" },
     },
-    // tags: {
-    //   type: "list",
-    //   of: Tag,
-    // },
+  },
+  computedFields: {
+    ...computedFields,
+    createdAtFormatted: {
+      type: "string",
+      resolve: (doc) => formatDate(doc.createdAt),
+    },
+  },
+}));
+
+export const crafts = defineDocumentType(() => ({
+  name: "Crafts",
+  contentType: "mdx",
+  filePathPattern: "crafts/*.mdx",
+  fields: {
+    ...fields,
+    createdAt: {
+      type: "date",
+      required: true,
+    },
   },
   computedFields: {
     ...computedFields,
@@ -144,14 +147,7 @@ export const configs = defineDocumentType(() => ({
   contentType: "mdx",
   filePathPattern: "configs/*.mdx",
   fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-      required: true,
-    },
+    ...fields,
     createdAt: {
       type: "date",
       required: true,
@@ -181,7 +177,7 @@ export const configs = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [writing, notes, diagrams, configs],
+  documentTypes: [writings, notes, diagrams, crafts, configs],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
@@ -191,5 +187,3 @@ export default makeSource({
     ],
   },
 });
-
-// @TODO Voltar aqui e adicionar tags

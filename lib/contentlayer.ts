@@ -1,23 +1,39 @@
 import {
+  type Writings,
   type Notes,
   type Diagrams,
   type Configs,
+  type Crafts,
+  type DocumentTypes,
+  allWritings,
   allNotes,
   allDiagrams,
   allConfigs,
+  allCrafts,
+  allDocuments,
 } from "contentlayer/generated";
 
-export type Heading = {
+type Heading = {
   level: number;
   content: string;
   slug: string;
 };
 
+export const writings: Array<
+  Omit<Writings, "headings"> & { headings: Array<Heading> }
+> = [...allWritings]
+  .filter((note) => note.status === "published")
+  .sort(
+    (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
+  );
+
 export const notes: Array<
   Omit<Notes, "headings"> & { headings: Array<Heading> }
-> = [...allNotes].sort(
-  (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
-);
+> = [...allNotes]
+  .filter((note) => note.status === "published")
+  .sort(
+    (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
+  );
 
 export const diagrams: Array<
   Omit<Diagrams, "headings"> & { headings: Array<Heading> }
@@ -25,8 +41,36 @@ export const diagrams: Array<
   (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
 );
 
+export const crafts: Array<
+  Omit<Crafts, "headings"> & { headings: Array<Heading> }
+> = [...allCrafts]
+  .filter((note) => note.status === "published")
+  .sort(
+    (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+  );
+
 export const configs: Array<
   Omit<Configs, "headings"> & { headings: Array<Heading> }
-> = [...allConfigs].sort(
-  (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
-);
+> = [...allConfigs]
+  .filter((note) => note.status === "published")
+  .sort(
+    (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
+  );
+
+export const documents: Array<DocumentTypes> = [...allDocuments]
+  .filter((document) => document.status === "published")
+  .sort((a, b) => {
+    if ("createdAt" in a && "createdAt" in b) {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    }
+    if (!("createdAt" in a) && "createdAt" in b) {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.publishedAt));
+    }
+    if (!("createdAt" in a) && !("createdAt" in b)) {
+      return Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt));
+    }
+    if ("createdAt" in a && !("createdAt" in b)) {
+      return Number(new Date(b.publishedAt)) - Number(new Date(a.createdAt));
+    }
+    return 0;
+  });
