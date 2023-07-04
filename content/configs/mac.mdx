@@ -1,9 +1,27 @@
 ---
-title: Mac OS
+title: Mac
 description: Demo
-createdAt: "2023-05-21"
-status: "draft"
+createdAt: "2023-07-05"
+status: "published"
 topics: ["productivity"]
+# {/* Remove dock show/hide delay */}
+
+# First, activate auto-hide in System Preferences → Dock → Autohide
+
+# 0 is the time it takes for the Dock to appear in seconds. You can choose floats and integers e.g. 2, 0.5,...
+# killall Dock causes the Dock to restart.
+
+# ```bash title="Terminal"
+# defaults write com.apple.dock autohide-delay -float 0; killall Dock
+# ```
+
+# Revert
+
+# ```bash title="Terminal"
+# defaults delete com.apple.dock autohide-delay; killall Dock
+# ```
+
+# remover Siri Suggestions no spotlight
 # {/\* Dock instantly leap back
 
 # ```bash title="Terminal"
@@ -30,53 +48,45 @@ topics: ["productivity"]
 
 ## Keyboard
 
-Here's a list of essential commands to improve keyboard efficiency on **macOS** and streamline your workflow.
+Here is my curated list of commands and modifications that I personally use on MacOS to enhance keyboard experience.
 
-{/* ## Faster key repeat rate */}
+### Key Repeat
 
-### Faster keyboard response
+The key repeat, also known as repeat delay, refers to the time interval between holding down a key and when it starts repeating.
 
-{/* (minimum is 2) */}
+- Default value is 6.
 
 ```bash title="Terminal"
 defaults write NSGlobalDomain KeyRepeat -int 1
 ```
 
-{/* ## Reduced delay until repeat */}
+Lowering the value increases the response time for faster character input.
 
-### Reduced key repeat delay
+### Initial Key Repeat
 
-{/* (minimumis is 15) */}
+The repeat rate, also referred to as initial key repeat, determines how quickly a character repeats itself once it starts.
+
+- Default value is 25.
 
 ```bash title="Terminal"
 defaults write NSGlobalDomain InitialKeyRepeat -int 12
 ```
 
+Adjusting this value allows you to customize the speed of character repetition to suit your preferences.
+
 ## OS
 
-Here's is a list of changes, settings and commands to improve the use of the operating system.
+{/* Here's is a list of changes, settings and commands to improve the use of the operating system. */}
 
-### Remove dock show/hide delay
+### Dock
 
-First, activate auto-hide in System Preferences → Dock → Autohide
-
-0 is the time it takes for the Dock to appear in seconds. You can choose floats and integers e.g. 2, 0.5,...
-killall Dock causes the Dock to restart.
-
-```bash title="Terminal"
-defaults write com.apple.dock autohide-delay -float 0; killall Dock
-```
-
-Revert
-
-```bash title="Terminal"
-defaults delete com.apple.dock autohide-delay; killall Dock
-```
-
-remover Siri Suggestions no spotlight
+Coming Soon
 
 ## Apps
 
-### Rectangle
+### Window Manager
 
-@TODO adicionar uma foto da keys utilizadas no rectangle
+Coming Soon
+{/* ### Rectangle */}
+
+{/* @TODO adicionar uma foto da keys utilizadas no rectangle */}
