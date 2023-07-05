@@ -101,7 +101,7 @@ export default function Note({ params }: NoteProps) {
             </div>
             <div>
               <div className="flex max-w-[100px] flex-wrap justify-end gap-x-1 md:flex-row">
-                {[...note.topics]
+                {note.topics
                   .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
                   .map((topic) => (
                     <Link

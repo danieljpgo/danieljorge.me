@@ -63,7 +63,7 @@ export default function Configs() {
       <aside
         className={cn(
           "sticky top-8 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]",
-          "mt-[124px]",
+          "mt-[100px]",
         )}
       >
         <nav className="grid gap-1">
