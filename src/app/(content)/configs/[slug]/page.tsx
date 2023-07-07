@@ -91,11 +91,11 @@ export default function Config({ params }: ConfigProps) {
           <div className="flex items-baseline justify-between">
             <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
-                Notes
+                Configs
               </Text>
               <div className="max-w-[180px] sm:max-w-none">
                 <Text color="lighter" size="xs">
-                  Loose, short-form thoughts, reflections, and ideas.
+                  Settings, shortcuts and everything related to productivity.
                 </Text>
               </div>
             </div>
