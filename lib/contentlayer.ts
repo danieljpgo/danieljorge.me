@@ -44,7 +44,7 @@ export const diagrams: Array<
 export const crafts: Array<
   Omit<Crafts, "headings"> & { headings: Array<Heading> }
 > = [...allCrafts]
-  .filter((note) => note.status === "published")
+  .filter((craft) => craft.status === "published")
   .sort(
     (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
   );
@@ -52,7 +52,7 @@ export const crafts: Array<
 export const configs: Array<
   Omit<Configs, "headings"> & { headings: Array<Heading> }
 > = [...allConfigs]
-  .filter((note) => note.status === "published")
+  .filter((config) => config.status === "published")
   .sort(
     (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
   );

@@ -283,6 +283,28 @@ export default function Home() {
             </article>
           </li>
         </ul>
+        <ul className="grid gap-4">
+          <li>
+            <article className="grid gap-1">
+              <Link href="/configs">
+                <Heading
+                  as="h3"
+                  size="base"
+                  weight="medium"
+                  leading="tight"
+                  color="darker"
+                >
+                  Configs
+                </Heading>
+              </Link>
+              <div className="flex gap-2">
+                <Text size="sm" color="light">
+                  Settings, shortcuts and everything related to productivity.
+                </Text>
+              </div>
+            </article>
+          </li>
+        </ul>
       </section>
     </>
   );

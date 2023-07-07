@@ -59,7 +59,7 @@ export default function Note({ params }: NoteProps) {
           </a>
         </nav>
       </aside>
-      <article className="grid w-full max-w-2xl gap-4">
+      <article className="flex w-full max-w-2xl flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div className="flex items-baseline justify-between">
             <Text size="sm" color="light">
@@ -87,7 +87,7 @@ export default function Note({ params }: NoteProps) {
           <Text color="base">{note.description}</Text>
         </div>
         <hr />
-        <div className="grid gap-8">
+        <div className="flex flex-col gap-8">
           <div className="flex items-baseline justify-between">
             <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
@@ -101,7 +101,7 @@ export default function Note({ params }: NoteProps) {
             </div>
             <div>
               <div className="flex max-w-[100px] flex-wrap justify-end gap-x-1 md:flex-row">
-                {[...note.topics]
+                {note.topics
                   .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
                   .map((topic) => (
                     <Link

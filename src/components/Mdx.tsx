@@ -15,8 +15,9 @@ export default function Mdx({ code }: MdxProps) {
       {/* @ts-expect-error: */}
       <MDXContent
         components={{
-          a: ({ className, ...props }) => (
+          a: ({ className, href = "", ...props }) => (
             <a
+              href={href}
               className={cn(
                 "font-normal",
                 "text-gray-800",
@@ -32,11 +33,8 @@ export default function Mdx({ code }: MdxProps) {
                 className,
               )}
               {...props}
-              {...(!props.href?.startsWith("/") || !props.href?.startsWith("#")
-                ? {
-                    target: "_blank",
-                    rel: "noreferrer",
-                  }
+              {...(href.startsWith("http")
+                ? { target: "_blank", rel: "noreferrer" }
                 : {})}
             />
           ),
