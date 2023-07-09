@@ -58,7 +58,7 @@ export default function Crafts({ params }: CraftsProps) {
           </a>
         </nav>
       </aside>
-      <article className="grid w-full max-w-2xl gap-4">
+      <article className="flex w-full max-w-2xl flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Text size="sm" color="light">
             {craft.createdAtFormatted}
@@ -75,7 +75,7 @@ export default function Crafts({ params }: CraftsProps) {
           <Text color="base">{craft.description}</Text>
         </div>
         <hr />
-        <div className="grid gap-8">
+        <div className="flex flex-col gap-8">
           <div className="flex items-baseline justify-between">
             <div>
               <Text color="light" size="xs" weight="medium">

@@ -41,7 +41,7 @@ const computedFields = {
     resolve: (doc) => {
       // rehype-slug algorithm packages
       const slugger = new GithubSlugger();
-      const regexHeadings = /\n\n(?<flag>#{1,6})\s+(?<content>.+)/g;
+      const regexHeadings = /\n(?<flag>#{1,6})\s+(?<content>.+)/g;
       return Array.from(doc.body.raw.matchAll(regexHeadings)).map(
         ({ groups }) => {
           const flag = groups?.flag;

@@ -1,5 +1,11 @@
 import type { MetadataRoute } from "next";
-import { notes, writings, diagrams, documents } from "~/lib/contentlayer";
+import {
+  notes,
+  writings,
+  diagrams,
+  documents,
+  configs,
+} from "~/lib/contentlayer";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const writingsRoute = writings
@@ -21,6 +27,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: diagram.createdAt.split("T")[0],
   }));
 
+  const configsRoute = configs.map((config) => ({
+    url: `https://danieljorge.me/configs/${config.slug}`,
+    lastModified: config.createdAt.split("T")[0],
+  }));
+
   const topicsRoute = [
     ...new Set(documents.map((content) => content.topics).flat()),
   ].map((slug) => ({
@@ -38,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...writingsRoute,
     ...notesRoute,
     ...diagramsRoute,
+    ...configsRoute,
     ...topicsRoute,
   ];
 }

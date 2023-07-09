@@ -5,6 +5,7 @@ import { cn } from "~/lib/tailwindcss";
 import { configs } from "~/lib/contentlayer";
 import { genericMetadata } from "~/lib/metadata";
 import { Heading, Text, Mdx, View } from "~/components";
+import { topics } from "~/lib/content";
 
 type ConfigProps = {
   params: { slug: string };
@@ -58,11 +59,22 @@ export default function Config({ params }: ConfigProps) {
           </a>
         </nav>
       </aside>
-      <article className="grid w-full max-w-2xl gap-4">
+      <article className="flex w-full max-w-2xl flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <Text size="sm" color="light">
-            {config.createdAtFormatted}
-          </Text>
+          <div className="flex items-baseline justify-between">
+            <Text size="sm" color="light">
+              {config.createdAtFormatted}
+            </Text>
+            <div className="flex justify-end gap-1 text-right">
+              <Text color="lighter" size="xs">
+                {/* @ts-expect-error: */}
+                <View slug={params.slug} type="counter" />
+              </Text>
+              <Text color="lighter" size="xs">
+                views
+              </Text>
+            </div>
+          </div>
           <Heading
             as="h1"
             size="2xl"
@@ -75,9 +87,9 @@ export default function Config({ params }: ConfigProps) {
           <Text color="base">{config.description}</Text>
         </div>
         <hr />
-        <div className="grid gap-8">
+        <div className="flex flex-col gap-8">
           <div className="flex items-baseline justify-between">
-            <div>
+            <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
                 Configs
               </Text>
@@ -87,40 +99,47 @@ export default function Config({ params }: ConfigProps) {
                 </Text>
               </div>
             </div>
-            <div className="gap-1 self-end text-right md:flex">
-              <Text color="lighter" size="xs">
-                {/* @ts-expect-error: */}
-                <View slug={params.slug} type="counter" />
-              </Text>
-              <Text color="lighter" size="xs">
-                views
-              </Text>
+            <div>
+              <div className="flex max-w-[100px] flex-wrap justify-end gap-x-1 md:flex-row">
+                {config.topics
+                  .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
+                  .map((topic) => (
+                    <Link
+                      key={topic}
+                      href={`/topics/${topic}`}
+                      prefetch={false}
+                      className="whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
+                    >
+                      {topics[topic]}
+                    </Link>
+                  ))}
+              </div>
             </div>
           </div>
           <Mdx code={config.body.code} />
           <hr />
           <div className="flex justify-center pb-8">
             <Link
-              href="/"
+              href="/configs"
               className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
             >
               <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
                 ←
               </span>
-              Home
+              Configs
             </Link>
           </div>
         </div>
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href="/"
+          href="/configs"
           className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
           <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
             ←
           </span>
-          Home
+          Configs
         </Link>
       </div>
     </>
