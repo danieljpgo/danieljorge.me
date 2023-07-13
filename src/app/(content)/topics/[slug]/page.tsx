@@ -62,7 +62,7 @@ export default function Topic({ params }: TopicProps) {
                 <article className="grid gap-1">
                   <Link href={content._raw.flattenedPath}>
                     <Heading
-                      as="h3"
+                      as="h2"
                       size="base"
                       weight="medium"
                       leading="tight"

@@ -99,7 +99,7 @@ export default function Configs() {
                 <article className="grid gap-1">
                   <Link href={config._raw.flattenedPath}>
                     <Heading
-                      as="h3"
+                      as="h2"
                       size="base"
                       weight="medium"
                       leading="tight"

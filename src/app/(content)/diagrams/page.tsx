@@ -100,7 +100,7 @@ export default function Diagrams() {
                 <article className="grid gap-1">
                   <Link href={diagram._raw.flattenedPath}>
                     <Heading
-                      as="h3"
+                      as="h2"
                       size="base"
                       weight="medium"
                       leading="tight"
