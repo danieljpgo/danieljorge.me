@@ -12,7 +12,6 @@ type LinkProps = PropsFrom<typeof NextLink> & {
   size?: keyof typeof sizes;
 };
 
-// text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300
 export default function Link(props: LinkProps) {
   const { children, className, size = "sm", ...rest } = props;
 
