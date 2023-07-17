@@ -1,0 +1,27 @@
+.craft-spotilight {
+  position: relative;
+  overflow: hidden;
+  background: black;
+
+  min-height: 100px;
+}
+
+.craft-spotilight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  /* border-radius: 0.75rem; */
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    280px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    blue,
+    transparent 80%
+  );
+}
+
+.craft-spotilight:hover::after {
+  opacity: 1;
+}

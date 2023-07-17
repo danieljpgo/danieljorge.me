@@ -1,9 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./craft.css";
 
 /* @TODO: use cascade layers */
-
 body {
   -webkit-tap-highlight-color: transparent;
 }

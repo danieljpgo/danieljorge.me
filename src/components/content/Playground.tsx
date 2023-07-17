@@ -7,7 +7,7 @@ export default function Playground(props: PlaygroundProps) {
 
   return (
     <div className="flex min-h-[300px] w-full items-center justify-center rounded-md border border-green-400">
-      Demo{children}
+      {children}
     </div>
   );
 }
