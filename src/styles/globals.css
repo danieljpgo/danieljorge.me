@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "./craft.css";
+
+@import "./demos.css";
 
 /* @TODO: use cascade layers */
 body {

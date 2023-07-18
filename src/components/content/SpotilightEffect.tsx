@@ -15,14 +15,23 @@ export default function SpotlightEffect(props: SpotlightEffectProps) {
   }
 
   return (
-    <div
-      ref={ref}
-      className="craft-spotilight"
-      // className="border-gray-100 bg-black relative after:content-[''] after:absolute after:inset-0 after:z-10 after:opacity-0 af"
-      onMouseMove={handleMouseMove}
-    >
-      SpotlightEffect Demo
-      {/* <div /> */}
+    <div ref={ref} className="craft-spotilight" onMouseMove={handleMouseMove}>
+      Spotlight Effect Demo
     </div>
   );
 }
+
+// useEffect(() => {
+//   const mouseMoveEvent = (e: MouseEvent) => {
+//     if (!ref.current) return;
+//     const { x, y } = ref.current.getBoundingClientRect();
+//     ref.current.style.setProperty("--x", String(e.clientX - x));
+//     ref.current.style.setProperty("--y", String(e.clientY - y));
+//   };
+
+//   if (!ref.current) return;
+
+//   const newref = ref.current;
+//   newref.addEventListener("mousemove", mouseMoveEvent);
+//   return () => newref.removeEventListener("mousemove", mouseMoveEvent);
+// }, []);
