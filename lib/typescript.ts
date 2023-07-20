@@ -1,3 +1,5 @@
-export type PropsFrom<Component> = Component extends React.FC<infer Props>
+export type PropsFrom<Component> = Component extends React.FunctionComponent<
+  infer Props
+>
   ? Props
   : never;
