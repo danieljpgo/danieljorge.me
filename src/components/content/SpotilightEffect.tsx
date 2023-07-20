@@ -1,9 +1,7 @@
 "use client";
 import { useRef } from "react";
 
-type SpotlightEffectProps = {};
-
-export default function SpotlightEffect(props: SpotlightEffectProps) {
+export default function SpotlightEffect() {
   const ref = useRef<HTMLDivElement>(null);
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
@@ -21,6 +19,16 @@ export default function SpotlightEffect(props: SpotlightEffectProps) {
   );
 }
 
+function SpotlightEffectFirst() {
+  return <div>Spotlight Effect 1</div>;
+}
+
+function SpotlightEffectSecond() {
+  return <div>Spotlight Effect 2</div>;
+}
+
+SpotlightEffect.First = SpotlightEffectFirst;
+SpotlightEffect.Second = SpotlightEffectSecond;
 // useEffect(() => {
 //   const mouseMoveEvent = (e: MouseEvent) => {
 //     if (!ref.current) return;
