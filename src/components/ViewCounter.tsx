@@ -7,7 +7,7 @@ type ViewCounterProps = {
   initialValue?: number;
 };
 
-export default function ViewCounter({
+export function ViewCounter({
   slug,
   type = "view",
   initialValue = 0,

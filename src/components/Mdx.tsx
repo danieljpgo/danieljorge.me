@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import * as content from "~/components/content";
 import { cn } from "~/lib/tailwindcss";
+import * as content from "~/components/content";
 
 type MdxProps = {
   code: string;
 };
 
-export default function Mdx({ code }: MdxProps) {
+export function Mdx({ code }: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
   return (
@@ -77,7 +77,12 @@ export default function Mdx({ code }: MdxProps) {
           Image: ({ className, ...props }) => (
             <Image alt={props.alt} {...props} />
           ),
-          ...content,
+          ...Object.fromEntries(
+            Object.entries(content).map(([key, Component]) => [
+              [key],
+              (props) => <Component {...props} />,
+            ]),
+          ),
         }}
       />
     </div>

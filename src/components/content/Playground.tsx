@@ -2,7 +2,7 @@ type PlaygroundProps = {
   children: React.ReactNode;
 };
 
-export default function Playground(props: PlaygroundProps) {
+export function Playground(props: PlaygroundProps) {
   const { children } = props;
 
   return (

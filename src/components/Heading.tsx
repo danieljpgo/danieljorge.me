@@ -63,7 +63,7 @@ type HeadingProps = {
   leading?: keyof typeof leadings;
 };
 
-export default function Heading(props: HeadingProps) {
+export function Heading(props: HeadingProps) {
   const {
     children,
     size,

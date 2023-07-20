@@ -43,7 +43,7 @@ type TextProps = {
   weight?: keyof typeof weights;
 };
 
-export default function Text(props: TextProps) {
+export function Text(props: TextProps) {
   const {
     children,
     color = "base",

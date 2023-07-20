@@ -5,7 +5,7 @@ type ViewProps = {
   slug: string;
 };
 
-export default async function View({ type, slug }: ViewProps) {
+export async function View({ type, slug }: ViewProps) {
   const view = await fetch(`https://danieljorge.me/api/views/${slug}`).then(
     (response) => response.json(),
   );
