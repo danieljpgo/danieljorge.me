@@ -22,6 +22,8 @@ As it is [said in the official documentation](https://react.dev/learn/render-and
 - [Render](https://react.dev/learn/render-and-commit#step-2-react-renders-your-components)
 - [Commit](https://react.dev/learn/render-and-commit#step-3-react-commits-changes-to-the-dom)
 
+### Trigger, Render & Commit
+
 ### Re-render
 
 Normally, when we think about re-renders, we think about updates to the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), but this only happens in the Commit phase, this phase only happens after the Render phase. Therefore, your component can be rendered, and not generate a change in the DOM (Commit), as it will compare the previous rendering to ensure that it will perform the minute of possible changes, this step is known as [Reconciliation](https://legacy.reactjs.org/docs/reconciliation.html).
@@ -30,7 +32,7 @@ Normally, when we think about re-renders, we think about updates to the [DOM](ht
 trigger → render → commit
 ```
 
-In the example, even if the Foo component is re-rendered every time the counter is changed, it won't result in an update to the DOM, so even with new re-renders won't have a performance penalty, so not an issue.
+In the example, even if the Foo component is re-rendered every time the counter is changed, it won't result in an update to the DOM, so even with new re-renders won't have a performance a performance penalty; therefore, re-rendering by itself is not a problem.
 
 ```tsx showLineNumbers {2,8}
 function Foo() {
