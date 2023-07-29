@@ -1,3 +1,4 @@
+import type { ComponentPropsWithRef } from "react";
 import { cn } from "~/lib/tailwindcss";
 
 const sizes = {
@@ -6,7 +7,7 @@ const sizes = {
   base: "text-base",
 } as const;
 
-type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+type AnchorProps = ComponentPropsWithRef<"a"> & {
   size?: keyof typeof sizes;
 };
 
