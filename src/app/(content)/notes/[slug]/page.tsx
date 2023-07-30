@@ -36,7 +36,7 @@ export default function Note({ params }: NoteProps) {
         )}
         <nav className="grid gap-1">
           {note.headings
-            .filter((heading) => heading.level === 2 || heading.level === 3)
+            .filter((heading) => heading.level !== 1)
             .map((heading, index) => (
               <a
                 key={heading.slug}
@@ -45,6 +45,7 @@ export default function Note({ params }: NoteProps) {
                   "text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300",
                   heading.level === 2 && index !== 0 && "mt-1",
                   heading.level === 3 && "ml-1.5 text-xs",
+                  heading.level === 4 && "ml-3 text-xs",
                 )}
               >
                 {heading.content}
