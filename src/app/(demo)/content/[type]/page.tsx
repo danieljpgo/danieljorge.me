@@ -8,10 +8,10 @@ import { genericMetadata } from "~/lib/metadata";
 import { cn } from "~/lib/tailwindcss";
 import { Heading, Text, View } from "~/components";
 
-type ContentProps = {
+type ContentsProps = {
   params: { type: string };
 };
-export default function Content({ params }: ContentProps) {
+export default function Contents({ params }: ContentsProps) {
   const contents = documents.filter(
     (doc) => doc._raw.sourceFileDir === params.type,
   );
@@ -112,15 +112,15 @@ export default function Content({ params }: ContentProps) {
   );
 }
 
-export function generateStaticParams(): Array<ContentProps["params"]> {
+export function generateStaticParams(): Array<ContentsProps["params"]> {
   return routes.map((path) => ({ type: path }));
 }
 
-export function generateMetadata({ params }: ContentProps): Metadata {
+export function generateMetadata({ params }: ContentsProps): Metadata {
   const contents = documents.filter(
     (doc) => doc._raw.sourceFileDir === params.type,
   );
-  if (!contents.length) notFound();
+  if (!contents.length) return notFound();
 
   const metadata = {
     title: metadatas[contents[0].type].title,
