@@ -74,3 +74,7 @@ export const documents: Array<DocumentTypes> = [...allDocuments]
     }
     return 0;
   });
+
+export const routes = allDocuments.map(
+  (document) => document._raw.sourceFileDir,
+);
