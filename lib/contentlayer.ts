@@ -57,7 +57,7 @@ export const configs: Array<
     (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)),
   );
 
-export const documents: Array<DocumentTypes> = [...allDocuments]
+export const documents = [...allDocuments]
   .filter((document) => document.status === "published")
   .sort((a, b) => {
     if ("createdAt" in a && "createdAt" in b) {

@@ -15,6 +15,7 @@ export default function Contents({ params }: ContentsProps) {
   const contents = documents.filter(
     (doc) => doc._raw.sourceFileDir === params.type,
   );
+  if (!contents.length) return notFound();
 
   return (
     <>
@@ -43,7 +44,6 @@ export default function Contents({ params }: ContentsProps) {
             leading="tight"
             color="darker"
           >
-            {/* Configs */}
             {metadatas[contents[0].type].title}
           </Heading>
           <Text color="base">{metadatas[contents[0].type].description}</Text>
