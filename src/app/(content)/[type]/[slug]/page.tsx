@@ -115,7 +115,6 @@ export default function Content({ params }: ContentProps) {
                     <Link
                       key={topic}
                       href={`/topics/${topic}`}
-                      prefetch={false}
                       className="whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
                     >
                       {topics[topic]}
