@@ -4,7 +4,6 @@ import {
   type Diagrams,
   type Configs,
   type Crafts,
-  type DocumentTypes,
   allWritings,
   allNotes,
   allDiagrams,
