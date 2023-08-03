@@ -5,10 +5,10 @@ import { cn } from "~/lib/tailwindcss";
 
 const fonts = Promise.all([
   fetch(
-    new URL("../../../../public/fonts/Inter-Regular.ttf", import.meta.url),
+    new URL("../../../../public/fonts/Manrope-Regular.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer()),
   fetch(
-    new URL("../../../../public/fonts/Inter-Medium.ttf", import.meta.url),
+    new URL("../../../../public/fonts/Manrope-Medium.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer()),
 ]);
 
@@ -79,7 +79,6 @@ export async function GET(req: NextRequest) {
     });
   }
 }
-
 function Home({ origin }: { origin: string }) {
   return (
     <Layout>
@@ -102,7 +101,6 @@ function Home({ origin }: { origin: string }) {
     </Layout>
   );
 }
-
 function Content({
   title,
   description,
@@ -127,7 +125,6 @@ function Content({
     </Layout>
   );
 }
-
 function List({
   title,
   description,
@@ -181,7 +178,6 @@ function List({
     </Panel>
   );
 }
-
 function Diagram({
   title,
   origin,
@@ -218,7 +214,6 @@ function Diagram({
     </Panel>
   );
 }
-
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -253,7 +248,7 @@ function Header({ origin }: { origin: string }) {
   return (
     <header tw="flex items-center">
       <img src={`${origin}/logo.svg`} tw="h-6 w-6" alt="logo" />
-      <p tw="m-0 pl-2 text-xl font-normal">danieljorge.me</p>
+      <p tw="m-0 -mt-0.5 pl-2 text-xl font-normal">danieljorge.me</p>
     </header>
   );
 }
@@ -286,9 +281,7 @@ function Description({ children }: { children: string }) {
   return (
     <p
       tw="m-0 flex text-4xl text-slate-500 font-normal"
-      style={{
-        letterSpacing: "-0.05em",
-      }}
+      style={{ letterSpacing: "-0.05em" }}
     >
       {children}
     </p>
