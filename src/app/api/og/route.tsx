@@ -65,18 +65,8 @@ export async function GET(req: NextRequest) {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Inter",
-            data: fontMedium,
-            weight: 500,
-            style: "normal",
-          },
-          {
-            name: "Inter",
-            data: fontRegular,
-            weight: 400,
-            style: "normal",
-          },
+          { name: "Inter", data: fontMedium, weight: 500, style: "normal" },
+          { name: "Inter", data: fontRegular, weight: 400, style: "normal" },
         ],
       },
     );
