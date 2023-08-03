@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import type { DocumentTypeNames } from "contentlayer/generated";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDateNumerical } from "~/lib/date";
 import { documents, routes } from "~/lib/contentlayer";
 import { genericMetadata } from "~/lib/metadata";
+import { messages } from "~/lib/content";
 import { cn } from "~/lib/tailwindcss";
 import { Heading, Text, View } from "~/components";
 
@@ -44,9 +44,9 @@ export default function Contents({ params }: ContentsProps) {
             leading="tight"
             color="darker"
           >
-            {metadatas[contents[0].type].title}
+            {messages[contents[0].type].title}
           </Heading>
-          <Text color="base">{metadatas[contents[0].type].description}</Text>
+          <Text color="base">{messages[contents[0].type].description}</Text>
         </div>
         <hr />
         <div className="grid gap-4">
@@ -123,8 +123,8 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
   if (!contents.length) return notFound();
 
   const metadata = {
-    title: metadatas[contents[0].type].title,
-    description: metadatas[contents[0].type].description,
+    title: messages[contents[0].type].title,
+    description: messages[contents[0].type].description,
   };
 
   const og = new URLSearchParams({
@@ -169,35 +169,6 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
     },
   };
 }
-
-// @TODO improve here
-
-const metadatas = {
-  Configs: {
-    title: "Configs",
-    description: "Settings, shortcuts and everything related to productivity.",
-  },
-  Crafts: {
-    title: "Crafts",
-    description:
-      "Build, concepts, techniques, solutions and explaining in detail.",
-  },
-  Diagrams: {
-    title: "Diagrams",
-    description: "Explanations, concepts, design solutions, created over time.",
-  },
-  Notes: {
-    title: "Notes",
-    description: "Loose, short-form thoughts, reflections, and ideas.",
-  },
-  Writings: {
-    title: "Writings",
-    description: "Crafted, long form thoughts and ideas.",
-  },
-} as const satisfies Record<
-  DocumentTypeNames,
-  { title: string; description: string }
->;
 
 const baseURL = process.env.VERCEL_URL
   ? "https://" + process.env.VERCEL_URL
