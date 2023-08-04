@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cn } from "~/lib/tailwindcss";
-import { documents } from "~/lib/contentlayer";
-import { genericMetadata } from "~/lib/metadata";
 import { messages, topics } from "~/lib/content";
+import { genericMetadata } from "~/lib/metadata";
+import { documents } from "~/lib/contentlayer";
+import { cn } from "~/lib/tailwindcss";
 import { Heading, Mdx, Text, View } from "~/components";
 
 type ContentProps = {
@@ -127,26 +127,26 @@ export default function Content({ params }: ContentProps) {
           <hr />
           <div className="flex justify-center pb-8">
             <Link
-              href="/"
+              href={`/${params.type}`}
               className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
             >
               <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
                 ←
               </span>
-              Home
+              {messages[content.type].title}
             </Link>
           </div>
         </div>
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href="/"
+          href={`/${params.type}`}
           className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
           <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
             ←
           </span>
-          Home
+          {messages[content.type].title}
         </Link>
       </div>
     </>
