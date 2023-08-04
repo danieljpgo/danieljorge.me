@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 import { notes, diagrams, documents, configs } from "~/lib/contentlayer";
 
+// @TODO use documents
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const notesRoute = notes
-    .filter((note) => note.status === "published")
-    .map((note) => ({
-      url: `https://danieljorge.me/notes/${note.slug}`,
-      lastModified: note.publishedAt.split("T")[0],
-    }));
+  const notesRoute = notes.map((note) => ({
+    url: `https://danieljorge.me/notes/${note.slug}`,
+    lastModified: note.publishedAt.split("T")[0],
+  }));
 
   const diagramsRoute = diagrams.map((diagram) => ({
     url: `https://danieljorge.me/diagrams/${diagram.slug}`,
