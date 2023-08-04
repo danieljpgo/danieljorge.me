@@ -1,63 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heading, Text, View } from "~/components";
-import { configs, diagrams } from "~/lib/contentlayer";
+import { notFound } from "next/navigation";
 import { formatDateNumerical } from "~/lib/date";
+import { documents, routes } from "~/lib/contentlayer";
 import { genericMetadata } from "~/lib/metadata";
+import { messages } from "~/lib/content";
 import { cn } from "~/lib/tailwindcss";
+import { Heading, Text, View } from "~/components";
 
-export const metadata: Metadata = {
-  title: "Configs",
-  description: "Settings, shortcuts and everything related to productivity.",
-  twitter: {
-    ...genericMetadata.twitter,
-    title: "Configs",
-    description: "Settings, shortcuts and everything related to productivity.",
-    images: {
-      ...genericMetadata.twitter.images,
-      url: `${
-        process.env.VERCEL_URL
-          ? "https://" + process.env.VERCEL_URL
-          : "http://localhost:3000"
-      }/api/og?${new URLSearchParams({
-        title: "Configs",
-        description:
-          "Settings, shortcuts and everything related to productivity.",
-        type: "list",
-        items: configs
-          .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
-          .slice(0, 10)
-          .join("|"),
-      }).toString()}`,
-    },
-  },
-  openGraph: {
-    ...genericMetadata.openGraph,
-    title: "Configs",
-    description: "Settings, shortcuts and everything related to productivity.",
-    images: [
-      {
-        ...genericMetadata.openGraph.images[0],
-        url: `${
-          process.env.VERCEL_URL
-            ? "https://" + process.env.VERCEL_URL
-            : "http://localhost:3000"
-        }/api/og?${new URLSearchParams({
-          title: "Configs",
-          description:
-            "Settings, shortcuts and everything related to productivity.",
-          type: "list",
-          items: configs
-            .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
-            .slice(0, 10)
-            .join("|"),
-        }).toString()}`,
-      },
-    ],
-  },
+type ContentsProps = {
+  params: { type: string };
 };
+export default function Contents({ params }: ContentsProps) {
+  const contents = documents.filter(
+    (doc) => doc._raw.sourceFileDir === params.type,
+  );
+  if (!contents.length) return notFound();
 
-export default function Configs() {
   return (
     <>
       <aside
@@ -85,19 +44,17 @@ export default function Configs() {
             leading="tight"
             color="darker"
           >
-            Configs
+            {messages[contents[0].type].title}
           </Heading>
-          <Text color="base">
-            {`Settings, shortcuts and everything related to productivity.`}
-          </Text>
+          <Text color="base">{messages[contents[0].type].description}</Text>
         </div>
         <hr />
         <div className="grid gap-4">
           <ul className="grid gap-4">
-            {configs.map((config) => (
-              <li key={config.slug}>
+            {contents.map((content) => (
+              <li key={content.slug}>
                 <article className="grid gap-1">
-                  <Link href={config._raw.flattenedPath}>
+                  <Link href={content._raw.flattenedPath}>
                     <Heading
                       as="h2"
                       size="base"
@@ -105,19 +62,21 @@ export default function Configs() {
                       leading="tight"
                       color="darker"
                     >
-                      {config.title}
+                      {content.title}
                     </Heading>
                   </Link>
                   <div className="flex gap-2">
                     <Text size="sm" color="light">
-                      {config.createdAtFormatted}
+                      {"createdAtFormatted" in content
+                        ? content.createdAtFormatted
+                        : content.publishedAtFormatted}
                     </Text>
                     <Text size="sm" color="light">
                       •
                     </Text>
                     <Text size="sm" color="light">
                       {/* @ts-expect-error: */}
-                      <View slug={config.slug} type="view" /> views
+                      <View slug={content.slug} type="view" /> views
                     </Text>
                   </div>
                 </article>
@@ -152,3 +111,65 @@ export default function Configs() {
     </>
   );
 }
+
+export function generateStaticParams(): Array<ContentsProps["params"]> {
+  return routes.map((path) => ({ type: path }));
+}
+
+export function generateMetadata({ params }: ContentsProps): Metadata {
+  const contents = documents.filter(
+    (doc) => doc._raw.sourceFileDir === params.type,
+  );
+  if (!contents.length) return notFound();
+
+  const metadata = {
+    title: messages[contents[0].type].title,
+    description: messages[contents[0].type].description,
+  };
+
+  const og = new URLSearchParams({
+    title: metadata.title,
+    description: metadata.description,
+    type: "list",
+    items: contents
+      .map(
+        (content) =>
+          `${formatDateNumerical(
+            "createdAt" in content ? content.createdAt : content.publishedAt,
+          )};${content.title}`,
+      )
+      .slice(0, 10)
+      .join("|"),
+  }).toString();
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    twitter: {
+      ...genericMetadata.twitter,
+      title: metadata.title,
+      description: metadata.description,
+      images: {
+        ...genericMetadata.twitter.images,
+        url: `${baseURL}/api/og?${og}`,
+        alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
+      },
+    },
+    openGraph: {
+      ...genericMetadata.openGraph,
+      title: metadata.title,
+      description: metadata.description,
+      images: [
+        {
+          ...genericMetadata.openGraph.images[0],
+          url: `${baseURL}/api/og?${og}`,
+          alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
+        },
+      ],
+    },
+  };
+}
+
+const baseURL = process.env.VERCEL_URL
+  ? "https://" + process.env.VERCEL_URL
+  : "http://localhost:3000";
