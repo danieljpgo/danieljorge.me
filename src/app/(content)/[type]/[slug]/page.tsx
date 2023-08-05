@@ -172,7 +172,7 @@ export function generateMetadata({ params }: ContentProps): Metadata {
   const og = new URLSearchParams({
     title: metadata.title,
     description: metadata.description,
-    type: "content",
+    type: content.type === "Diagrams" ? "diagram" : "content",
   }).toString();
 
   return {
