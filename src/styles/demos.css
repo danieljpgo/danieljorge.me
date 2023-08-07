@@ -2,11 +2,10 @@
   overflow: hidden;
   position: relative;
   min-height: 260px;
+  max-width: 400px;
   width: 100%;
-  max-width: 200px;
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   padding: 4rem 2rem;
-  background: #f1f1f1b4;
   border: solid 1px #f1f1f1;
 }
 
@@ -14,18 +13,101 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 0.75rem;
   opacity: 0;
+  border-radius: 0.75rem;
   transition-property: background-color, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.3s;
   background: radial-gradient(
-    80px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-    blue,
+    450px at calc(var(--_x, 0) * 1px) calc(var(--_y, 0) * 1px),
+    rgba(14, 165, 233, 0.35),
     transparent 80%
   );
 }
 
 .craft-spotilight:hover::after {
+  opacity: 1;
+}
+
+.craft-spotilight-first {
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  border: solid 1px #f1f1f1;
+}
+
+.craft-spotilight-first::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    200px at center,
+    rgba(14, 165, 233, 0.35),
+    transparent 100%
+  );
+}
+
+.craft-spotilight-second {
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  border: solid 1px #f1f1f1;
+}
+
+.craft-spotilight-second::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    450px at calc(var(--_x, 0) * 1px) calc(var(--_y, 0) * 1px),
+    rgba(14, 165, 233, 0.35),
+    transparent 80%
+  );
+}
+
+.craft-spotilight-third {
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  border: solid 1px #f1f1f1;
+}
+
+.craft-spotilight-third::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  border-radius: 0.75rem;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    450px at calc(var(--_x, 0) * 1px) calc(var(--_y, 0) * 1px),
+    rgba(14, 165, 233, 0.35),
+    transparent 80%
+  );
+}
+
+.craft-spotilight-third:hover::after {
   opacity: 1;
 }

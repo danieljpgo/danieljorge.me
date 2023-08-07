@@ -3,17 +3,170 @@ title: Spotlight Effect
 description: lorem
 createdAt: "2023-05-12"
 status: "published"
-topics: ["ui", "web", "react"]
+topics: ["ui", "web", "css"]
 ---
 
 <Playground>
-  <SpotlightEffect />
+  <Spotlight />
 </Playground>
 
 ---
 
-Test
+First
 
 <Playground>
-  <SpotlightEffectFirst />
+  <SpotlightFirst />
 </Playground>
+
+---
+
+```tsx showLineNumbers title="Spotlight.tsx"
+export function Spotlight() {
+  return <div className="craft-spotilight" />;
+}
+```
+
+```css showLineNumbers title="styles.css"
+.craft-spotilight {
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  border: solid 1px #f1f1f1;
+}
+
+.craft-spotilight-first::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    200px at center,
+    rgba(14, 165, 233, 0.35),
+    transparent 100%
+  );
+}
+```
+
+Second
+
+<Playground>
+  <SpotlightSecond />
+</Playground>
+
+---
+
+```tsx showLineNumbers title="Spotlight.tsx"
+export function Spotlight() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    if (!ref.current) return;
+    const { x, y } = event.currentTarget.getBoundingClientRect();
+
+    ref.current.style.setProperty("--_x", String(event.clientX - x));
+    ref.current.style.setProperty("--_y", String(event.clientY - y));
+  }
+
+  return (
+    <div ref={ref} className="craft-spotilight" onMouseMove={handleMouseMove} />
+  );
+}
+```
+
+```css showLineNumbers title="styles.css"
+.craft-spotilight-second {
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  border: solid 1px #f1f1f1;
+}
+
+.craft-spotilight-second::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    450px at calc(var(--_x, 0) * 1px) calc(var(--_y, 0) * 1px),
+    rgba(14, 165, 233, 0.35),
+    transparent 80%
+  );
+}
+```
+
+Third
+
+<Playground>
+  <SpotlightThird />
+</Playground>
+
+---
+
+```tsx showLineNumbers title="Spotlight.tsx"
+export function Spotlight() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    if (!ref.current) return;
+    const { x, y } = event.currentTarget.getBoundingClientRect();
+
+    ref.current.style.setProperty("--_x", String(event.clientX - x));
+    ref.current.style.setProperty("--_y", String(event.clientY - y));
+  }
+
+  return (
+    <div
+      ref={ref}
+      className="craft-spotilight-third"
+      onMouseMove={handleMouseMove}
+    />
+  );
+}
+```
+
+```css showLineNumbers title="styles.css"
+.craft-spotilight {
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  border: solid 1px #f1f1f1;
+}
+
+.craft-spotilight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  border-radius: 0.75rem;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+  background: radial-gradient(
+    450px at calc(var(--_x, 0) * 1px) calc(var(--_y, 0) * 1px),
+    rgba(14, 165, 233, 0.35),
+    transparent 80%
+  );
+}
+
+.craft-spotilight:hover::after {
+  opacity: 1;
+}
+```
