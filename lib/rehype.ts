@@ -26,6 +26,22 @@ const prettyCodeOptions: Partial<PrettyCodeOptions> = {
   },
   onVisitHighlightedLine(node) {
     node.properties.className.push("line--highlighted");
+    if (!node.children.length) return;
+    if (!node.children[0].children) return;
+
+    const value = node.children[0].children[0].value;
+    if (value.startsWith("-")) {
+      node.properties.className.push("line--highlighted--remove");
+      node.children[0].children = [
+        { type: "text", value: value.replace("-", " ") },
+      ];
+    }
+    if (value.startsWith("+")) {
+      node.properties.className.push("line--highlighted--add");
+      node.children[0].children = [
+        { type: "text", value: value.replace("+", " ") },
+      ];
+    }
   },
   onVisitHighlightedWord(node) {
     node.properties.className = ["word--highlighted"];
