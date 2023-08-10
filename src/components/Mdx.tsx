@@ -57,7 +57,7 @@ export function Mdx({ code }: MdxProps) {
           code: ({ className, ...props }) => (
             <code
               className={cn(
-                "[&:not(pre>*)]:selection:bg-[#add7ff21]",
+                "[&:not(pre>*)]:selection:bg-[#717cb425]",
                 "[&:not(pre>*)]:relative",
                 "[&:not(pre>*)]:border",
                 "[&:not(pre>*)]:rounded",

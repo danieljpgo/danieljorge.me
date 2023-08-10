@@ -4,98 +4,107 @@
 
 @import "./demos.css";
 
-/* @TODO: use cascade layers */
+html {
+  --selection: #717cb425;
+  --code-background: #1b1e28;
+  --code-foreground: #314052;
+  --code-tile-foreground: #91b4d5;
+  --remove-foreground: #8323234d;
+  --remove-text-foreground: #506477;
+  --remove-border-foreground: #832323;
+  --insert-foreground: #54ff4825;
+  --insert-border-foreground: #54ff48b3;
+  --active-text: #add7ff;
+  --line-number-foreground: #767c9d50;
+}
 body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */
-
-/* MDX */
-
-div[data-rehype-pretty-code-fragment] .line {
+[data-line] {
   @apply border-l-4 border-transparent pl-2 pr-3;
 }
-div[data-rehype-pretty-code-fragment] .line--highlighted {
-  border-left-color: rgb(173, 215, 255); /* @TODO verificar esse valor */
-  background-color: rgb(173 215 255 / 13%); /* @TODO verificar esse valor */
-}
 
-div[data-rehype-pretty-code-fragment] .line--highlighted--remove {
-  border-left-color: rgba(255, 58, 58, 0.8); /* @TODO verificar esse valor */
-  background-color: rgba(255, 58, 58, 0.145); /* @TODO verificar esse valor */
-  user-select: none;
-}
-div[data-rehype-pretty-code-fragment] .line--highlighted--remove span {
-  color: rgb(80, 100, 119) !important;
-}
-
-div[data-rehype-pretty-code-fragment] .line--highlighted--add {
-  border-left-color: rgba(84, 255, 72, 0.8); /* @TODO verificar esse valor */
-  background-color: rgba(84, 255, 72, 0.145); /* @TODO verificar esse valor */
-}
-div[data-rehype-pretty-code-fragment] .line--highlighted--add span {
-  color: rgb(173, 215, 255) !important;
-}
-
-/* @apply rounded-md bg-slate-300 bg-opacity-10 p-1; */
-[data-rehype-pretty-code-fragment] .word--highlighted {
-  background-color: rgb(173 215 255 / 13%);
-  border-left-color: rgb(173, 215, 255); /* @TODO verificar esse valor */
-
-  @apply inline-block;
-}
-div[data-rehype-pretty-code-fragment] code {
-  @apply grid;
-}
-code[data-line-numbers] {
+[data-line-numbers] {
   counter-reset: line;
 }
-code[data-line-numbers] .line::before {
-  /* color: rgb(255 255 255 / 0.2); @TODO verificar esse valor */
-  color: #767c9d4f;
+
+[data-line-numbers] [data-line]::before {
+  @apply mr-3 inline-block w-4 text-right;
+  color: var(--line-number-foreground);
   counter-increment: line;
   content: counter(line);
-  @apply mr-3 inline-block w-4 text-right;
 }
-code[data-line-numbers] .line.line--highlighted--remove::before {
+
+[data-line-numbers] [data-diff-remove]::before {
   content: "-";
 }
-code[data-line-numbers] .line.line--highlighted--add::before {
+
+[data-line-numbers] [data-diff-insert]::before {
   content: "+";
 }
 
-div[data-rehype-pretty-code-title] {
-  color: #91b4d5;
+[data-rehype-pretty-code-title] {
+  @apply rounded-t-lg px-3 pb-1.5 pt-2 text-xs;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-  background-color: #314052;
-  @apply rounded-md px-3 py-1 text-xs;
-}
-div[data-rehype-pretty-code-fragment] {
-  background-color: var(--tw-prose-pre-bg);
-  @apply rounded-md;
+  border-width: 2px 2px 0 2px;
+  border-color: var(--code-background);
+  background-color: var(--code-foreground);
+  color: var(--code-tile-foreground);
 }
 
-/* @TODO improve here */
+[data-rehype-pretty-code-fragment] {
+  @apply rounded-lg;
+  background-color: var(--code-background);
+}
+
+[data-rehype-pretty-code-fragment] code {
+  @apply grid;
+}
+
+[data-rehype-pretty-code-fragment] [data-highlighted-chars] {
+  @apply inline-block;
+  background-color: var(--selection);
+  border-left-color: var(--active-text);
+}
+
+[data-rehype-pretty-code-fragment] [data-highlighted-line] {
+  @apply inline-block;
+  background-color: var(--selection);
+  border-left-color: var(--active-text);
+}
+
+[data-rehype-pretty-code-fragment] [data-diff-remove] {
+  border-left-color: var(--remove-border-foreground);
+  background-color: var(--remove-foreground);
+  user-select: none;
+}
+
+[data-rehype-pretty-code-fragment] [data-diff-remove] span {
+  color: var(--remove-text-foreground) !important;
+}
+
+[data-rehype-pretty-code-fragment] [data-diff-insert] {
+  border-left-color: var(--insert-border-foreground);
+  background-color: var(--insert-foreground);
+}
+
+[data-rehype-pretty-code-fragment] [data-diff-insert] span {
+  color: var(--active-text) !important;
+}
+
 @media (max-width: 640px) {
-  div[data-rehype-pretty-code-fragment] {
+  [data-rehype-pretty-code-fragment] {
     @apply -ml-4 -mr-4;
   }
 }
 
-/* @TODO fix !important */
 .prose :where(pre):not(:where([class~="not-prose"] *)) {
   margin-top: 0 !important;
   padding: 0.8571429em 0 !important;
+  border-top-right-radius: unset;
+  border-top-left-radius: unset;
 }
 
 @property --number {
@@ -112,3 +121,12 @@ div[data-rehype-pretty-code-fragment] {
 .number-animation::before {
   content: counter(number);
 }
+
+/* TODO */
+/* selection css var */
+/* use cascade layers */
+/* @media (prefers-color-scheme: dark)
+  html {
+    color-scheme: dark;
+  }
+*/
