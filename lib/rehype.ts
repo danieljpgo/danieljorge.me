@@ -19,32 +19,21 @@ const autolinkHeadingsOptions: AutolinkHeadingsOptions = {
 
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
   theme: "poimandres",
-  onVisitLine(node) {
-    if (node.children.length === 0) {
-      node.children = [{ type: "text", value: " " }];
-    }
-  },
+  grid: true,
   onVisitHighlightedLine(node) {
-    node.properties.className.push("line--highlighted");
-    if (!node.children.length) return;
-    if (!node.children[0].children) return;
+    if (!node.children) return;
+    if (node.children[0].type !== "element") return;
+    if (node.children[0].children[0].type !== "text") return;
 
-    const value = node.children[0].children[0].value;
+    const { value } = node.children[0].children[0];
     if (value.startsWith("-")) {
-      node.properties.className.push("line--highlighted--remove");
-      node.children[0].children = [
-        { type: "text", value: value.replace("-", " ") },
-      ];
+      node.properties["data-diff-remove"] = "";
+      node.children[0].children[0].value = value.replace("-", "");
     }
     if (value.startsWith("+")) {
-      node.properties.className.push("line--highlighted--add");
-      node.children[0].children = [
-        { type: "text", value: value.replace("+", " ") },
-      ];
+      node.properties["data-diff-insert"] = "";
+      node.children[0].children[0].value = value.replace("+", "");
     }
-  },
-  onVisitHighlightedWord(node) {
-    node.properties.className = ["word--highlighted"];
   },
 };
 
