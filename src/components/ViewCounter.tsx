@@ -47,7 +47,7 @@ export function ViewCounter({
           // @ts-expect-error:
           "--number": views ? views : 0,
         }}
-      ></span>
+      />
       <span className="sr-only">{views ? views.toLocaleString() : 0}</span>
     </>
   );
