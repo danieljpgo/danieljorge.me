@@ -13,7 +13,6 @@ html {
   --remove-text-foreground: #506477;
   --remove-border-foreground: #832323;
   --insert-foreground: #54ff4818;
-  /* --insert-foreground: #54ff4825; */
   --insert-border-foreground: #54ff487a;
   --active-text: #add7ff;
   --line-number-foreground: #767c9d50;

@@ -26,13 +26,13 @@ const prettyCodeOptions: Partial<PrettyCodeOptions> = {
     if (node.children[0].children[0].type !== "text") return;
 
     const { value } = node.children[0].children[0];
-    if (value.startsWith("-")) {
+    if (value.trimStart().startsWith("-/")) {
       node.properties["data-diff-remove"] = "";
-      node.children[0].children[0].value = value.replace("-", "");
+      node.children[0].children[0].value = value.replace("-/", "");
     }
-    if (value.startsWith("+")) {
+    if (value.trimStart().startsWith("+/")) {
       node.properties["data-diff-insert"] = "";
-      node.children[0].children[0].value = value.replace("+", "");
+      node.children[0].children[0].value = value.replace("+/", "");
     }
   },
 };
