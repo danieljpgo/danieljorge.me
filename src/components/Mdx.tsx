@@ -19,13 +19,7 @@ export function Mdx({ code }: MdxProps) {
             <a
               href={href}
               className={cn(
-                "font-normal",
-                "text-gray-800",
-                "underline",
-                "decoration-gray-800",
-                "underline-offset-2",
-                "transition-colors",
-                "duration-200",
+                "font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-200",
                 "hover:decoration-gray-500",
                 "active:decoration-gray-400",
                 "[&:not(h1>*,h2>*,h3>*,h4>*,h5>*,h6>*)]:hover:text-gray-500",
@@ -41,14 +35,7 @@ export function Mdx({ code }: MdxProps) {
           blockquote: ({ className, ...props }) => (
             <blockquote
               className={cn(
-                "mt-6",
-                "mb-6",
-                "pl-6",
-                "border-l",
-                "font-normal",
-                "italic",
-                "text-slate-800",
-                "[&>*]:text-slate-600",
+                "mb-6 mt-6 border-l pl-6 font-normal italic text-slate-600",
                 className,
               )}
               {...props}
@@ -57,26 +44,13 @@ export function Mdx({ code }: MdxProps) {
           code: ({ className, ...props }) => (
             <code
               className={cn(
-                "[&:not(pre>*)]:selection:bg-[#717cb425]",
-                "[&:not(pre>*)]:relative",
-                "[&:not(pre>*)]:border",
-                "[&:not(pre>*)]:rounded",
-                "[&:not(pre>*)]:bg-slate-300",
-                "[&:not(pre>*)]:bg-opacity-25",
-                "[&:not(pre>*)]:py-[0.2rem]",
-                "[&:not(pre>*)]:px-[0.3rem]",
-                "[&:not(pre>*)]:font-mono",
-                "[&:not(pre>*)]:font-normal",
-                "[&:not(pre>*)]:text-sm",
-                "[&:not(pre>*)]:text-slate-600",
+                "[&:not(pre>*)]:relative [&:not(pre>*)]:rounded [&:not(pre>*)]:border [&:not(pre>*)]:bg-slate-300 [&:not(pre>*)]:bg-opacity-25 [&:not(pre>*)]:px-[0.3rem] [&:not(pre>*)]:py-[0.2rem] [&:not(pre>*)]:font-mono [&:not(pre>*)]:text-sm [&:not(pre>*)]:font-normal [&:not(pre>*)]:text-slate-600",
                 className,
               )}
               {...props}
             />
           ),
-          Image: ({ className, ...props }) => (
-            <Image alt={props.alt} {...props} />
-          ),
+          Image: ({ props }) => <Image alt={props.alt} {...props} />,
           ...Object.fromEntries(
             Object.entries(content).map(([key, Component]) => [
               [key],
