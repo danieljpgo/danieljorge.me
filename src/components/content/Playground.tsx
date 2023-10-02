@@ -14,7 +14,7 @@ export function Playground(props: PlaygroundProps) {
     <>
       <div
         className={cn(
-          "not-prose -mx-4 mb-5 grid min-h-[300px] w-[calc(100%+2rem)] place-items-center rounded-lg border border-gray-200 px-6 py-8 sm:mx-0 sm:w-full md:p-10",
+          "not-prose -mx-2 mb-5 grid min-h-[300px] w-[calc(100%+1rem)] place-items-center rounded-lg border border-gray-200 px-6 py-8 sm:mx-0 sm:w-full md:p-10",
           variant === "dark" && "bg-gray-900",
         )}
       >

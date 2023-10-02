@@ -44,7 +44,8 @@ export function Mdx({ code }: MdxProps) {
           code: ({ className, ...props }) => (
             <code
               className={cn(
-                "[&:not(pre>*)]:relative [&:not(pre>*)]:rounded [&:not(pre>*)]:border [&:not(pre>*)]:bg-slate-300 [&:not(pre>*)]:bg-opacity-25 [&:not(pre>*)]:px-[0.3rem] [&:not(pre>*)]:py-[0.2rem] [&:not(pre>*)]:font-mono [&:not(pre>*)]:text-sm [&:not(pre>*)]:font-normal [&:not(pre>*)]:text-slate-600",
+                "grid text-[13px] md:text-[14px]",
+                "[&:not(pre>*)]:relative [&:not(pre>*)]:inline [&:not(pre>*)]:rounded [&:not(pre>*)]:border [&:not(pre>*)]:bg-slate-300 [&:not(pre>*)]:bg-opacity-25 [&:not(pre>*)]:px-[0.3rem] [&:not(pre>*)]:py-[0.2rem] [&:not(pre>*)]:font-mono [&:not(pre>*)]:text-sm [&:not(pre>*)]:font-normal [&:not(pre>*)]:text-slate-600",
                 className,
               )}
               {...props}

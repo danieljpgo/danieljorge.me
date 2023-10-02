@@ -59,10 +59,6 @@ body {
   background-color: var(--code-background);
 }
 
-[data-rehype-pretty-code-fragment] code {
-  @apply grid;
-}
-
 [data-rehype-pretty-code-fragment] [data-highlighted-chars] {
   @apply inline-block;
   background-color: var(--selection);
@@ -96,7 +92,10 @@ body {
 
 @media (max-width: 640px) {
   [data-rehype-pretty-code-fragment] {
-    @apply -ml-4 -mr-4;
+    @apply -ml-2 -mr-2;
+  }
+  [data-line] {
+    @apply pl-1.5;
   }
 }
 

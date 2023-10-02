@@ -66,7 +66,7 @@ export default function Content({ params }: ContentProps) {
         </nav>
       </aside>
       <article className="flex w-full max-w-2xl flex-col gap-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 px-2 md:px-0">
           <div className="flex items-baseline justify-between">
             <Text size="sm" color="light">
               {"createdAtFormatted" in content
@@ -94,9 +94,9 @@ export default function Content({ params }: ContentProps) {
           </Heading>
           <Text color="base">{content.description}</Text>
         </div>
-        <hr />
+        <hr className="mx-2 md:mx-0" />
         <div className="flex flex-col gap-8">
-          <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline justify-between px-2 md:px-0">
             <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
                 {messages[content.type].title}
