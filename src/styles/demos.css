@@ -1,8 +1,7 @@
 .spotlight {
   background: #181e33;
   border-radius: 0.75rem;
-  border-width: 1px;
-  border: solid 1px rgb(255 255 255 / 0.1);
+  border: solid 1px rgb(255 255 255/0.1);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 24rem;
   min-height: 15.5rem;
@@ -20,7 +19,7 @@
   );
   border-radius: 0.75rem;
   content: "";
-  inset: 0;
+  inset: -1px;
   opacity: 0;
   position: absolute;
   transition-duration: 0.3s;
@@ -36,7 +35,6 @@
 .spotlight-first {
   background: #181e33;
   border-radius: 0.75rem;
-  border-width: 1px;
   border: solid 1px rgb(255 255 255 / 0.1);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 24rem;
@@ -58,7 +56,7 @@
   );
   border-radius: 0.75rem;
   content: "";
-  inset: 0;
+  inset: -1px;
   position: absolute;
   transition-duration: 0.3s;
   transition-property: background-color, opacity;

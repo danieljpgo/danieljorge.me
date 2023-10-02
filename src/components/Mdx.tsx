@@ -6,7 +6,6 @@ import * as content from "~/components/content";
 type MdxProps = {
   code: string;
 };
-
 export function Mdx({ code }: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
@@ -51,7 +50,7 @@ export function Mdx({ code }: MdxProps) {
               {...props}
             />
           ),
-          Image: ({ props }) => <Image alt={props.alt} {...props} />,
+          Image: (props) => <Image alt={props.alt} {...props} />,
           ...Object.fromEntries(
             Object.entries(content).map(([key, Component]) => [
               [key],
