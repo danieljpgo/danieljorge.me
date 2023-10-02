@@ -21,7 +21,7 @@ export function Playground(props: PlaygroundProps) {
         {children}
       </div>
       {description && (
-        <aside className="mb-6 px-2 text-center text-sm font-normal text-gray-600">
+        <aside className="mb-6 px-2 text-center text-sm font-normal text-gray-500">
           {description}
         </aside>
       )}

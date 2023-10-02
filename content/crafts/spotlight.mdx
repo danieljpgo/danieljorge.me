@@ -1,6 +1,6 @@
 ---
 title: Spotlight Effect
-description: lorem
+description: A radial gradient that follows the mouse
 createdAt: "2023-05-12"
 status: "published"
 topics: ["ui", "web", "css"]
@@ -12,9 +12,9 @@ topics: ["ui", "web", "css"]
 
 ---
 
-Second
+## Surface
 
-Primeiro devemos desenvolver o a superfice onde o Spotlight Effect irá ocorer:
+First, we should develop the surface where the Spotlight Effect will occur:
 
 <Playground>
   <SpotlightFirst />
@@ -42,9 +42,9 @@ export function Spotlight() {
 
 ---
 
-Second
+## Radial Gradient
 
-Em seguida, devemos adicionar o elemento que será responsavel pela movimentação, no caso estamos utilizando o um [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements) para isso, porém pode utilizar qualquer um que desejar:
+Next, we should add the element responsible for the movement, in this case, we are using a [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements) for that, but you can use any element you prefer:
 
 <Playground>
   <SpotlightSecond />
@@ -53,8 +53,8 @@ Em seguida, devemos adicionar o elemento que será responsavel pela movimentaç�
 ```css showLineNumbers title="styles.css" {3,4}
 .spotlight-second {
   /* ... */
-+  position: relative;
-+  z-index: 1;
+  +/position: relative;
+  +/z-index: 1;
 }
 
 .spotlight::before {
@@ -76,21 +76,20 @@ Em seguida, devemos adicionar o elemento que será responsavel pela movimentaç�
 
 ---
 
-Third
+## Moviment
 
-Agora, para realizar a movimentação, vamos utilizar [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) para guardar a posição atual do mouse.
-Essa abordagem permitirar é mais performatica pois não depende de nenhum estado do React ou qualquer framework que esteja utilizando, além de não precisar de nenhuma biblioteca de animação.
+Now, to perform the movement, we will use [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to store the current mouse position.
+This approach is more performance-oriented because it doesn't depend on any state from any framework you might be using; everything will be handled by the browser, and JavaScript will be responsible only for updating the values of the CSS variables.
 
-<Playground>
+<Playground description="Hover over to see the circle follow the mouse">
   <SpotlightThird />
 </Playground>
 
-Como estamos utilizando React, vamos utilizar o `useRef` para ter a referencia do elemento no DOM e podemos manipular.
-No eventhandler do mousemove, vamos calcular a posição radial-gradient utilizando as coordenadas do mouse por meio dos `MouseEvent.clientX` e `MouseEvent.clientY`, em relação a [viewport](https://developer.mozilla.org/en-US/docs/Glossary/Viewport) por meio dos valores de `x` e `y` do `getBoundingClientRect()`.
+Since we're using [React](https://react.dev), we'll use [useRef](https://react.dev/reference/react/useRef) to reference the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) element we'll manipulate. In the [mousemove](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event) event handler, we'll calculate the [radial-gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient) position using the mouse coordinates obtained from [MouseEvent.clientX](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX) and [MouseEvent.clientY](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientY), relative to the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/Viewport) using the `x` and `y` values from [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
 
-Por fim, vamos armazenar os valores encontrados em CSS variables para informar ao CSS qual a posição que o radial-gradient deve tomar.
+Finally, we'll store the values we found in CSS variables to inform the CSS about the position the `radial-gradient()` should take.
 
-```tsx showLineNumbers title="Spotlight.tsx" 
+```tsx showLineNumbers title="Spotlight.tsx"
 export function Spotlight() {
   const ref = useRef<ElementRef<"div">>(null);
 
@@ -106,10 +105,8 @@ export function Spotlight() {
 }
 ```
 
-Agora com os valores sendo da posição sendo adicionados, podemos acessa-los dentros do CSS e definindo a posição do radial-gradient em relação ao background do elemento.
-Um truque para facilitar a conversão dos valores para pixels é utilizar a função calc().
+Now that the position values are being added, we can access them within the CSS and set the position of the `radial-gradient()` relative to the element's `background`. A trick to facilitate the conversion of values to pixels is to use the `calc()` function.
 
-{/* /var(--x, 0)/ /var(--y, 0)/ */}
 ```css showLineNumbers title="styles.css" {7,8}
 .spotlight {
   /* ... */
@@ -117,8 +114,8 @@ Um truque para facilitar a conversão dos valores para pixels é utilizar a fun�
 
 .spotlight::before {
   background: radial-gradient(
--   250px at center,
-+   250px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    -/250px at center,
+    +/250px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
     rgba(130, 147, 248, 1),
     transparent 80%
   );
@@ -126,16 +123,15 @@ Um truque para facilitar a conversão dos valores para pixels é utilizar a fun�
 }
 ```
 
-
 ---
 
-Quarto
+## Hiding and Revealing
 
-Para finalizar, devemos esconder o radial-gradient até o mouse está em cima do nosso card, para isso podemos utilizar a opacidade.
-
-<Playground>
+<Playground description="Hover over and move out to see the effect appear and disappear.">
   <SpotlightFourth />
 </Playground>
+
+To finalize, we should hide the element until the mouse is over our card. To achieve this, we can use `opacity`.
 
 ```css showLineNumbers title="styles.css" {8-11}
 .spotlight {
@@ -145,10 +141,10 @@ Para finalizar, devemos esconder o radial-gradient até o mouse está em cima do
 .spotlight::before {
   /* ... */
   background: radial-gradient(
--    250px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-+    550px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
--    rgba(130, 147, 248, 1),
-+    rgba(130, 147, 248, 0.25),
+    -/250px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    -/ rgba(130, 147, 248, 1),
+    +/550px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    +/ rgba(130, 147, 248, 0.25),
     transparent 80%
   );
   opacity: 0;
@@ -161,11 +157,13 @@ Para finalizar, devemos esconder o radial-gradient até o mouse está em cima do
 
 ---
 
-Final
+## Complete
 
 <Playground prefer="pointer">
   <Spotlight />
 </Playground>
+
+Now that it's complete, change the `transition-duration` values to find the one that suits you best.
 
 ```tsx showLineNumbers title="Spotlight.tsx"
 export function Spotlight() {
