@@ -18,6 +18,21 @@ module.exports = {
         },
       },
       screens: {
+        "hover-hover": {
+          raw: "(hover: hover)",
+        },
+        "hover-none": {
+          raw: "(hover: none)",
+        },
+        "pointer-none": {
+          raw: "(pointer: none)",
+        },
+        "pointer-fine": {
+          raw: "(pointer: fine)",
+        },
+        "pointer-coarse": {
+          raw: "(pointer: coarse)",
+        },
         standalone: {
           raw: "(display-mode: standalone)",
         },
@@ -31,6 +46,9 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography")],
+  // future: {
+  //   hoverOnlyWhenSupported: true,
+  // },
 };
 
 // theme: {
