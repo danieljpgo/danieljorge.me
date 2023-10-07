@@ -1,12 +1,12 @@
 ---
 title: Spotlight Effect
-description: A radial gradient that follows the mouse
-createdAt: "2023-05-12"
+description: A radial gradient that follows the mouse.
+createdAt: "2023-10-07"
 status: "published"
 topics: ["ui", "web", "css"]
 ---
 
-<Playground prefer="pointer">
+<Playground warning="hover-none" variant="dark">
   <Spotlight />
 </Playground>
 
@@ -16,7 +16,7 @@ topics: ["ui", "web", "css"]
 
 First, we should develop the surface where the Spotlight Effect will occur:
 
-<Playground>
+<Playground variant="dark">
   <SpotlightFirst />
 </Playground>
 
@@ -30,7 +30,7 @@ export function Spotlight() {
 .spotlight {
   background: #181e33;
   border-radius: 0.75rem;
-  border: solid 1px rgb(255 255 255 / 0.1);
+  border: solid 1px rgb(255 255 255 / 0.075);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 24rem;
   min-height: 15.5rem;
@@ -45,7 +45,7 @@ export function Spotlight() {
 
 Next, we should add the element responsible for the movement, in this case, we are using a [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements) for that, but you can use any element you prefer:
 
-<Playground>
+<Playground variant="dark">
   <SpotlightSecond />
 </Playground>
 
@@ -75,12 +75,16 @@ Next, we should add the element responsible for the movement, in this case, we a
 
 ---
 
-## Moviment
+## Movement
 
 Now, to perform the movement, we will use [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to store the current mouse position.
 This approach is more performance-oriented because it doesn't depend on any state from any framework you might be using; everything will be handled by the browser, and JavaScript will be responsible only for updating the values of the CSS variables.
 
-<Playground description="Hover over to see the circle follow the mouse">
+<Playground
+  description="Hover over to see the radial gradient follow the mouse"
+  variant="dark"
+  warning="hover-none"
+>
   <SpotlightThird />
 </Playground>
 
@@ -126,7 +130,11 @@ Now that the position values are being added, we can access them within the CSS 
 
 ## Hiding and Revealing
 
-<Playground description="Hover over and move out to see the effect appear and disappear.">
+<Playground
+  description="Hover over and move out to see the radial gradient appear and disappear."
+  variant="dark"
+  warning="hover-none"
+>
   <SpotlightFourth />
 </Playground>
 
@@ -158,7 +166,7 @@ To finalize, we should hide the element until the mouse is over our card. To ach
 
 ## Complete
 
-<Playground prefer="pointer">
+<Playground variant="dark" warning="hover-none">
   <Spotlight />
 </Playground>
 
@@ -188,7 +196,7 @@ export function Spotlight() {
 .spotlight {
   background: #181e33;
   border-radius: 0.75rem;
-  border: solid 1px rgb(255 255 255 / 0.1);
+  border: solid 1px rgb(255 255 255 / 0.075);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 24rem;
   min-height: 15.5rem;
