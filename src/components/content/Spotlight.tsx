@@ -1,6 +1,5 @@
 "use client";
 import { ElementRef, useRef } from "react";
-import { cn } from "~/lib/tailwindcss";
 
 export function Spotlight() {
   const ref = useRef<ElementRef<"div">>(null);
@@ -15,23 +14,6 @@ export function Spotlight() {
 
   return (
     <div ref={ref} className="spotlight" onMouseMove={handleMouseMove}>
-      {/* <div
-      ref={ref}
-      className={cn(
-        "group relative z-[1] grid max-w-sm gap-1 rounded-xl border border-white/10 bg-[#181E33] px-8 py-10 shadow-2xl md:py-12",
-      )}
-      onMouseMove={handleMouseMove}
-    >
-      <div
-        className="pointer-events-none absolute inset-0 z-[-1] rounded-xl opacity-0 transition-[background-color,opacity] duration-[0.3s] ease-in-out content-[''] group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(
-          550px circle at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-          rgba(130, 147, 248, 0.25),
-          transparent 80%
-        );`,
-        }}
-      /> */}
       <h2 className="text-base font-semibold leading-7 text-sky-500">
         Lorem ipsum
       </h2>
@@ -96,3 +78,21 @@ export function SpotlightFourth() {
     />
   );
 }
+
+/* <div
+      ref={ref}
+      className={cn(
+        "group relative z-[1] grid max-w-sm gap-1 rounded-xl border border-white/10 bg-[#181E33] px-8 py-10 shadow-2xl md:py-12",
+      )}
+      onMouseMove={handleMouseMove}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 z-[-1] rounded-xl opacity-0 transition-[background-color,opacity] duration-[0.3s] ease-in-out content-[''] group-hover:opacity-100"
+        style={{
+          background: `radial-gradient(
+          550px circle at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+          rgba(130, 147, 248, 0.25),
+          transparent 80%
+        );`,
+        }}
+      /> */

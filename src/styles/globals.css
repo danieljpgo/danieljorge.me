@@ -86,10 +86,6 @@ body {
   background-color: var(--insert-foreground);
 }
 
-[data-rehype-pretty-code-fragment] [data-diff-insert] span {
-  /* color: var(--active-text) !important; */
-}
-
 @media (max-width: 640px) {
   [data-rehype-pretty-code-fragment] {
     @apply -ml-2 -mr-2;
