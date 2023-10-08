@@ -23,7 +23,7 @@ export function Playground(props: PlaygroundProps) {
             <svg
               width="16"
               height="16"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               viewBox="0 0 24 24"
               fill="none"
               color="currentColor"
@@ -31,9 +31,9 @@ export function Playground(props: PlaygroundProps) {
               <path
                 d="M12 7v6M12 17.01l.01-.011M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
                 stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></path>
             </svg>
             This prototype requires a pointer device.

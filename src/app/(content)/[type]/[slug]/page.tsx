@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { messages, topics } from "~/lib/content";
-import { genericMetadata } from "~/lib/metadata";
-import { documents } from "~/lib/contentlayer";
 import { cn } from "~/lib/tailwindcss";
+import { documents } from "~/lib/contentlayer";
+import { genericMetadata } from "~/lib/metadata";
+import { messages, topics } from "~/lib/content";
 import { Heading, Mdx, Text, View } from "~/components";
 
 type ContentProps = {
@@ -172,8 +172,14 @@ export function generateMetadata({ params }: ContentProps): Metadata {
   const og = new URLSearchParams({
     title: metadata.title,
     description: metadata.description,
-    type: content.type === "Diagrams" ? "diagram" : "content",
+    type:
+      content.type === "Diagrams"
+        ? "diagram"
+        : content.type === "Crafts"
+        ? "content-image"
+        : "content",
     ...(content.type === "Diagrams" && { images: content.images.toString() }),
+    ...(content.type === "Crafts" && { og: content.og.toString() }),
   }).toString();
 
   return {
