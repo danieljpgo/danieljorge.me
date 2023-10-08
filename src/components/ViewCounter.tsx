@@ -7,7 +7,7 @@ type ViewCounterProps = {
   initialValue?: number;
 };
 
-export default function ViewCounter({
+export function ViewCounter({
   slug,
   type = "view",
   initialValue = 0,
@@ -47,7 +47,7 @@ export default function ViewCounter({
           // @ts-expect-error:
           "--number": views ? views : 0,
         }}
-      ></span>
+      />
       <span className="sr-only">{views ? views.toLocaleString() : 0}</span>
     </>
   );

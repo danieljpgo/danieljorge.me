@@ -28,8 +28,7 @@ export const messages = {
   },
   Crafts: {
     title: "Crafts",
-    description:
-      "Build, concepts, techniques, solutions and explaining in detail.",
+    description: "Build, concepts, techniques and solutions",
   },
 } as const satisfies Record<
   DocumentTypeNames,

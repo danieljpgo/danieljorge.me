@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.png";
-import { notes } from "~/lib/contentlayer";
+import { messages } from "~/lib/content";
+import { notes, crafts } from "~/lib/contentlayer";
 import {
   GithubIcon,
   Heading,
@@ -36,8 +37,8 @@ export default function Home() {
           </div>
         </div>
         <Text>
-          Engineer interested at Functional Programming, React, Design System
-          and TypeScript, currently working at{" "}
+          Engineer interested in Web, React, Design System, and TypeScript,
+          currently working at{" "}
           <a
             href="https://bitso.com/"
             target="_blank"
@@ -115,11 +116,9 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Notes
+            {messages.Notes.title}
           </Heading>
-          <Text color="base">
-            Loose, short-form thoughts, reflections, and ideas.
-          </Text>
+          <Text color="base">{messages.Notes.description}</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
@@ -154,7 +153,7 @@ export default function Home() {
           ))}
         </ul>
       </section>
-      {/* <section className="grid gap-4 md:px-10">
+      <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
             as="h2"
@@ -163,15 +162,13 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Crafts
+            {messages.Crafts.title}
           </Heading>
-          <Text color="base">
-            Build, concepts, techniques, solutions and explaining in detail.
-          </Text>
+          <Text color="base">{messages.Crafts.description}</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
-          {craftsPublised.map((craft) => (
+          {crafts.map((craft) => (
             <li key={craft.slug}>
               <article className="grid gap-1">
                 <Link href={craft._raw.flattenedPath}>
@@ -193,6 +190,7 @@ export default function Home() {
                     •
                   </Text>
                   <Text size="sm" color="light">
+                    {/* @ts-expect-error: */}
                     <View slug={craft.slug} type="view" /> views
                   </Text>
                 </div>
@@ -200,7 +198,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-      </section> */}
+      </section>
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
@@ -272,12 +270,12 @@ export default function Home() {
                   leading="tight"
                   color="darker"
                 >
-                  Diagrams
+                  {messages.Diagrams.title}
                 </Heading>
               </Link>
               <div className="flex gap-2">
                 <Text size="sm" color="light">
-                  Explanations, concepts, design solutions, created over time.
+                  {messages.Diagrams.description}
                 </Text>
               </div>
             </article>
@@ -294,12 +292,12 @@ export default function Home() {
                   leading="tight"
                   color="darker"
                 >
-                  Configs
+                  {messages.Configs.title}
                 </Heading>
               </Link>
               <div className="flex gap-2">
                 <Text size="sm" color="light">
-                  Settings, shortcuts and everything related to productivity.
+                  {messages.Configs.description}
                 </Text>
               </div>
             </article>

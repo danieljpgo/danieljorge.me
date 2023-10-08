@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { messages, topics } from "~/lib/content";
-import { genericMetadata } from "~/lib/metadata";
-import { documents } from "~/lib/contentlayer";
 import { cn } from "~/lib/tailwindcss";
+import { documents } from "~/lib/contentlayer";
+import { genericMetadata } from "~/lib/metadata";
+import { messages, topics } from "~/lib/content";
 import { Heading, Mdx, Text, View } from "~/components";
 
 type ContentProps = {
@@ -66,7 +66,7 @@ export default function Content({ params }: ContentProps) {
         </nav>
       </aside>
       <article className="flex w-full max-w-2xl flex-col gap-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 px-2 md:px-0">
           <div className="flex items-baseline justify-between">
             <Text size="sm" color="light">
               {"createdAtFormatted" in content
@@ -94,9 +94,9 @@ export default function Content({ params }: ContentProps) {
           </Heading>
           <Text color="base">{content.description}</Text>
         </div>
-        <hr />
+        <hr className="mx-2 md:mx-0" />
         <div className="flex flex-col gap-8">
-          <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline justify-between px-2 md:px-0">
             <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
                 {messages[content.type].title}
@@ -172,8 +172,14 @@ export function generateMetadata({ params }: ContentProps): Metadata {
   const og = new URLSearchParams({
     title: metadata.title,
     description: metadata.description,
-    type: content.type === "Diagrams" ? "diagram" : "content",
+    type:
+      content.type === "Diagrams"
+        ? "diagram"
+        : content.type === "Crafts"
+        ? "content-image"
+        : "content",
     ...(content.type === "Diagrams" && { images: content.images.toString() }),
+    ...(content.type === "Crafts" && { og: content.og.toString() }),
   }).toString();
 
   return {

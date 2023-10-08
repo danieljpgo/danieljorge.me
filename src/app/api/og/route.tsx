@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
   const description = searchParams.get("description")?.slice(0, 120) ?? "None";
   const images = searchParams.get("images") ?? "None";
+  const og = searchParams.get("og") ?? "None";
   const items = searchParams.get("items") ?? "";
 
   const [fontRegular, fontMedium] = await fonts;
@@ -36,6 +37,16 @@ export async function GET(req: NextRequest) {
               title={title}
               description={description}
               origin={req.nextUrl.origin}
+            />
+          );
+        }
+        if (type === "content-image") {
+          return (
+            <ContentImage
+              title={title}
+              description={description}
+              origin={req.nextUrl.origin}
+              og={og}
             />
           );
         }
@@ -113,16 +124,49 @@ function Content({
   return (
     <Layout>
       <Header origin={origin} />
-      <div tw="flex flex-col">
+      <main tw="flex flex-col">
         <div tw="flex mb-2.5">
           <Title>{title}</Title>
         </div>
         <div tw="flex">
           <Description>{description}</Description>
         </div>
-      </div>
+      </main>
       <Footer origin={origin} />
     </Layout>
+  );
+}
+function ContentImage({
+  title,
+  description,
+  origin,
+  og,
+}: {
+  title: string;
+  description: string;
+  origin: string;
+  og: string;
+}) {
+  return (
+    <Panel>
+      <Section>
+        <Header origin={origin} />
+        <main tw="flex flex-col">
+          <div tw="flex mb-2.5">
+            <Title>{title}</Title>
+          </div>
+          <div tw="flex">
+            <Description>{description}</Description>
+          </div>
+        </main>
+        <Footer origin={origin} />
+      </Section>
+      <Aside>
+        <div tw="flex flex-col-reverse relative self-center justify-center">
+          <img src={`${origin}${og}`} alt="diagram" tw="w-200 absolute" />
+        </div>
+      </Aside>
+    </Panel>
   );
 }
 function List({
