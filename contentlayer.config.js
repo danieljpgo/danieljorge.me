@@ -156,10 +156,10 @@ export const configs = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
-    // updatedAt: {
-    //   type: "date",
-    //   required: false,
-    // },
+    updatedAt: {
+      type: "date",
+      required: false,
+    },
   },
   computedFields: {
     ...computedFields,

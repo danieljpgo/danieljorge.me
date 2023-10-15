@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import { Tweet } from "react-tweet";
 import { cn } from "~/lib/tailwindcss";
 import * as content from "~/components/content";
 
@@ -11,7 +10,7 @@ export function Mdx({ code }: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
   return (
-    <div className="prose max-w-none overflow-x-hidden">
+    <div className="prose max-w-none">
       <MDXContent
         components={{
           a: ({ className, href = "", ...props }) => (
@@ -57,12 +56,6 @@ export function Mdx({ code }: MdxProps) {
               (props) => <Component {...props} />,
             ]),
           ),
-          Tweet: ({ id }) => (
-            <div data-theme="light" className="not-prose flex justify-center">
-              <Tweet id={id} />
-            </div>
-          ),
-          ...content,
         }}
       />
     </div>
