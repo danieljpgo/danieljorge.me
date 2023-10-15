@@ -1,69 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heading, Text, View } from "~/components";
-import { diagrams } from "~/lib/contentlayer";
+import { notFound } from "next/navigation";
 import { formatDateNumerical } from "~/lib/date";
+import { documents, routes } from "~/lib/contentlayer";
 import { genericMetadata } from "~/lib/metadata";
+import { messages } from "~/lib/content";
 import { cn } from "~/lib/tailwindcss";
+import { Heading, Text, View } from "~/components";
 
-export const metadata: Metadata = {
-  title: "Diagrams",
-  description: "Explanations, concepts, design solutions, created over time.",
-  twitter: {
-    ...genericMetadata.twitter,
-    title: "Diagrams",
-    description: "Explanations, concepts, design solutions, created over time.",
-    images: {
-      ...genericMetadata.twitter.images,
-      url: `${
-        process.env.VERCEL_URL
-          ? "https://" + process.env.VERCEL_URL
-          : "http://localhost:3000"
-      }/api/og?${new URLSearchParams({
-        title: "Diagrams",
-        description:
-          "Explanations, concepts, design solutions, created over time.",
-        type: "list",
-        items: diagrams
-          .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
-          .slice(0, 10)
-          .join("|"),
-      }).toString()}`,
-    },
-  },
-  openGraph: {
-    ...genericMetadata.openGraph,
-    title: "Diagrams",
-    description: "Explanations, concepts, design solutions, created over time.",
-    images: [
-      {
-        ...genericMetadata.openGraph.images[0],
-        url: `${
-          process.env.VERCEL_URL
-            ? "https://" + process.env.VERCEL_URL
-            : "http://localhost:3000"
-        }/api/og?${new URLSearchParams({
-          title: "Diagrams",
-          description:
-            "Explanations, concepts, design solutions, created over time.",
-          type: "list",
-          items: diagrams
-            .map((a) => `${formatDateNumerical(a.createdAt)};${a.title}`)
-            .slice(0, 10)
-            .join("|"),
-        }).toString()}`,
-      },
-    ],
-  },
+type ContentsProps = {
+  params: { type: string };
 };
+export default function Contents({ params }: ContentsProps) {
+  const contents = documents.filter(
+    (doc) => doc._raw.sourceFileDir === params.type,
+  );
+  if (!contents.length) return notFound();
 
-export default function Diagrams() {
   return (
     <>
       <aside
         className={cn(
           "sticky top-8 hidden h-min w-full max-w-[14rem] justify-start gap-2.5 lg:grid xl:max-w-[16rem]",
-          "mt-[124px]",
+          "mt-[100px]",
         )}
       >
         <nav className="grid gap-1">
@@ -85,40 +44,39 @@ export default function Diagrams() {
             leading="tight"
             color="darker"
           >
-            Diagrams
+            {messages[contents[0].type].title}
           </Heading>
-          <Text color="base">
-            {`A list of diagrams I've created over time to help me explain
-           and think about concepts, design solutions and more.`}
-          </Text>
+          <Text color="base">{messages[contents[0].type].description}</Text>
         </div>
         <hr />
         <div className="grid gap-4">
           <ul className="grid gap-4">
-            {diagrams.map((diagram) => (
-              <li key={diagram.slug}>
+            {contents.map((content) => (
+              <li key={content.slug}>
                 <article className="grid gap-1">
-                  <Link href={diagram._raw.flattenedPath}>
+                  <Link href={content._raw.flattenedPath}>
                     <Heading
-                      as="h3"
+                      as="h2"
                       size="base"
                       weight="medium"
                       leading="tight"
                       color="darker"
                     >
-                      {diagram.title}
+                      {content.title}
                     </Heading>
                   </Link>
                   <div className="flex gap-2">
                     <Text size="sm" color="light">
-                      {diagram.createdAtFormatted}
+                      {"createdAtFormatted" in content
+                        ? content.createdAtFormatted
+                        : content.publishedAtFormatted}
                     </Text>
                     <Text size="sm" color="light">
                       •
                     </Text>
                     <Text size="sm" color="light">
                       {/* @ts-expect-error: */}
-                      <View slug={diagram.slug} type="view" /> views
+                      <View slug={content.slug} type="view" /> views
                     </Text>
                   </div>
                 </article>
@@ -153,3 +111,65 @@ export default function Diagrams() {
     </>
   );
 }
+
+export function generateStaticParams(): Array<ContentsProps["params"]> {
+  return routes.map((path) => ({ type: path }));
+}
+
+export function generateMetadata({ params }: ContentsProps): Metadata {
+  const contents = documents.filter(
+    (doc) => doc._raw.sourceFileDir === params.type,
+  );
+  if (!contents.length) return notFound();
+
+  const metadata = {
+    title: messages[contents[0].type].title,
+    description: messages[contents[0].type].description,
+  };
+
+  const og = new URLSearchParams({
+    title: metadata.title,
+    description: metadata.description,
+    type: "list",
+    items: contents
+      .map(
+        (content) =>
+          `${formatDateNumerical(
+            "createdAt" in content ? content.createdAt : content.publishedAt,
+          )};${content.title}`,
+      )
+      .slice(0, 10)
+      .join("|"),
+  }).toString();
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    twitter: {
+      ...genericMetadata.twitter,
+      title: metadata.title,
+      description: metadata.description,
+      images: {
+        ...genericMetadata.twitter.images,
+        url: `${baseURL}/api/og?${og}`,
+        alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
+      },
+    },
+    openGraph: {
+      ...genericMetadata.openGraph,
+      title: metadata.title,
+      description: metadata.description,
+      images: [
+        {
+          ...genericMetadata.openGraph.images[0],
+          url: `${baseURL}/api/og?${og}`,
+          alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
+        },
+      ],
+    },
+  };
+}
+
+const baseURL = process.env.VERCEL_URL
+  ? "https://" + process.env.VERCEL_URL
+  : "http://localhost:3000";

@@ -3,6 +3,7 @@ title: Syntax Highlighting
 description: Demo
 publishedAt: "2023-04-09"
 status: "draft"
+topics: ["ui"]
 ---
 
 We can add title annotations to our code blocks using the title="..." syntax:
@@ -128,6 +129,32 @@ const gaps = {
 type StackProps = {
   children: React.ReactNode;
   gap?: keyof typeof gaps;
+  as?: "section" | "div" | "ul" | "ol" | "li";
+};
+
+export default function Stack(props: StackProps) {
+  const { children, as: tag = "div", gap = "sm" } = props;
+  const Tag = tag;
+
+  return <Tag className={`flex flex-col ${gaps[gap]}`}>{children}</Tag>;
+}
+```
+
+Diff
+
+```tsx showLineNumbers title="Stack.tsx" {11,12}
+const gaps = {
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
+};
+
+type StackProps = {
+  children: React.ReactNode;
+- gap: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
++ gap: keyof typeof gaps;
   as?: "section" | "div" | "ul" | "ol" | "li";
 };
 

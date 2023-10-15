@@ -12,7 +12,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="scroll-smooth">
       <head />
-      <body className="pb-safe-bottom pl-safe-left pr-safe-right pt-safe-top antialiased selection:bg-[#add7ff]/25">
+      <body className="pb-safe-bottom pl-safe-left pr-safe-right pt-safe-top antialiased selection:bg-[#717cb425]">
         {children}
         <Analytics />
       </body>

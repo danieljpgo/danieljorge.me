@@ -19,16 +19,21 @@ const autolinkHeadingsOptions: AutolinkHeadingsOptions = {
 
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
   theme: "poimandres",
-  onVisitLine(node) {
-    if (node.children.length === 0) {
-      node.children = [{ type: "text", value: " " }];
-    }
-  },
+  grid: true,
   onVisitHighlightedLine(node) {
-    node.properties.className.push("line--highlighted");
-  },
-  onVisitHighlightedWord(node) {
-    node.properties.className = ["word--highlighted"];
+    if (!node.children) return;
+    if (node.children[0].type !== "element") return;
+    if (node.children[0].children[0].type !== "text") return;
+
+    const { value } = node.children[0].children[0];
+    if (value.trimStart().startsWith("-/")) {
+      node.properties["data-diff-remove"] = "";
+      node.children[0].children[0].value = value.replace("-/", "");
+    }
+    if (value.trimStart().startsWith("+/")) {
+      node.properties["data-diff-insert"] = "";
+      node.children[0].children[0].value = value.replace("+/", "");
+    }
   },
 };
 

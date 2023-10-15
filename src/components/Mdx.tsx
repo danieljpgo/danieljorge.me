@@ -1,32 +1,24 @@
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import * as content from "~/components/content";
-import { cn } from "~/lib/tailwindcss";
 import { Tweet } from "react-tweet";
+import { cn } from "~/lib/tailwindcss";
+import * as content from "~/components/content";
 
 type MdxProps = {
   code: string;
 };
-
-export default function Mdx({ code }: MdxProps) {
+export function Mdx({ code }: MdxProps) {
   const MDXContent = useMDXComponent(code);
 
   return (
     <div className="prose max-w-none overflow-x-hidden">
-      {/* @ts-expect-error: */}
       <MDXContent
         components={{
           a: ({ className, href = "", ...props }) => (
             <a
               href={href}
               className={cn(
-                "font-normal",
-                "text-gray-800",
-                "underline",
-                "decoration-gray-800",
-                "underline-offset-2",
-                "transition-colors",
-                "duration-200",
+                "font-normal text-gray-800 underline decoration-gray-800 underline-offset-2 transition-colors duration-200",
                 "hover:decoration-gray-500",
                 "active:decoration-gray-400",
                 "[&:not(h1>*,h2>*,h3>*,h4>*,h5>*,h6>*)]:hover:text-gray-500",
@@ -42,14 +34,7 @@ export default function Mdx({ code }: MdxProps) {
           blockquote: ({ className, ...props }) => (
             <blockquote
               className={cn(
-                "mt-6",
-                "mb-6",
-                "pl-6",
-                "border-l",
-                "font-normal",
-                "italic",
-                "text-slate-800",
-                "[&>*]:text-slate-600",
+                "mb-6 mt-6 border-l pl-6 font-normal italic text-slate-600",
                 className,
               )}
               {...props}
@@ -58,25 +43,19 @@ export default function Mdx({ code }: MdxProps) {
           code: ({ className, ...props }) => (
             <code
               className={cn(
-                "[&:not(pre>*)]:selection:bg-[#add7ff21]",
-                "[&:not(pre>*)]:relative",
-                "[&:not(pre>*)]:border",
-                "[&:not(pre>*)]:rounded",
-                "[&:not(pre>*)]:bg-slate-300",
-                "[&:not(pre>*)]:bg-opacity-25",
-                "[&:not(pre>*)]:py-[0.2rem]",
-                "[&:not(pre>*)]:px-[0.3rem]",
-                "[&:not(pre>*)]:font-mono",
-                "[&:not(pre>*)]:font-normal",
-                "[&:not(pre>*)]:text-sm",
-                "[&:not(pre>*)]:text-slate-600",
+                "grid text-[13px] md:text-[14px]",
+                "[&:not(pre>*)]:relative [&:not(pre>*)]:inline [&:not(pre>*)]:rounded [&:not(pre>*)]:border [&:not(pre>*)]:bg-slate-300 [&:not(pre>*)]:bg-opacity-25 [&:not(pre>*)]:px-[0.3rem] [&:not(pre>*)]:py-[0.2rem] [&:not(pre>*)]:font-mono [&:not(pre>*)]:text-sm [&:not(pre>*)]:font-normal [&:not(pre>*)]:text-slate-600",
                 className,
               )}
               {...props}
             />
           ),
-          Image: ({ className, ...props }) => (
-            <Image alt={props.alt} {...props} />
+          Image: (props) => <Image alt={props.alt} {...props} />,
+          ...Object.fromEntries(
+            Object.entries(content).map(([key, Component]) => [
+              [key],
+              (props) => <Component {...props} />,
+            ]),
           ),
           Tweet: ({ id }) => (
             <div data-theme="light" className="not-prose flex justify-center">

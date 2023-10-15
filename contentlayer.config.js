@@ -132,6 +132,10 @@ export const crafts = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
+    og: {
+      type: "string",
+      required: true,
+    },
   },
   computedFields: {
     ...computedFields,

@@ -5,10 +5,10 @@ import { cn } from "~/lib/tailwindcss";
 
 const fonts = Promise.all([
   fetch(
-    new URL("../../../../public/fonts/Inter-Regular.ttf", import.meta.url),
+    new URL("../../../../public/fonts/Manrope-Regular.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer()),
   fetch(
-    new URL("../../../../public/fonts/Inter-Medium.ttf", import.meta.url),
+    new URL("../../../../public/fonts/Manrope-Medium.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer()),
 ]);
 
@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
   const description = searchParams.get("description")?.slice(0, 120) ?? "None";
   const images = searchParams.get("images") ?? "None";
+  const og = searchParams.get("og") ?? "None";
   const items = searchParams.get("items") ?? "";
 
   const [fontRegular, fontMedium] = await fonts;
@@ -36,6 +37,16 @@ export async function GET(req: NextRequest) {
               title={title}
               description={description}
               origin={req.nextUrl.origin}
+            />
+          );
+        }
+        if (type === "content-image") {
+          return (
+            <ContentImage
+              title={title}
+              description={description}
+              origin={req.nextUrl.origin}
+              og={og}
             />
           );
         }
@@ -65,18 +76,8 @@ export async function GET(req: NextRequest) {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Inter",
-            data: fontMedium,
-            weight: 500,
-            style: "normal",
-          },
-          {
-            name: "Inter",
-            data: fontRegular,
-            weight: 400,
-            style: "normal",
-          },
+          { name: "Inter", data: fontMedium, weight: 500, style: "normal" },
+          { name: "Inter", data: fontRegular, weight: 400, style: "normal" },
         ],
       },
     );
@@ -89,7 +90,6 @@ export async function GET(req: NextRequest) {
     });
   }
 }
-
 function Home({ origin }: { origin: string }) {
   return (
     <Layout>
@@ -112,7 +112,6 @@ function Home({ origin }: { origin: string }) {
     </Layout>
   );
 }
-
 function Content({
   title,
   description,
@@ -125,19 +124,51 @@ function Content({
   return (
     <Layout>
       <Header origin={origin} />
-      <div tw="flex flex-col">
+      <main tw="flex flex-col">
         <div tw="flex mb-2.5">
           <Title>{title}</Title>
         </div>
         <div tw="flex">
           <Description>{description}</Description>
         </div>
-      </div>
+      </main>
       <Footer origin={origin} />
     </Layout>
   );
 }
-
+function ContentImage({
+  title,
+  description,
+  origin,
+  og,
+}: {
+  title: string;
+  description: string;
+  origin: string;
+  og: string;
+}) {
+  return (
+    <Panel>
+      <Section>
+        <Header origin={origin} />
+        <main tw="flex flex-col">
+          <div tw="flex mb-2.5">
+            <Title>{title}</Title>
+          </div>
+          <div tw="flex">
+            <Description>{description}</Description>
+          </div>
+        </main>
+        <Footer origin={origin} />
+      </Section>
+      <Aside>
+        <div tw="flex flex-col-reverse relative self-center justify-center">
+          <img src={`${origin}${og}`} alt="diagram" tw="w-200 absolute" />
+        </div>
+      </Aside>
+    </Panel>
+  );
+}
 function List({
   title,
   description,
@@ -191,7 +222,6 @@ function List({
     </Panel>
   );
 }
-
 function Diagram({
   title,
   origin,
@@ -228,7 +258,6 @@ function Diagram({
     </Panel>
   );
 }
-
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -263,7 +292,7 @@ function Header({ origin }: { origin: string }) {
   return (
     <header tw="flex items-center">
       <img src={`${origin}/logo.svg`} tw="h-6 w-6" alt="logo" />
-      <p tw="m-0 pl-2 text-xl font-normal">danieljorge.me</p>
+      <p tw="m-0 -mt-0.5 pl-2 text-xl font-normal">danieljorge.me</p>
     </header>
   );
 }
@@ -296,9 +325,7 @@ function Description({ children }: { children: string }) {
   return (
     <p
       tw="m-0 flex text-4xl text-slate-500 font-normal"
-      style={{
-        letterSpacing: "-0.05em",
-      }}
+      style={{ letterSpacing: "-0.05em" }}
     >
       {children}
     </p>

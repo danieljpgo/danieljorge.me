@@ -7,20 +7,18 @@ import {
   configs,
 } from "~/lib/contentlayer";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const writingsRoute = writings
-    .filter((writing) => writing.status === "published")
-    .map((writing) => ({
-      url: `https://danieljorge.me/writings/${writing.slug}`,
-      lastModified: writing.publishedAt.split("T")[0],
-    }));
+// @TODO use documents
 
-  const notesRoute = notes
-    .filter((note) => note.status === "published")
-    .map((note) => ({
-      url: `https://danieljorge.me/notes/${note.slug}`,
-      lastModified: note.publishedAt.split("T")[0],
-    }));
+export default function sitemap(): MetadataRoute.Sitemap {
+  const writingsRoute = writings.map((writing) => ({
+    url: `https://danieljorge.me/writings/${writing.slug}`,
+    lastModified: writing.publishedAt.split("T")[0],
+  }));
+
+  const notesRoute = notes.map((note) => ({
+    url: `https://danieljorge.me/notes/${note.slug}`,
+    lastModified: note.publishedAt.split("T")[0],
+  }));
 
   const diagramsRoute = diagrams.map((diagram) => ({
     url: `https://danieljorge.me/diagrams/${diagram.slug}`,

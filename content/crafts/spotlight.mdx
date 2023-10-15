@@ -1,15 +1,230 @@
 ---
 title: Spotlight Effect
-description: lorem
-createdAt: "2023-05-12"
-status: "draft"
-topics: ["ui", "web", "react"]
+description: A radial gradient that follows the mouse.
+createdAt: "2023-10-07"
+status: "published"
+topics: ["ui", "web", "css"]
+og: "/content/crafts/spotlight/og.png"
 ---
 
-<Playground>
-  <SpotlightEffect />
+<Playground warning="hover-none" variant="dark">
+  <Spotlight />
 </Playground>
 
 ---
 
-Test
+## Surface
+
+First, we should develop the surface where the Spotlight Effect will occur:
+
+<Playground variant="dark">
+  <SpotlightFirst />
+</Playground>
+
+```tsx showLineNumbers title="Spotlight.tsx"
+export function Spotlight() {
+  return <div className="spotlight" />;
+}
+```
+
+```css showLineNumbers title="styles.css"
+.spotlight {
+  background: #181e33;
+  border-radius: 0.75rem;
+  border: solid 1px rgb(255 255 255 / 0.075);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 24rem;
+  min-height: 15.5rem;
+  padding: 2.5rem 2rem;
+  width: 100%;
+}
+```
+
+---
+
+## Radial Gradient
+
+Next, we should add the element responsible for the movement, in this case, we are using a [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements) for that, but you can use any element you prefer:
+
+<Playground variant="dark">
+  <SpotlightSecond />
+</Playground>
+
+```css showLineNumbers title="styles.css" {3,4}
+.spotlight-second {
+  /* ... */
+  +/position: relative;
+  +/z-index: 1;
+}
+
+.spotlight::before {
+  background: radial-gradient(
+    250px at center,
+    rgba(130, 147, 248, 1),
+    transparent 80%
+  );
+  border-radius: 0.75rem;
+  content: "";
+  inset: -1px;
+  position: absolute;
+  transition-duration: 0.3s;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+```
+
+---
+
+## Movement
+
+Now, to perform the movement, we will use [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to store the current mouse position.
+This approach is more performance-oriented because it doesn't depend on any state from any framework you might be using; everything will be handled by the browser, and JavaScript will be responsible only for updating the values of the CSS variables.
+
+<Playground
+  description="Hover over to see the radial gradient follow the mouse"
+  variant="dark"
+  warning="hover-none"
+>
+  <SpotlightThird />
+</Playground>
+
+Since we're using [React](https://react.dev), we'll use [useRef](https://react.dev/reference/react/useRef) to reference the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) element we'll manipulate. In the [mousemove](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event) event handler, we'll calculate the [radial-gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient) position using the mouse coordinates obtained from [MouseEvent.clientX](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX) and [MouseEvent.clientY](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientY), relative to the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/Viewport) using the `x` and `y` values from [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
+
+Finally, we'll store the values we found in CSS variables to inform the CSS about the position the `radial-gradient()` should take.
+
+```tsx showLineNumbers title="Spotlight.tsx"
+export function Spotlight() {
+  const ref = useRef<ElementRef<"div">>(null);
+
+  function handleMouseMove(event: React.MouseEvent<ElementRef<"div">>) {
+    if (!ref.current) return;
+    const { x, y } = event.currentTarget.getBoundingClientRect();
+
+    ref.current.style.setProperty("--x", String(event.clientX - x));
+    ref.current.style.setProperty("--y", String(event.clientY - y));
+  }
+
+  return <div ref={ref} className="spotlight" onMouseMove={handleMouseMove} />;
+}
+```
+
+Now that the position values are being added, we can access them within the CSS and set the position of the `radial-gradient()` relative to the element's `background`. A trick to facilitate the conversion of values to pixels is to use the `calc()` function.
+
+```css showLineNumbers title="styles.css" {7,8}
+.spotlight {
+  /* ... */
+}
+
+.spotlight::before {
+  background: radial-gradient(
+    -/250px at center,
+    +/250px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    rgba(130, 147, 248, 1),
+    transparent 80%
+  );
+  /* ... */
+}
+```
+
+---
+
+## Hiding and Revealing
+
+<Playground
+  description="Hover over and move out to see the radial gradient appear and disappear."
+  variant="dark"
+  warning="hover-none"
+>
+  <SpotlightFourth />
+</Playground>
+
+To finalize, we should hide the element until the mouse is over our card. To achieve this, we can use `opacity`.
+
+```css showLineNumbers title="styles.css" {8-11}
+.spotlight {
+  /* ... */
+}
+
+.spotlight::before {
+  /* ... */
+  background: radial-gradient(
+    -/250px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    -/ rgba(130, 147, 248, 1),
+    +/550px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    +/ rgba(130, 147, 248, 0.25),
+    transparent 80%
+  );
+  opacity: 0;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+```
+
+---
+
+## Complete
+
+<Playground variant="dark" warning="hover-none">
+  <Spotlight />
+</Playground>
+
+Now that it's complete, change the `transition-duration` values to find the one that suits you best.
+
+```tsx showLineNumbers title="Spotlight.tsx"
+export function Spotlight() {
+  const ref = useRef<ElementRef<"div">>(null);
+
+  function handleMouseMove(event: MouseEvent<ElementRef<"div">>) {
+    if (!ref.current) return;
+    const { x, y } = event.currentTarget.getBoundingClientRect();
+
+    ref.current.style.setProperty("--x", String(event.clientX - x));
+    ref.current.style.setProperty("--y", String(event.clientY - y));
+  }
+
+  return (
+    <div ref={ref} className="craft-spotlight" onMouseMove={handleMouseMove}>
+      {...}
+    </div>
+  );
+}
+```
+
+```css showLineNumbers title="styles.css"
+.spotlight {
+  background: #181e33;
+  border-radius: 0.75rem;
+  border: solid 1px rgb(255 255 255 / 0.075);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 24rem;
+  min-height: 15.5rem;
+  padding: 2.5rem 2rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.spotlight::before {
+  background: radial-gradient(
+    550px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    rgba(130, 147, 248, 0.25),
+    transparent 80%
+  );
+  border-radius: 0.75rem;
+  content: "";
+  inset: -1px;
+  opacity: 0;
+  position: absolute;
+  transition-duration: 0.3s;
+  transition-property: background-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+```

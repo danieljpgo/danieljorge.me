@@ -1,2 +1,2 @@
-export { default as Playground } from "./Playground";
-export { default as SpotlightEffect } from "./SpotlightEffect";
+export * from "./Playground";
+export * from "./Spotlight";
