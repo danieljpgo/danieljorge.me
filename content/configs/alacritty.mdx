@@ -1,0 +1,20 @@
+---
+title: alacritty
+description: "TODO"
+createdAt: "2023-07-05"
+status: "draft"
+topics: ["productivity"]
+---
+
+Turns out, you can set it with:
+
+defaults write org.alacritty AppleFontSmoothing -int 0
+If you then log in and logout again, your Alacritty will be similar to the crispness you find in iTerm.
+
+If you want to restore it back to the default, do:
+
+defaults delete org.alacritty AppleFontSmoothing
+
+And if you like to have this kind of crispness across the entire OS. Do:
+
+defaults write -g AppleFontSmoothing -int 0
