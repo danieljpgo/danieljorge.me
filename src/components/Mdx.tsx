@@ -11,6 +11,7 @@ export function Mdx({ code }: MdxProps) {
 
   return (
     <div className="prose max-w-none">
+      {/* @ts-expect-error: */}
       <MDXContent
         components={{
           a: ({ className, href = "", ...props }) => (
