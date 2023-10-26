@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import {
-  notes,
   writings,
+  notes,
   diagrams,
   documents,
   configs,

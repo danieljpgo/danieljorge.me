@@ -2,14 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import profile from "~/public/profile.png";
 import { messages } from "~/lib/content";
-import { notes, crafts } from "~/lib/contentlayer";
+import { writings, notes, crafts } from "~/lib/contentlayer";
 import {
-  GithubIcon,
-  Heading,
-  LinkedinIcon,
-  Text,
-  TwitterIcon,
   View,
+  Text,
+  Heading,
+  GithubIcon,
+  TwitterIcon,
+  LinkedinIcon,
 } from "~/components";
 
 export default function Home() {
@@ -94,9 +94,9 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            Writings
+            {messages.Writings.title}
           </Heading>
-          <Text color="base">Crafted, long form thoughts and ideas.</Text>
+          <Text color="base">{messages.Writings.description}</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
@@ -234,9 +234,6 @@ export default function Home() {
           >
             Projects
           </Heading>
-          {/* <Text color="base">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </Text> */}
         </div>
         <hr />
         <ul className="grid gap-4">
@@ -268,7 +265,6 @@ export default function Home() {
           </li>
         </ul>
       </section>
-
       <section className="grid gap-4 md:px-10">
         <div className="grid gap-2">
           <Heading
