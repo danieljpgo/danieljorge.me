@@ -54,7 +54,7 @@ export default function Topic({ params }: TopicProps) {
             {contents.map((content) => (
               <li key={content.slug}>
                 <article className="grid gap-1">
-                  <Link href={content._raw.flattenedPath}>
+                  <Link href={`/${content._raw.flattenedPath}`}>
                     <Heading
                       as="h2"
                       size="base"
