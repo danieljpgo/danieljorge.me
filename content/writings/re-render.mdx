@@ -1,0 +1,101 @@
+---
+title: "Re-render: The React Non-Issue"
+description: React is all about rendering and re-rendering
+publishedAt: "2023-04-09"
+status: "published"
+topics: ["react"]
+---
+
+Performance is always a concern among developers, often before it's even necessary. However, using [React](https://react.dev), there are still several misunderstandings and one of them, and perhaps the main one is re-renders.
+
+> 100 re-renders can be faster than 1 slow render.
+
+But how can re-rendering not be an issue?
+
+## The Non-Issue: Re-render
+
+First, to understand why it's not an issue, we must understand how React rendering happens.
+
+As it is [said in the official documentation](https://react.dev/learn/render-and-commit), we can separate it into three steps:
+
+- [Trigger](https://react.dev/learn/render-and-commit#step-1-trigger-a-render)
+- [Render](https://react.dev/learn/render-and-commit#step-2-react-renders-your-components)
+- [Commit](https://react.dev/learn/render-and-commit#step-3-react-commits-changes-to-the-dom)
+
+### Trigger, Render & Commit
+
+### Re-render
+
+Normally, when we think about re-renders, we think about updates to the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), but this only happens in the Commit phase, this phase only happens after the Render phase. Therefore, your component can be rendered, and not generate a change in the DOM (Commit), as it will compare the previous rendering to ensure that it will perform the minute of possible changes, this step is known as [Reconciliation](https://legacy.reactjs.org/docs/reconciliation.html).
+
+```tsx showLineNumbers /Trigger/ /Render/ /Commit/
+trigger → render → commit
+```
+
+In the example, even if the Foo component is re-rendered every time the counter is changed, it won't result in an update to the DOM, so even with new re-renders won't have a performance a performance penalty; therefore, re-rendering by itself is not a problem.
+
+```tsx showLineNumbers {2,8}
+function Foo() {
+  console.log("render: FOO");
+  return <p>FOO</p>;
+}
+
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  console.log("render: Counter");
+  return (
+    <>
+      <Foo />
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
+    </>
+  );
+}
+```
+
+Even though this is a simple example, demonstrating that re-rendering in itself is not a bad thing. When can a re-rendering be an issue?
+
+## The Actual Issue: Slow rendering
+
+While React is generally known for its efficiency in rendering elements, there are situations where rendering performance can be compromised, necessitating attention and optimization. This usually happens in the Rendering phase, particularly when there are expensive computation, rendering a large number of elements simultaneously, or loading resource-heavy dependencies, resulting in slow rendering.
+
+To solve this problem there are several ways, but first it is important to measure.
+
+> You only optimize what you measure
+
+### Measure
+
+For that, we can use [ChromeDevTools](https://twitter.com/ChromeDevTools) Performance tab. In addition, we can also use [React Developer Tools](https://react.dev/learn/react-developer-tools) to view the rendering time in detail and ensure that improvements are being made and not regressions.
+
+Tweet id="1171158009277403136"
+
+Tweet id="1126950967201546240"
+
+### Performance Techniques
+
+Now that we can measure improvements or ~regressions~, we can starting using [Performance Hooks](https://react.dev/reference/react#performance-hooks):
+
+- [useMemo](https://react.dev/reference/react/useMemo)
+- [useCallback](https://react.dev/reference/react/useCallback)
+
+The first two hooks presented, useMemo and useCallback are commonly used to optimize re-rendering performance, allowing to skip unnecessary work. These hooks, using [Memoization](https://en.wikipedia.org/wiki/Memoization) techniques, make it possible to cache computationally in memories or even not render again if the data has not changed, using a stable reference.
+
+- [useTransition](https://react.dev/reference/react/useTransition)
+- [useDeferredValue](https://react.dev/reference/react/useDeferredValue)
+
+However, sometimes it is not possible to skip re-rendering, as visual feedback of the change is required. But luckily, with the [release of React 18](https://react.dev/blog/2022/03/29/react-v18), the new useTransition and useDeferredValue hooks allow you to separate what needs to be updated synchronously, such as a text input, from what can be updated asynchronously, i.e., what has less priority , as a list of users when filtered. This separation promotes a sense of performance gain, as it allows what needs to be responsive to remain responsive.
+
+We also have the memo function, which helps you skip re-rendering a component when its props are unchanged.
+
+- [memo](https://react.dev/reference/react/memo)
+
+### Caveat
+
+By design, React was made to generate multiple renders and it was special in the beginning because it managed to do this with good performance and a simple mental model.
+
+That's why it's important not to make premature optimizations, and measure any change made in order to optimize something, to ensure that it's not actually a regression.
+
+[Kent C. Dodds](https://twitter.com/kentcdodds) has an excellent blogpost on the topic, where he goes into more depth about the cost of avoiding re-rending and how it can slow down your app.
+
+- [When to useMemo and useCallback](https://kentcdodds.com/blog/usememo-and-usecallback)
+
+## Conclusion

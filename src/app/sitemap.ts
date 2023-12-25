@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import {
+  writings,
   notes,
   diagrams,
   documents,
@@ -10,6 +11,11 @@ import {
 // @TODO use documents
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const writingsRoute = writings.map((writing) => ({
+    url: `https://danieljorge.me/writings/${writing.slug}`,
+    lastModified: writing.publishedAt.split("T")[0],
+  }));
+
   const notesRoute = notes.map((note) => ({
     url: `https://danieljorge.me/notes/${note.slug}`,
     lastModified: note.publishedAt.split("T")[0],
@@ -46,6 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...routes,
+    ...writingsRoute,
     ...notesRoute,
     ...diagramsRoute,
     ...craftsRoute,
