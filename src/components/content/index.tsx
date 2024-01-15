@@ -1,2 +1,2 @@
-export * from "./Playground";
-export * from "./Spotlight";
+export * from "./playground";
+export * from "./spotlight";
