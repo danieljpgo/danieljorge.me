@@ -1,19 +1,21 @@
+import type { ServerRuntime } from "next";
 import { NextResponse } from "next/server";
-import { prisma } from "~/lib/prisma";
+import { views } from "~/server/schema";
+import { db } from "~/server/db";
 
-export const runtime = "nodejs";
+export const runtime: ServerRuntime = "nodejs";
 
 export async function GET(
   request: Request,
   { params }: { params: { slug: string } },
 ) {
   try {
-    const slug = params.slug;
-    if (!slug) {
+    if (!params.slug) {
       return NextResponse.json("Slug not informed", { status: 400 });
     }
-
-    const post = await prisma.view.findUnique({ where: { slug } });
+    const post = await db.query.views.findFirst({
+      where: (view, { eq }) => eq(view.slug, params.slug),
+    });
     if (!post) {
       return NextResponse.json("Content does not exist", { status: 400 });
     }
@@ -38,17 +40,26 @@ export async function POST(
   { params }: { params: { slug: string } },
 ) {
   try {
-    const slug = params.slug;
-    if (!slug) {
+    if (!params.slug) {
       return NextResponse.json("Slug not informed", { status: 400 });
     }
-
-    const post = await prisma.view.upsert({
-      where: { slug },
-      create: { slug, count: 1 },
-      update: { count: { increment: 1 } },
+    const [updated] = await db.transaction(async (tx) => {
+      const post = await tx.query.views.findFirst({
+        where: (view, { eq }) => eq(view.slug, params.slug),
+      });
+      if (!post) {
+        return db
+          .insert(views)
+          .values({ slug: params.slug, count: 1 })
+          .returning();
+      }
+      return db
+        .update(views)
+        .set({ count: post.count + 1 })
+        .returning();
     });
-    return NextResponse.json({ count: post.count }, { status: 200 });
+
+    return NextResponse.json({ count: updated.count }, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -62,5 +73,3 @@ export async function POST(
     );
   }
 }
-
-// @TODO  zod?
