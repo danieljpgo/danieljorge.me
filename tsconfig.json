@@ -22,6 +22,7 @@
       "~/lib/*": ["lib/*"],
       "~/public/*": ["public/*"],
       "~/styles/*": ["src/styles/*"],
+      "~/server/*": ["src/server/*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     },
     "plugins": [
