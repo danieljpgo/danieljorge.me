@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { formatDateNumerical } from "~/lib/date";
-import { documents, routes } from "~/lib/contentlayer";
-import { genericMetadata } from "~/lib/metadata";
-import { messages } from "~/lib/content";
 import { cn } from "~/lib/tailwindcss";
+import { messages } from "~/lib/content";
+import { genericMetadata } from "~/lib/metadata";
+import { documents, routes } from "~/lib/contentlayer";
+import { formatDateNumerical } from "~/lib/date";
 import { Heading, Text, View } from "~/components";
 
 type ContentsProps = {
