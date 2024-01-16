@@ -1,7 +1,8 @@
 import type { ServerRuntime } from "next";
 import { NextResponse } from "next/server";
-import { views } from "~/server/schema";
+import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
+import { views } from "~/server/schema";
 
 export const runtime: ServerRuntime = "nodejs";
 
@@ -56,6 +57,7 @@ export async function POST(
       return db
         .update(views)
         .set({ count: post.count + 1 })
+        .where(eq(views.slug, params.slug))
         .returning();
     });
 
