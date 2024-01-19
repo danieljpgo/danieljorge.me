@@ -15,6 +15,7 @@ const fonts = Promise.all([
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
+
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type")?.slice(0, 120) ?? "None";
   const title = searchParams.get("title")?.slice(0, 80) ?? "None";
