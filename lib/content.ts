@@ -34,3 +34,13 @@ export const messages = {
   DocumentTypeNames,
   { title: string; description: string }
 >;
+
+export const OG = {
+  TYPE: {
+    HOME: 'home',
+    CONTENT: 'content',
+    CONTENT_IMAGE: 'content-image',
+    LIST: 'list',
+    DIAGRAM: 'diagram',
+  }
+}

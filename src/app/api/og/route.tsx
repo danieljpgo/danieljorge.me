@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextRequest } from "next/server";
+import type { ImageResponseOptions, NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 import { cn } from "~/lib/tailwindcss";
+import { OG, messages, topics } from "~/lib/content";
+import { documents } from "~/lib/contentlayer";
+import { formatDateNumerical } from "~/lib/date";
 
 const fonts = Promise.all([
   fetch(
@@ -15,73 +18,141 @@ const fonts = Promise.all([
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
-
   const { searchParams } = new URL(req.url);
-  const type = searchParams.get("type")?.slice(0, 120) ?? "None";
-  const title = searchParams.get("title")?.slice(0, 80) ?? "None";
-  const description = searchParams.get("description")?.slice(0, 120) ?? "None";
-  const images = searchParams.get("images") ?? "None";
-  const og = searchParams.get("og") ?? "None";
-  const items = searchParams.get("items") ?? "";
+  const type = searchParams.get("type");
+
+  if (!type || !Object.values(OG.TYPE).includes(type)) {
+    return new Response("Missing type search params", { status: 500 });
+  }
 
   const [fontRegular, fontMedium] = await fonts;
+  const config = {
+    width: 1200,
+    height: 630,
+    fonts: [
+      { name: "Inter", data: fontMedium, weight: 500, style: "normal" },
+      { name: "Inter", data: fontRegular, weight: 400, style: "normal" },
+    ],
+  } satisfies ImageResponseOptions;
 
   try {
-    return new ImageResponse(
-      (() => {
-        if (type === "home") {
-          return <Home origin={req.nextUrl.origin} />;
-        }
-        if (type === "content") {
-          return (
-            <Content
-              title={title}
-              description={description}
-              origin={req.nextUrl.origin}
-            />
-          );
-        }
-        if (type === "content-image") {
-          return (
-            <ContentImage
-              title={title}
-              description={description}
-              origin={req.nextUrl.origin}
-              og={og}
-            />
-          );
-        }
-        if (type === "list") {
-          return (
-            <List
-              title={title}
-              description={description}
-              origin={req.nextUrl.origin}
-              items={items}
-            />
-          );
-        }
-        if (type === "diagram") {
-          return (
-            <Diagram
-              title={title}
-              origin={req.nextUrl.origin}
-              images={images}
-            />
-          );
-        }
+    if (type === OG.TYPE.HOME) {
+      return new ImageResponse(<Home origin={req.nextUrl.origin} />, config);
+    }
+    if (type === OG.TYPE.CONTENT) {
+      const slug = searchParams.get("slug");
+      const content = documents.find((doc) => doc.slug === slug);
+      if (!content) {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
 
-        return <Home origin={req.nextUrl.origin} />;
-      })(),
-      {
-        width: 1200,
-        height: 630,
-        fonts: [
-          { name: "Inter", data: fontMedium, weight: 500, style: "normal" },
-          { name: "Inter", data: fontRegular, weight: 400, style: "normal" },
-        ],
-      },
-    );
+      return new ImageResponse(
+        (
+          <Content
+            title={content.title}
+            description={content.description}
+            origin={req.nextUrl.origin}
+          />
+        ),
+        config,
+      );
+    }
+    if (type === OG.TYPE.CONTENT_IMAGE) {
+      const slug = searchParams.get("slug");
+      const content = documents.find((doc) => doc.slug === slug);
+      if (!content || content.type !== "Crafts") {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+
+      return new ImageResponse(
+        (
+          <ContentImage
+            title={content.title}
+            description={content.description}
+            origin={req.nextUrl.origin}
+            og={content.og}
+          />
+        ),
+        config,
+      );
+    }
+    if (type === OG.TYPE.DIAGRAM) {
+      const slug = searchParams.get("slug");
+      const content = documents.find((doc) => doc.slug === slug);
+      if (!content || content.type !== "Diagrams") {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <Diagram
+            title={content.title}
+            origin={req.nextUrl.origin}
+            images={content.images}
+          />
+        ),
+        config,
+      );
+    }
+    if (type === OG.TYPE.LIST) {
+      const topic = searchParams.get("topic");
+      if (topic) {
+        const contents = documents.filter((doc) => doc.topics.includes(topic));
+        if (!contents.length) {
+          return Response.json("Slug doesn't exist", { status: 404 });
+        }
+        return new ImageResponse(
+          (
+            <List
+              title={`${topics[topic]}`}
+              description={`Writings, notes, diagrams and more related to ${topics[topic]}`}
+              origin={req.nextUrl.origin}
+              items={contents
+                .map(
+                  (content) =>
+                    `${formatDateNumerical(
+                      "createdAt" in content
+                        ? content.createdAt
+                        : content.publishedAt,
+                    )};${content.title}`,
+                )
+                .slice(0, 10)}
+            />
+          ),
+          config,
+        );
+      }
+      const path = searchParams.get("path");
+      if (!path) {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+      const contents = documents.filter(
+        (doc) => doc._raw.sourceFileDir === path,
+      );
+      if (!contents.length) {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <List
+            title={messages[contents[0].type].title}
+            description={messages[contents[0].type].description}
+            origin={req.nextUrl.origin}
+            items={contents
+              .map(
+                (content) =>
+                  `${formatDateNumerical(
+                    "createdAt" in content
+                      ? content.createdAt
+                      : content.publishedAt,
+                  )};${content.title}`,
+              )
+              .slice(0, 10)}
+          />
+        ),
+        config,
+      );
+    }
+    return new ImageResponse(<Home origin={req.nextUrl.origin} />, config);
   } catch (error) {
     if (error instanceof Error) {
       console.log(`${error.message}`);
@@ -179,12 +250,10 @@ function List({
   title: string;
   description: string;
   origin: string;
-  items: string;
+  items: Array<string>;
 }) {
-  const content = items
-    .split("|")
-    .map((item) => item.split(";"))
-    .slice(0, 10);
+  // TODO fix here
+  const content = items.map((item) => item.split(";")).slice(0, 10);
   return (
     <Panel>
       <Section>
@@ -230,7 +299,7 @@ function Diagram({
 }: {
   title: string;
   origin: string;
-  images: string;
+  images: Array<string>;
 }) {
   return (
     <Panel>
@@ -245,13 +314,13 @@ function Diagram({
       </Section>
       <Aside>
         <div tw="flex flex-col-reverse relative self-center justify-center">
-          {images.split(",").map((image, i) => (
+          {images.map((image, i) => (
             <img
               key={i}
               src={`${origin}${image}`}
               alt="diagram"
               tw="w-200 absolute"
-              style={{ left: (images.split(",").length - i) * 60 }}
+              style={{ left: (images.length - i) * 60 }}
             />
           ))}
         </div>

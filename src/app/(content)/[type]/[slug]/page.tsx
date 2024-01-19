@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
-import { genericMetadata } from "~/lib/metadata";
-import { messages, topics } from "~/lib/content";
+import { OG, messages, topics } from "~/lib/content";
+import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Mdx, Text, View } from "~/components";
 
 type ContentProps = {
@@ -75,7 +75,6 @@ export default function Content({ params }: ContentProps) {
             </Text>
             <div className="flex justify-end gap-1 text-right">
               <Text color="lighter" size="xs">
-                {/* @ts-expect-error: */}
                 <View slug={params.slug} type="counter" />
               </Text>
               <Text color="lighter" size="xs">
@@ -170,16 +169,13 @@ export function generateMetadata({ params }: ContentProps): Metadata {
   };
 
   const og = new URLSearchParams({
-    title: metadata.title,
-    description: metadata.description,
     type:
       content.type === "Diagrams"
-        ? "diagram"
+        ? OG.TYPE.DIAGRAM
         : content.type === "Crafts"
-        ? "content-image"
-        : "content",
-    ...(content.type === "Diagrams" && { images: content.images.toString() }),
-    ...(content.type === "Crafts" && { og: content.og.toString() }),
+          ? OG.TYPE.CONTENT_IMAGE
+          : OG.TYPE.CONTENT,
+    slug: params.slug,
   }).toString();
 
   return {
@@ -191,7 +187,7 @@ export function generateMetadata({ params }: ContentProps): Metadata {
       description: metadata.description,
       images: {
         ...genericMetadata.twitter.images,
-        url: `${baseURL}/api/og?${og}`,
+        url: `${baseUrl}/api/og?${og}`,
         alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
       },
     },
@@ -202,14 +198,10 @@ export function generateMetadata({ params }: ContentProps): Metadata {
       images: [
         {
           ...genericMetadata.openGraph.images[0],
-          url: `${baseURL}/api/og?${og}`,
+          url: `${baseUrl}/api/og?${og}`,
           alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
         },
       ],
     },
   };
 }
-
-const baseURL = process.env.VERCEL_URL
-  ? "https://" + process.env.VERCEL_URL
-  : "http://localhost:3000";

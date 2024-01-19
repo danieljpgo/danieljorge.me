@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { topics } from "~/lib/content";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
-import { genericMetadata } from "~/lib/metadata";
-import { formatDateNumerical } from "~/lib/date";
+import { OG, topics } from "~/lib/content";
+import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
 type TopicProps = {
@@ -75,7 +74,6 @@ export default function Topic({ params }: TopicProps) {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      {/* @ts-expect-error: */}
                       <View slug={content.slug} type="view" /> views
                     </Text>
                   </div>
@@ -132,26 +130,15 @@ export async function generateMetadata({
   if (!contents.length) return notFound();
 
   const metadata = {
-    title: `${topics[params.slug]} - Topics`,
+    title: `${topics[params.slug]}`,
     description: `Writings, notes, diagrams and more related to ${
       topics[params.slug]
     }`,
   };
 
   const og = new URLSearchParams({
-    title: topics[params.slug],
-    description: `Writings, notes, diagrams and more related to ${
-      topics[params.slug]
-    }`,
-    type: "list",
-    items: contents
-      .map((a) =>
-        "createdAt" in a
-          ? `${formatDateNumerical(a.createdAt)};${a.title}`
-          : `${formatDateNumerical(a.publishedAt)};${a.title}`,
-      )
-      .slice(0, 10)
-      .join("|"),
+    type: OG.TYPE.LIST,
+    topic: params.slug,
   }).toString();
 
   return {
@@ -163,7 +150,7 @@ export async function generateMetadata({
       description: metadata.description,
       images: {
         ...genericMetadata.twitter.images,
-        url: `${baseURL}/api/og?${og}`,
+        url: `${baseUrl}/api/og?${og}`,
         alt: `Banner with title "${metadata.title}", description "${metadata.description}"`,
       },
     },
@@ -174,14 +161,10 @@ export async function generateMetadata({
       images: [
         {
           ...genericMetadata.openGraph.images[0],
-          url: `${baseURL}/api/og?${og}`,
+          url: `${baseUrl}/api/og?${og}`,
           alt: `Banner with title "${metadata.title}", description "${metadata.description}"`,
         },
       ],
     },
   };
 }
-
-const baseURL = process.env.VERCEL_URL
-  ? "https://" + process.env.VERCEL_URL
-  : "http://localhost:3000";

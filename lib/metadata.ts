@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import { OG } from "./content";
+
+export const baseUrl = process.env.VERCEL_URL
+  ? "https://" + process.env.VERCEL_URL
+  : "http://localhost:3000";
 
 export const genericMetadata = {
   title: "Daniel Jorge",
@@ -19,24 +24,16 @@ export const genericMetadata = {
   authors: [{ name: "Daniel Jorge", url: "https://danieljorge.me" }],
   openGraph: {
     type: "website",
-    url: `${
-      process.env.VERCEL_URL
-        ? "https://" + process.env.VERCEL_URL
-        : "http://localhost:3000"
-    }`,
+    url: baseUrl,
     title: "Daniel Jorge",
     description: "Frontend Engineer",
     siteName: "Daniel Jorge",
     images: [
       {
-        url: `${
-          process.env.VERCEL_URL
-            ? "https://" + process.env.VERCEL_URL
-            : "http://localhost:3000"
-        }/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home`,
-        width: 1200, // width: 1920,
-        height: 630, // height: 1080,
+        width: 1200,
+        height: 630,
         type: "image/png",
+        url: `${baseUrl}/api/og?type=${OG.TYPE.HOME}`,
         // alt: "", //@TODO: redesign og first
       },
     ],
@@ -49,12 +46,8 @@ export const genericMetadata = {
     title: "Daniel Jorge",
     description: "Frontend Engineer",
     images: {
-      url: `${
-        process.env.VERCEL_URL
-          ? "https://" + process.env.VERCEL_URL
-          : "http://localhost:3000"
-      }/api/og?title=Daniel+Jorge&description=Frontend+Engineer&type=home`,
       type: "image/png",
+      url: `${baseUrl}/api/og?type=${OG.TYPE.HOME}`,
       // alt: "", //@TODO: redesign og first
     },
     // creatorId: "",

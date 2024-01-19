@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
-import { messages } from "~/lib/content";
-import { genericMetadata } from "~/lib/metadata";
+import { OG, messages } from "~/lib/content";
 import { documents, routes } from "~/lib/contentlayer";
-import { formatDateNumerical } from "~/lib/date";
+import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
 type ContentsProps = {
@@ -75,7 +74,6 @@ export default function Contents({ params }: ContentsProps) {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      {/* @ts-expect-error: */}
                       <View slug={content.slug} type="view" /> views
                     </Text>
                   </div>
@@ -125,22 +123,11 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
   const metadata = {
     title: messages[contents[0].type].title,
     description: messages[contents[0].type].description,
+    og: new URLSearchParams({
+      type: OG.TYPE.LIST,
+      path: params.type,
+    }).toString(),
   };
-
-  const og = new URLSearchParams({
-    title: metadata.title,
-    description: metadata.description,
-    type: "list",
-    items: contents
-      .map(
-        (content) =>
-          `${formatDateNumerical(
-            "createdAt" in content ? content.createdAt : content.publishedAt,
-          )};${content.title}`,
-      )
-      .slice(0, 10)
-      .join("|"),
-  }).toString();
 
   return {
     title: metadata.title,
@@ -151,7 +138,7 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
       description: metadata.description,
       images: {
         ...genericMetadata.twitter.images,
-        url: `${baseURL}/api/og?${og}`,
+        url: `${baseUrl}/api/og?${metadata.og}`,
         alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
       },
     },
@@ -162,14 +149,10 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
       images: [
         {
           ...genericMetadata.openGraph.images[0],
-          url: `${baseURL}/api/og?${og}`,
+          url: `${baseUrl}/api/og?${metadata.og}`,
           alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
         },
       ],
     },
   };
 }
-
-const baseURL = process.env.VERCEL_URL
-  ? "https://" + process.env.VERCEL_URL
-  : "http://localhost:3000";
