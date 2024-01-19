@@ -3,7 +3,6 @@ import { GithubIcon, LinkedinIcon, TwitterIcon } from "~/components";
 type ContentLayoutProps = {
   children: React.ReactNode;
 };
-
 export default function ContentLayout({ children }: ContentLayoutProps) {
   return (
     <>

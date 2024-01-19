@@ -7,7 +7,6 @@ export const metadata = genericMetadata;
 type RootLayoutProps = {
   children: React.ReactNode;
 };
-
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="scroll-smooth">

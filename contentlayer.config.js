@@ -60,7 +60,7 @@ const computedFields = {
 export const writings = defineDocumentType(() => ({
   name: "Writings",
   contentType: "mdx",
-  filePathPattern: "writing/*.mdx",
+  filePathPattern: "writings/*.mdx",
   fields: {
     ...fields,
     publishedAt: {
