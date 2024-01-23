@@ -9,38 +9,55 @@ export const topics = {
   productivity: "Productivity",
 } as const;
 
+export const CATEGORY = {
+  HOME: "home",
+  CONTENT: "content",
+  CONTENT_IMAGE: "content-image",
+  CONTENT_AUTO_IMAGES: "content-auto-images",
+  LIST: "list",
+} as const;
+
+export const documentTypeMap = {
+  Diagrams: "diagrams",
+  Notes: "notes",
+  Writings: "writings",
+  Configs: "configs",
+  Crafts: "crafts",
+} as const satisfies Record<DocumentTypeNames, string>;
+
+export const documentCategoryMap = {
+  Diagrams: "content-auto-images",
+  Notes: "content",
+  Writings: "content",
+  Configs: "content",
+  Crafts: "content-image",
+} as const satisfies Record<
+  DocumentTypeNames,
+  (typeof CATEGORY)[keyof typeof CATEGORY]
+>;
+
 export const messages = {
-  Diagrams: {
+  diagrams: {
     title: "Diagrams",
     description: "Explanations, concepts, design solutions, created over time.",
   },
-  Notes: {
+  notes: {
     title: "Notes",
     description: "Loose, short-form thoughts, reflections, and ideas.",
   },
-  Writings: {
+  writings: {
     title: "Writings",
     description: "Crafted, long form thoughts and ideas.",
   },
-  Configs: {
+  configs: {
     title: "Configs",
     description: "Settings, shortcuts and everything related to productivity.",
   },
-  Crafts: {
+  crafts: {
     title: "Crafts",
     description: "Build, concepts, techniques and solutions",
   },
 } as const satisfies Record<
-  DocumentTypeNames,
-  { title: string; description: string }
+  (typeof documentTypeMap)[keyof typeof documentTypeMap],
+  { title: keyof typeof documentTypeMap; description: string }
 >;
-
-export const OG = {
-  TYPE: {
-    HOME: 'home',
-    CONTENT: 'content',
-    CONTENT_IMAGE: 'content-image',
-    LIST: 'list',
-    DIAGRAM: 'diagram',
-  }
-}
