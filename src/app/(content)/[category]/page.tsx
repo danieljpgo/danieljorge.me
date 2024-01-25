@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
-import { CATEGORY, OG, documentCategoryMap, messages } from "~/lib/content";
+import { CATEGORY, OG, messages } from "~/lib/content";
 import { documents, routes } from "~/lib/contentlayer";
 import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
@@ -11,10 +11,7 @@ type ContentsProps = {
   params: { category: (typeof CATEGORY)[keyof typeof CATEGORY] };
 };
 export default function Contents({ params }: ContentsProps) {
-  const contents = documents.filter(
-    (doc) => doc._raw.sourceFileDir === params.category,
-    // (doc) => documentCategoryMap[doc.type] === params.category,
-  );
+  const contents = documents.filter((doc) => doc.category === params.category);
   if (!contents.length) return notFound();
 
   return (
@@ -112,15 +109,11 @@ export default function Contents({ params }: ContentsProps) {
 }
 
 export function generateStaticParams(): Array<ContentsProps["params"]> {
-  // TODO fix here
-  console.log(routes[0]);
   return routes.map((path) => ({ category: path }));
 }
 
 export function generateMetadata({ params }: ContentsProps): Metadata {
-  const contents = documents.filter(
-    (doc) => doc._raw.sourceFileDir === params.category,
-  );
+  const contents = documents.filter((doc) => doc.category === params.category);
   if (!contents.length) return notFound();
 
   const metadata = {

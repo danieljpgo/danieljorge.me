@@ -153,11 +153,7 @@ export default function Content({ params }: ContentProps) {
 }
 
 export function generateStaticParams(): Array<ContentProps["params"]> {
-  // @TODO fix here
-  return documents.map((doc) => ({
-    category: doc._raw.sourceFileDir,
-    slug: doc.slug,
-  }));
+  return documents.map((doc) => ({ category: doc.category, slug: doc.slug }));
 }
 
 export function generateMetadata({ params }: ContentProps): Metadata {
@@ -168,7 +164,7 @@ export function generateMetadata({ params }: ContentProps): Metadata {
     title: content.title,
     description: content.description,
     og: new URLSearchParams({
-      type: documentOGMap[content.type],
+      type: documentOGMap[content.category],
       category: params.category,
       slug: params.slug,
     }).toString(),

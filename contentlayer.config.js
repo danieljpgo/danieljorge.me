@@ -57,7 +57,7 @@ const computedFields = {
 };
 
 export const writings = defineDocumentType(() => ({
-  name: `${messages.writings.title}`,
+  name: `${CATEGORY.WRITINGS}`,
   contentType: "mdx",
   filePathPattern: `${CATEGORY.WRITINGS}/*.mdx`,
   fields: {
@@ -77,7 +77,7 @@ export const writings = defineDocumentType(() => ({
 }));
 
 export const notes = defineDocumentType(() => ({
-  name: `${messages.notes.title}`,
+  name: `${CATEGORY.NOTES}`,
   contentType: "mdx",
   filePathPattern: `${CATEGORY.NOTES}/*.mdx`,
   fields: {
@@ -97,7 +97,7 @@ export const notes = defineDocumentType(() => ({
 }));
 
 export const diagrams = defineDocumentType(() => ({
-  name: `${messages.diagrams.title}`,
+  name: `${CATEGORY.DIAGRAMS}`,
   contentType: "mdx",
   filePathPattern: `${CATEGORY.DIAGRAMS}/*.mdx`,
   fields: {
@@ -122,7 +122,7 @@ export const diagrams = defineDocumentType(() => ({
 }));
 
 export const crafts = defineDocumentType(() => ({
-  name: `${messages.crafts.title}`,
+  name: `${CATEGORY.CRAFTS}`,
   contentType: "mdx",
   filePathPattern: `${CATEGORY.CRAFTS}/*.mdx`,
   fields: {
@@ -146,7 +146,7 @@ export const crafts = defineDocumentType(() => ({
 }));
 
 export const configs = defineDocumentType(() => ({
-  name: `${messages.configs.title}`,
+  name: `${CATEGORY.CONFIGS}`,
   contentType: "mdx",
   filePathPattern: `${CATEGORY.CONFIGS}/*.mdx`,
   fields: {

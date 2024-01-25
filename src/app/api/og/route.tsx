@@ -4,7 +4,7 @@ import { ImageResponse } from "@vercel/og";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
 import { formatDateNumerical } from "~/lib/date";
-import { OG, documentCategoryMap, messages } from "~/lib/content";
+import { OG, messages } from "~/lib/content";
 
 const fonts = Promise.all([
   fetch(
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
     }
     if (og.type === OG.CONTENT_IMAGE) {
       const content = documents.find((doc) => doc.slug === og.slug);
-      if (!content || content.type !== "Crafts") {
+      if (!content || content.type !== "crafts") {
         return Response.json("Slug doesn't exist", { status: 404 });
       }
 
@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
     }
     if (og.type === OG.CONTENT_AUTO_IMAGES) {
       const content = documents.find((doc) => doc.slug === og.slug);
-      if (!content || content.type !== "Diagrams") {
+      if (!content || content.type !== "diagrams") {
         return Response.json("Slug doesn't exist", { status: 404 });
       }
       return new ImageResponse(
@@ -128,9 +128,7 @@ export async function GET(req: NextRequest) {
       if (!og.category) {
         return Response.json("Category doesn't exist", { status: 404 });
       }
-      const contents = documents.filter(
-        (doc) => documentCategoryMap[doc.type] === og.category,
-      );
+      const contents = documents.filter((doc) => doc.type === og.category);
       if (!contents.length) {
         return Response.json("Contents doesn't exist", { status: 404 });
       }
@@ -138,10 +136,8 @@ export async function GET(req: NextRequest) {
       return new ImageResponse(
         (
           <List
-            title={messages[documentCategoryMap[contents[0].type]].title}
-            description={
-              messages[documentCategoryMap[contents[0].type]].description
-            }
+            title={messages[contents[0].type].title}
+            description={messages[contents[0].type].description}
             origin={req.nextUrl.origin}
             items={contents
               .map(

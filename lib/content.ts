@@ -56,24 +56,13 @@ export const messages = {
 
 //@TODO more type safety?
 
-export const documentCategoryMap: Record<
-  DocumentTypeNames,
-  (typeof CATEGORY)[keyof typeof CATEGORY]
-> = {
-  Notes: CATEGORY.NOTES,
-  Crafts: CATEGORY.CRAFTS,
-  Configs: CATEGORY.CONFIGS,
-  Diagrams: CATEGORY.DIAGRAMS,
-  Writings: CATEGORY.WRITINGS,
-} as const;
-
 export const documentOGMap: Record<
   DocumentTypeNames,
   (typeof OG)[keyof typeof OG]
 > = {
-  Notes: OG.CONTENT,
-  Crafts: OG.CONTENT_IMAGE,
-  Configs: OG.CONTENT,
-  Diagrams: OG.CONTENT_AUTO_IMAGES,
-  Writings: OG.CONTENT,
+  notes: OG.CONTENT,
+  crafts: OG.CONTENT_IMAGE,
+  configs: OG.CONTENT,
+  diagrams: OG.CONTENT_AUTO_IMAGES,
+  writings: OG.CONTENT,
 } as const;

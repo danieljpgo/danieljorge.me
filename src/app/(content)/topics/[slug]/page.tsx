@@ -12,7 +12,6 @@ type TopicProps = {
 };
 export default function Topic({ params }: TopicProps) {
   if (!Object.values(TOPIC).includes(params.slug)) return notFound();
-
   const contents = documents.filter((doc) => doc.topics.includes(params.slug));
 
   return (
