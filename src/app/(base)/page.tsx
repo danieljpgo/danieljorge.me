@@ -116,9 +116,9 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            {messages.Notes.title}
+            {messages.notes.title}
           </Heading>
-          <Text color="base">{messages.Notes.description}</Text>
+          <Text color="base">{messages.notes.description}</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
@@ -144,7 +144,6 @@ export default function Home() {
                     •
                   </Text>
                   <Text size="sm" color="light">
-                    {/* @ts-expect-error: */}
                     <View slug={note.slug} type="view" /> views
                   </Text>
                 </div>
@@ -162,9 +161,9 @@ export default function Home() {
             leading="tight"
             color="darker"
           >
-            {messages.Crafts.title}
+            {messages.crafts.title}
           </Heading>
-          <Text color="base">{messages.Crafts.description}</Text>
+          <Text color="base">{messages.crafts.description}</Text>
         </div>
         <hr />
         <ul className="grid gap-4">
@@ -190,7 +189,6 @@ export default function Home() {
                     •
                   </Text>
                   <Text size="sm" color="light">
-                    {/* @ts-expect-error: */}
                     <View slug={craft.slug} type="view" /> views
                   </Text>
                 </div>
@@ -270,12 +268,12 @@ export default function Home() {
                   leading="tight"
                   color="darker"
                 >
-                  {messages.Diagrams.title}
+                  {messages.diagrams.title}
                 </Heading>
               </Link>
               <div className="flex gap-2">
                 <Text size="sm" color="light">
-                  {messages.Diagrams.description}
+                  {messages.diagrams.description}
                 </Text>
               </div>
             </article>
@@ -292,12 +290,12 @@ export default function Home() {
                   leading="tight"
                   color="darker"
                 >
-                  {messages.Configs.title}
+                  {messages.configs.title}
                 </Heading>
               </Link>
               <div className="flex gap-2">
                 <Text size="sm" color="light">
-                  {messages.Configs.description}
+                  {messages.configs.description}
                 </Text>
               </div>
             </article>

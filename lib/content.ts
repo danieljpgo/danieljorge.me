@@ -8,15 +8,7 @@ export const OG = {
   CONTENT_AUTO_IMAGES: "content-auto-images",
 } as const;
 
-export const DOCUMENT_TYPE = {
-  NOTES: "notes",
-  CRAFTS: "crafts",
-  CONFIGS: "configs",
-  DIAGRAMS: "diagrams",
-  WRITINGS: "writings",
-} as const;
-
-export const TOPICS = {
+export const TOPIC = {
   UI: "ui",
   CSS: "css",
   WEB: "web",
@@ -25,30 +17,38 @@ export const TOPICS = {
   DESIGN_SYSTEM: "desigs-system",
 } as const;
 
+export const CATEGORY = {
+  NOTES: "notes",
+  CRAFTS: "crafts",
+  CONFIGS: "configs",
+  DIAGRAMS: "diagrams",
+  WRITINGS: "writings",
+} as const;
+
 export const messages = {
-  [TOPICS.UI]: "UI",
-  [TOPICS.CSS]: "CSS",
-  [TOPICS.WEB]: "Web",
-  [TOPICS.REACT]: "React",
-  [TOPICS.PRODUCTIVITY]: "Productivity",
-  [TOPICS.DESIGN_SYSTEM]: "Design System",
-  [DOCUMENT_TYPE.NOTES]: {
+  [TOPIC.UI]: "UI",
+  [TOPIC.CSS]: "CSS",
+  [TOPIC.WEB]: "Web",
+  [TOPIC.REACT]: "React",
+  [TOPIC.PRODUCTIVITY]: "Productivity",
+  [TOPIC.DESIGN_SYSTEM]: "Design System",
+  [CATEGORY.NOTES]: {
     title: "Notes",
     description: "Loose, short-form thoughts, reflections, and ideas.",
   },
-  [DOCUMENT_TYPE.CRAFTS]: {
+  [CATEGORY.CRAFTS]: {
     title: "Crafts",
     description: "Build, concepts, techniques and solutions",
   },
-  [DOCUMENT_TYPE.CONFIGS]: {
+  [CATEGORY.CONFIGS]: {
     title: "Configs",
     description: "Settings, shortcuts and everything related to productivity.",
   },
-  [DOCUMENT_TYPE.DIAGRAMS]: {
+  [CATEGORY.DIAGRAMS]: {
     title: "Diagrams",
     description: "Explanations, concepts, design solutions, created over time.",
   },
-  [DOCUMENT_TYPE.WRITINGS]: {
+  [CATEGORY.WRITINGS]: {
     title: "Writings",
     description: "Crafted, long form thoughts and ideas.",
   },
@@ -56,12 +56,15 @@ export const messages = {
 
 //@TODO more type safety?
 
-export const documentTypeMap: Record<DocumentTypeNames, string> = {
-  Notes: DOCUMENT_TYPE.NOTES,
-  Crafts: DOCUMENT_TYPE.CRAFTS,
-  Configs: DOCUMENT_TYPE.CONFIGS,
-  Diagrams: DOCUMENT_TYPE.DIAGRAMS,
-  Writings: DOCUMENT_TYPE.WRITINGS,
+export const documentCategoryMap: Record<
+  DocumentTypeNames,
+  (typeof CATEGORY)[keyof typeof CATEGORY]
+> = {
+  Notes: CATEGORY.NOTES,
+  Crafts: CATEGORY.CRAFTS,
+  Configs: CATEGORY.CONFIGS,
+  Diagrams: CATEGORY.DIAGRAMS,
+  Writings: CATEGORY.WRITINGS,
 } as const;
 
 export const documentOGMap: Record<
