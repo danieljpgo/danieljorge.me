@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
-import { OG, messages } from "~/lib/content";
+import { CATEGORY, OG, documentCategoryMap, messages } from "~/lib/content";
 import { documents, routes } from "~/lib/contentlayer";
 import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
 type ContentsProps = {
-  params: { type: string };
+  params: { category: (typeof CATEGORY)[keyof typeof CATEGORY] };
 };
 export default function Contents({ params }: ContentsProps) {
   const contents = documents.filter(
-    (doc) => doc._raw.sourceFileDir === params.type,
+    (doc) => doc._raw.sourceFileDir === params.category,
+    // (doc) => documentCategoryMap[doc.type] === params.category,
   );
   if (!contents.length) return notFound();
 
@@ -43,9 +44,9 @@ export default function Contents({ params }: ContentsProps) {
             leading="tight"
             color="darker"
           >
-            {messages[contents[0].type].title}
+            {messages[params.category].title}
           </Heading>
-          <Text color="base">{messages[contents[0].type].description}</Text>
+          <Text color="base">{messages[params.category].description}</Text>
         </div>
         <hr />
         <div className="grid gap-4">
@@ -111,21 +112,23 @@ export default function Contents({ params }: ContentsProps) {
 }
 
 export function generateStaticParams(): Array<ContentsProps["params"]> {
-  return routes.map((path) => ({ type: path }));
+  // TODO fix here
+  console.log(routes[0]);
+  return routes.map((path) => ({ category: path }));
 }
 
 export function generateMetadata({ params }: ContentsProps): Metadata {
   const contents = documents.filter(
-    (doc) => doc._raw.sourceFileDir === params.type,
+    (doc) => doc._raw.sourceFileDir === params.category,
   );
   if (!contents.length) return notFound();
 
   const metadata = {
-    title: messages[contents[0].type].title,
-    description: messages[contents[0].type].description,
+    title: messages[params.category].title,
+    description: messages[params.category].description,
     og: new URLSearchParams({
-      type: OG.TYPE.LIST,
-      path: params.type,
+      type: OG.INDEX,
+      category: params.category,
     }).toString(),
   };
 

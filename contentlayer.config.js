@@ -59,7 +59,7 @@ const computedFields = {
 export const writings = defineDocumentType(() => ({
   name: `${messages.writings.title}`,
   contentType: "mdx",
-  filepathpattern: `${CATEGORY.WRITINGS}/*.mdx`,
+  filePathPattern: `${CATEGORY.WRITINGS}/*.mdx`,
   fields: {
     ...fields,
     publishedAt: {
@@ -148,7 +148,7 @@ export const crafts = defineDocumentType(() => ({
 export const configs = defineDocumentType(() => ({
   name: `${messages.configs.title}`,
   contentType: "mdx",
-  filepathpattern: `${CATEGORY.CONFIGS}/*.mdx`,
+  filePathPattern: `${CATEGORY.CONFIGS}/*.mdx`,
   fields: {
     ...fields,
     createdAt: {

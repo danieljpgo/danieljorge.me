@@ -14,7 +14,7 @@ export const TOPIC = {
   WEB: "web",
   REACT: "react",
   PRODUCTIVITY: "productivity",
-  DESIGN_SYSTEM: "desigs-system",
+  DESIGN_SYSTEM: "design-system",
 } as const;
 
 export const CATEGORY = {

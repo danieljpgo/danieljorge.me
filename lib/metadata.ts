@@ -33,7 +33,7 @@ export const genericMetadata = {
         width: 1200,
         height: 630,
         type: "image/png",
-        url: `${baseUrl}/api/og?type=${OG.TYPE.HOME}`,
+        url: `${baseUrl}/api/og?type=${OG.HOME}`,
         // alt: "", //@TODO: redesign og first
       },
     ],
@@ -47,7 +47,7 @@ export const genericMetadata = {
     description: "Frontend Engineer",
     images: {
       type: "image/png",
-      url: `${baseUrl}/api/og?type=${OG.TYPE.HOME}`,
+      url: `${baseUrl}/api/og?type=${OG.HOME}`,
       // alt: "", //@TODO: redesign og first
     },
     // creatorId: "",

@@ -2,9 +2,9 @@
 import type { ImageResponseOptions, NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 import { cn } from "~/lib/tailwindcss";
-import { OG, messages, topics } from "~/lib/content";
 import { documents } from "~/lib/contentlayer";
 import { formatDateNumerical } from "~/lib/date";
+import { OG, documentCategoryMap, messages } from "~/lib/content";
 
 const fonts = Promise.all([
   fetch(
@@ -19,9 +19,15 @@ export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const type = searchParams.get("type");
 
-  if (!type || !Object.values(OG.TYPE).includes(type)) {
+  const og = {
+    type: searchParams.get("type") as (typeof OG)[keyof typeof OG], // TODO REMOVE as
+    category: searchParams.get("category"),
+    slug: searchParams.get("slug"),
+    topic: searchParams.get("topic"),
+  };
+
+  if (!og.type || !Object.values(OG).includes(og.type)) {
     return new Response("Missing type search params", { status: 500 });
   }
 
@@ -36,12 +42,11 @@ export async function GET(req: NextRequest) {
   } satisfies ImageResponseOptions;
 
   try {
-    if (type === OG.TYPE.HOME) {
+    if (og.type === OG.HOME) {
       return new ImageResponse(<Home origin={req.nextUrl.origin} />, config);
     }
-    if (type === OG.TYPE.CONTENT) {
-      const slug = searchParams.get("slug");
-      const content = documents.find((doc) => doc.slug === slug);
+    if (og.type === OG.CONTENT) {
+      const content = documents.find((doc) => doc.slug === og.slug);
       if (!content) {
         return Response.json("Slug doesn't exist", { status: 404 });
       }
@@ -57,9 +62,8 @@ export async function GET(req: NextRequest) {
         config,
       );
     }
-    if (type === OG.TYPE.CONTENT_IMAGE) {
-      const slug = searchParams.get("slug");
-      const content = documents.find((doc) => doc.slug === slug);
+    if (og.type === OG.CONTENT_IMAGE) {
+      const content = documents.find((doc) => doc.slug === og.slug);
       if (!content || content.type !== "Crafts") {
         return Response.json("Slug doesn't exist", { status: 404 });
       }
@@ -76,9 +80,8 @@ export async function GET(req: NextRequest) {
         config,
       );
     }
-    if (type === OG.TYPE.DIAGRAM) {
-      const slug = searchParams.get("slug");
-      const content = documents.find((doc) => doc.slug === slug);
+    if (og.type === OG.CONTENT_AUTO_IMAGES) {
+      const content = documents.find((doc) => doc.slug === og.slug);
       if (!content || content.type !== "Diagrams") {
         return Response.json("Slug doesn't exist", { status: 404 });
       }
@@ -93,18 +96,19 @@ export async function GET(req: NextRequest) {
         config,
       );
     }
-    if (type === OG.TYPE.LIST) {
-      const topic = searchParams.get("topic");
-      if (topic) {
-        const contents = documents.filter((doc) => doc.topics.includes(topic));
+    if (og.type === OG.INDEX) {
+      if (og.topic) {
+        const contents = documents.filter((doc) =>
+          doc.topics.includes(og.topic),
+        );
         if (!contents.length) {
           return Response.json("Slug doesn't exist", { status: 404 });
         }
         return new ImageResponse(
           (
             <List
-              title={`${topics[topic]}`}
-              description={`Writings, notes, diagrams and more related to ${topics[topic]}`}
+              title={`${messages[og.topic]}`}
+              description={`Writings, notes, diagrams and more related to ${messages[og.topic]}`}
               origin={req.nextUrl.origin}
               items={contents
                 .map(
@@ -121,21 +125,23 @@ export async function GET(req: NextRequest) {
           config,
         );
       }
-      const path = searchParams.get("path");
-      if (!path) {
-        return Response.json("Slug doesn't exist", { status: 404 });
+      if (!og.category) {
+        return Response.json("Category doesn't exist", { status: 404 });
       }
       const contents = documents.filter(
-        (doc) => doc._raw.sourceFileDir === path,
+        (doc) => documentCategoryMap[doc.type] === og.category,
       );
       if (!contents.length) {
-        return Response.json("Slug doesn't exist", { status: 404 });
+        return Response.json("Contents doesn't exist", { status: 404 });
       }
+
       return new ImageResponse(
         (
           <List
-            title={messages[contents[0].type].title}
-            description={messages[contents[0].type].description}
+            title={messages[documentCategoryMap[contents[0].type]].title}
+            description={
+              messages[documentCategoryMap[contents[0].type]].description
+            }
             origin={req.nextUrl.origin}
             items={contents
               .map(
