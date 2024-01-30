@@ -80,6 +80,3 @@ export const documents = [...allDocuments]
     }
     return 0;
   });
-
-export const routes = allDocuments.map((doc) => doc.type);
-// TODO improve here, types

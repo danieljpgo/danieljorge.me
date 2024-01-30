@@ -66,3 +66,30 @@ export const documentOGMap: Record<
   diagrams: OG.CONTENT_AUTO_IMAGES,
   writings: OG.CONTENT,
 } as const;
+
+export function findDocumentOG(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(OG)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}
+
+export function findDocumentCategory(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(CATEGORY)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}
+
+export function findTopic(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(TOPIC)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}

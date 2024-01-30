@@ -32,7 +32,7 @@ export default function Content({ params }: ContentProps) {
         )}
         <nav className="grid gap-1">
           {
-            // @TODO FIX here
+            // @TODO: improve type
             (
               content.headings as Array<{
                 level: number;

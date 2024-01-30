@@ -23,20 +23,20 @@
       "~/public/*": ["public/*"],
       "~/styles/*": ["src/styles/*"],
       "~/server/*": ["src/server/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "contentlayer/generated": ["./.contentlayer/generated"],
     },
     "plugins": [
       {
-        "name": "next"
-      }
-    ]
+        "name": "next",
+      },
+    ],
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    ".contentlayer/generated",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

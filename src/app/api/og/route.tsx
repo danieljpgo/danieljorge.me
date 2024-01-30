@@ -3,8 +3,15 @@ import type { ImageResponseOptions, NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
+import {
+  OG,
+  documentOGMap,
+  findDocumentCategory,
+  findDocumentOG,
+  findTopic,
+  messages,
+} from "~/lib/content";
 import { formatDateNumerical } from "~/lib/date";
-import { OG, messages } from "~/lib/content";
 
 const fonts = Promise.all([
   fetch(
@@ -19,17 +26,12 @@ export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-
   const og = {
-    type: searchParams.get("type") as (typeof OG)[keyof typeof OG], // TODO REMOVE as
-    category: searchParams.get("category"),
     slug: searchParams.get("slug"),
-    topic: searchParams.get("topic"),
+    type: findDocumentOG(searchParams.get("type")),
+    topic: findTopic(searchParams.get("topic")),
+    category: findDocumentCategory(searchParams.get("category")),
   };
-
-  if (!og.type || !Object.values(OG).includes(og.type)) {
-    return new Response("Missing type search params", { status: 500 });
-  }
 
   const [fontRegular, fontMedium] = await fonts;
   const config = {
@@ -50,7 +52,6 @@ export async function GET(req: NextRequest) {
       if (!content) {
         return Response.json("Slug doesn't exist", { status: 404 });
       }
-
       return new ImageResponse(
         (
           <Content
@@ -98,9 +99,8 @@ export async function GET(req: NextRequest) {
     }
     if (og.type === OG.INDEX) {
       if (og.topic) {
-        const contents = documents.filter((doc) =>
-          doc.topics.includes(og.topic),
-        );
+        const topic = og.topic;
+        const contents = documents.filter((doc) => doc.topics.includes(topic));
         if (!contents.length) {
           return Response.json("Slug doesn't exist", { status: 404 });
         }
@@ -132,7 +132,6 @@ export async function GET(req: NextRequest) {
       if (!contents.length) {
         return Response.json("Contents doesn't exist", { status: 404 });
       }
-
       return new ImageResponse(
         (
           <List
@@ -164,6 +163,7 @@ export async function GET(req: NextRequest) {
     });
   }
 }
+
 function Home({ origin }: { origin: string }) {
   return (
     <Layout>
@@ -186,6 +186,7 @@ function Home({ origin }: { origin: string }) {
     </Layout>
   );
 }
+
 function Content({
   title,
   description,
@@ -210,6 +211,7 @@ function Content({
     </Layout>
   );
 }
+
 function ContentImage({
   title,
   description,
@@ -243,6 +245,7 @@ function ContentImage({
     </Panel>
   );
 }
+
 function List({
   title,
   description,
@@ -294,6 +297,7 @@ function List({
     </Panel>
   );
 }
+
 function Diagram({
   title,
   origin,
@@ -330,6 +334,7 @@ function Diagram({
     </Panel>
   );
 }
+
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -340,6 +345,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 function Panel({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -350,6 +356,7 @@ function Panel({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 function Section({ children }: { children: React.ReactNode }) {
   return (
     <section tw="h-full justify-between flex flex-col w-140">
@@ -357,9 +364,11 @@ function Section({ children }: { children: React.ReactNode }) {
     </section>
   );
 }
+
 function Aside({ children }: { children: React.ReactNode }) {
   return <aside tw="w-full h-full flex">{children}</aside>;
 }
+
 function Header({ origin }: { origin: string }) {
   return (
     <header tw="flex items-center">
@@ -368,6 +377,7 @@ function Header({ origin }: { origin: string }) {
     </header>
   );
 }
+
 function Footer({ origin }: { origin: string }) {
   return (
     <footer tw="flex items-center">
@@ -383,6 +393,7 @@ function Footer({ origin }: { origin: string }) {
     </footer>
   );
 }
+
 function Title({ children }: { children: string }) {
   return (
     <h1
@@ -393,6 +404,7 @@ function Title({ children }: { children: string }) {
     </h1>
   );
 }
+
 function Description({ children }: { children: string }) {
   return (
     <p

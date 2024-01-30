@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
+import { documents } from "~/lib/contentlayer";
 import { CATEGORY, OG, messages } from "~/lib/content";
-import { documents, routes } from "~/lib/contentlayer";
 import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
@@ -109,7 +109,7 @@ export default function Contents({ params }: ContentsProps) {
 }
 
 export function generateStaticParams(): Array<ContentsProps["params"]> {
-  return routes.map((path) => ({ category: path }));
+  return documents.map((doc) => ({ category: doc.category }));
 }
 
 export function generateMetadata({ params }: ContentsProps): Metadata {

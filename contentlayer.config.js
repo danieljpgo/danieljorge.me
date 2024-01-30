@@ -1,9 +1,9 @@
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import { formatDate } from "./lib/date";
 import { rehype } from "./lib/rehype";
-import { CATEGORY, TOPIC, messages } from "./lib/content";
+import { formatDate } from "./lib/date";
+import { CATEGORY, TOPIC } from "./lib/content";
 
 /** @type {import("contentlayer/source-files").FieldDef} */
 const fields = {
