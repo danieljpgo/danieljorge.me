@@ -1,8 +1,9 @@
 import { Analytics } from "@vercel/analytics/react";
-import { genericMetadata } from "~/lib/metadata";
+import { genericMetadata, genericViewport } from "~/lib/metadata";
 import "~/styles/globals.css";
 
 export const metadata = genericMetadata;
+export const viewport = genericViewport;
 
 type RootLayoutProps = {
   children: React.ReactNode;

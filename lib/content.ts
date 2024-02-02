@@ -67,7 +67,7 @@ export const documentOGMap: Record<
   writings: OG.CONTENT,
 } as const;
 
-export function findDocumentOG(param?: string | null) {
+export function validateOG(param?: string | null) {
   if (!param) return undefined;
 
   for (const a of Object.values(OG)) {
@@ -76,7 +76,7 @@ export function findDocumentOG(param?: string | null) {
   return undefined;
 }
 
-export function findDocumentCategory(param?: string | null) {
+export function validateCategory(param?: string | null) {
   if (!param) return undefined;
 
   for (const a of Object.values(CATEGORY)) {
@@ -85,7 +85,7 @@ export function findDocumentCategory(param?: string | null) {
   return undefined;
 }
 
-export function findTopic(param?: string | null) {
+export function validateTopic(param?: string | null) {
   if (!param) return undefined;
 
   for (const a of Object.values(TOPIC)) {

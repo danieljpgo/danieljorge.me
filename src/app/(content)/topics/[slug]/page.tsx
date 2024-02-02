@@ -150,7 +150,7 @@ export function generateMetadata({ params }: generateMetadataProps): Metadata {
       description: metadata.description,
       images: [
         {
-          ...genericMetadata.openGraph.images[0],
+          ...genericMetadata.openGraph.images,
           url: `${baseUrl}/api/og?${metadata.og}`,
           alt: `Banner with title "${metadata.title}", description "${metadata.description}"`,
         },

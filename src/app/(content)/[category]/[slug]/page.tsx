@@ -165,7 +165,6 @@ export function generateMetadata({ params }: ContentProps): Metadata {
     description: content.description,
     og: new URLSearchParams({
       type: documentOGMap[content.category],
-      category: params.category,
       slug: params.slug,
     }).toString(),
   };
@@ -189,7 +188,7 @@ export function generateMetadata({ params }: ContentProps): Metadata {
       description: metadata.description,
       images: [
         {
-          ...genericMetadata.openGraph.images[0],
+          ...genericMetadata.openGraph.images,
           url: `${baseUrl}/api/og?${metadata.og}`,
           alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
         },
