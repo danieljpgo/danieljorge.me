@@ -1,9 +1,9 @@
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import { formatDate } from "./lib/date";
 import { rehype } from "./lib/rehype";
-import { topics } from "./lib/content";
+import { formatDate } from "./lib/date";
+import { CATEGORY, TOPIC } from "./lib/content";
 
 /** @type {import("contentlayer/source-files").FieldDef} */
 const fields = {
@@ -24,7 +24,7 @@ const fields = {
     type: "list",
     of: {
       type: "enum",
-      options: Object.keys(topics),
+      options: Object.values(TOPIC),
     },
     required: true,
   },
@@ -34,12 +34,11 @@ const fields = {
 const computedFields = {
   slug: {
     type: "string",
-    resolve: (writing) => writing._raw.sourceFileName.replace(/\.mdx$/, ""),
+    resolve: (content) => content._raw.sourceFileName.replace(/\.mdx$/, ""),
   },
   headings: {
     type: "list",
     resolve: (doc) => {
-      // rehype-slug algorithm packages
       const slugger = new GithubSlugger();
       const regexHeadings = /\n(?<flag>#{1,6})\s+(?<content>.+)/g;
       return Array.from(doc.body.raw.matchAll(regexHeadings)).map(
@@ -58,9 +57,9 @@ const computedFields = {
 };
 
 export const writings = defineDocumentType(() => ({
-  name: "Writings",
+  name: `${CATEGORY.WRITINGS}`,
   contentType: "mdx",
-  filePathPattern: "writing/*.mdx",
+  filePathPattern: `${CATEGORY.WRITINGS}/*.mdx`,
   fields: {
     ...fields,
     publishedAt: {
@@ -78,9 +77,9 @@ export const writings = defineDocumentType(() => ({
 }));
 
 export const notes = defineDocumentType(() => ({
-  name: "Notes",
+  name: `${CATEGORY.NOTES}`,
   contentType: "mdx",
-  filePathPattern: "notes/*.mdx",
+  filePathPattern: `${CATEGORY.NOTES}/*.mdx`,
   fields: {
     ...fields,
     publishedAt: {
@@ -98,9 +97,9 @@ export const notes = defineDocumentType(() => ({
 }));
 
 export const diagrams = defineDocumentType(() => ({
-  name: "Diagrams",
+  name: `${CATEGORY.DIAGRAMS}`,
   contentType: "mdx",
-  filePathPattern: "diagrams/*.mdx",
+  filePathPattern: `${CATEGORY.DIAGRAMS}/*.mdx`,
   fields: {
     ...fields,
     createdAt: {
@@ -123,9 +122,9 @@ export const diagrams = defineDocumentType(() => ({
 }));
 
 export const crafts = defineDocumentType(() => ({
-  name: "Crafts",
+  name: `${CATEGORY.CRAFTS}`,
   contentType: "mdx",
-  filePathPattern: "crafts/*.mdx",
+  filePathPattern: `${CATEGORY.CRAFTS}/*.mdx`,
   fields: {
     ...fields,
     createdAt: {
@@ -147,9 +146,9 @@ export const crafts = defineDocumentType(() => ({
 }));
 
 export const configs = defineDocumentType(() => ({
-  name: "Configs",
+  name: `${CATEGORY.CONFIGS}`,
   contentType: "mdx",
-  filePathPattern: "configs/*.mdx",
+  filePathPattern: `${CATEGORY.CONFIGS}/*.mdx`,
   fields: {
     ...fields,
     createdAt: {

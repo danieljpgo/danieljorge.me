@@ -1,36 +1,95 @@
 import type { DocumentTypeNames } from "contentlayer/generated";
 
-export const topics = {
-  web: "Web",
-  css: "CSS",
-  react: "React",
-  ui: "UI",
-  ["design-system"]: "Design System",
-  productivity: "Productivity",
+export const OG = {
+  HOME: "home",
+  INDEX: "index",
+  CONTENT: "content",
+  CONTENT_IMAGE: "content-image",
+  CONTENT_AUTO_IMAGES: "content-auto-images",
+} as const;
+
+export const TOPIC = {
+  UI: "ui",
+  CSS: "css",
+  WEB: "web",
+  REACT: "react",
+  PRODUCTIVITY: "productivity",
+  DESIGN_SYSTEM: "design-system",
+} as const;
+
+export const CATEGORY = {
+  NOTES: "notes",
+  CRAFTS: "crafts",
+  CONFIGS: "configs",
+  DIAGRAMS: "diagrams",
+  WRITINGS: "writings",
 } as const;
 
 export const messages = {
-  Diagrams: {
-    title: "Diagrams",
-    description: "Explanations, concepts, design solutions, created over time.",
-  },
-  Notes: {
+  [TOPIC.UI]: "UI",
+  [TOPIC.CSS]: "CSS",
+  [TOPIC.WEB]: "Web",
+  [TOPIC.REACT]: "React",
+  [TOPIC.PRODUCTIVITY]: "Productivity",
+  [TOPIC.DESIGN_SYSTEM]: "Design System",
+  [CATEGORY.NOTES]: {
     title: "Notes",
     description: "Loose, short-form thoughts, reflections, and ideas.",
   },
-  Writings: {
-    title: "Writings",
-    description: "Crafted, long form thoughts and ideas.",
-  },
-  Configs: {
-    title: "Configs",
-    description: "Settings, shortcuts and everything related to productivity.",
-  },
-  Crafts: {
+  [CATEGORY.CRAFTS]: {
     title: "Crafts",
     description: "Build, concepts, techniques and solutions",
   },
-} as const satisfies Record<
+  [CATEGORY.CONFIGS]: {
+    title: "Configs",
+    description: "Settings, shortcuts and everything related to productivity.",
+  },
+  [CATEGORY.DIAGRAMS]: {
+    title: "Diagrams",
+    description: "Explanations, concepts, design solutions, created over time.",
+  },
+  [CATEGORY.WRITINGS]: {
+    title: "Writings",
+    description: "Crafted, long form thoughts and ideas.",
+  },
+} as const;
+
+//@TODO more type safety?
+
+export const documentOGMap: Record<
   DocumentTypeNames,
-  { title: string; description: string }
->;
+  (typeof OG)[keyof typeof OG]
+> = {
+  notes: OG.CONTENT,
+  crafts: OG.CONTENT_IMAGE,
+  configs: OG.CONTENT,
+  diagrams: OG.CONTENT_AUTO_IMAGES,
+  writings: OG.CONTENT,
+} as const;
+
+export function validateOG(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(OG)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}
+
+export function validateCategory(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(CATEGORY)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}
+
+export function validateTopic(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(TOPIC)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}

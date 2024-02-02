@@ -3,12 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
-import { genericMetadata } from "~/lib/metadata";
-import { messages, topics } from "~/lib/content";
+import { baseUrl, genericMetadata } from "~/lib/metadata";
+import { CATEGORY, documentOGMap, messages } from "~/lib/content";
 import { Heading, Mdx, Text, View } from "~/components";
 
 type ContentProps = {
-  params: { type: string; slug: string };
+  params: { category: (typeof CATEGORY)[keyof typeof CATEGORY]; slug: string };
 };
 export default function Content({ params }: ContentProps) {
   const content = documents.find((doc) => doc.slug === params.slug);
@@ -32,7 +32,7 @@ export default function Content({ params }: ContentProps) {
         )}
         <nav className="grid gap-1">
           {
-            // @TODO FIX here
+            // @TODO: improve type
             (
               content.headings as Array<{
                 level: number;
@@ -75,7 +75,6 @@ export default function Content({ params }: ContentProps) {
             </Text>
             <div className="flex justify-end gap-1 text-right">
               <Text color="lighter" size="xs">
-                {/* @ts-expect-error: */}
                 <View slug={params.slug} type="counter" />
               </Text>
               <Text color="lighter" size="xs">
@@ -99,11 +98,11 @@ export default function Content({ params }: ContentProps) {
           <div className="flex items-baseline justify-between px-2 md:px-0">
             <div className="flex flex-col flex-wrap">
               <Text color="light" size="xs" weight="medium">
-                {messages[content.type].title}
+                {messages[params.category].title}
               </Text>
               <div className="max-w-[180px] sm:max-w-none">
                 <Text color="lighter" size="xs">
-                  {messages[content.type].description}
+                  {messages[params.category].description}
                 </Text>
               </div>
             </div>
@@ -117,7 +116,7 @@ export default function Content({ params }: ContentProps) {
                       href={`/topics/${topic}`}
                       className="whitespace-nowrap text-xs text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
                     >
-                      {topics[topic]}
+                      {messages[topic]}
                     </Link>
                   ))}
               </div>
@@ -127,26 +126,26 @@ export default function Content({ params }: ContentProps) {
           <hr />
           <div className="flex justify-center pb-8">
             <Link
-              href={`/${params.type}`}
+              href={`/${params.category}`}
               className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
             >
               <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
                 ←
               </span>
-              {messages[content.type].title}
+              {messages[params.category].title}
             </Link>
           </div>
         </div>
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href={`/${params.type}`}
+          href={`/${params.category}`}
           className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
           <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
             ←
           </span>
-          {messages[content.type].title}
+          {messages[params.category].title}
         </Link>
       </div>
     </>
@@ -154,10 +153,7 @@ export default function Content({ params }: ContentProps) {
 }
 
 export function generateStaticParams(): Array<ContentProps["params"]> {
-  return documents.map((doc) => ({
-    type: doc._raw.sourceFileDir,
-    slug: doc.slug,
-  }));
+  return documents.map((doc) => ({ category: doc.category, slug: doc.slug }));
 }
 
 export function generateMetadata({ params }: ContentProps): Metadata {
@@ -167,20 +163,11 @@ export function generateMetadata({ params }: ContentProps): Metadata {
   const metadata = {
     title: content.title,
     description: content.description,
+    og: new URLSearchParams({
+      type: documentOGMap[content.category],
+      slug: params.slug,
+    }).toString(),
   };
-
-  const og = new URLSearchParams({
-    title: metadata.title,
-    description: metadata.description,
-    type:
-      content.type === "Diagrams"
-        ? "diagram"
-        : content.type === "Crafts"
-        ? "content-image"
-        : "content",
-    ...(content.type === "Diagrams" && { images: content.images.toString() }),
-    ...(content.type === "Crafts" && { og: content.og.toString() }),
-  }).toString();
 
   return {
     title: metadata.title,
@@ -191,7 +178,7 @@ export function generateMetadata({ params }: ContentProps): Metadata {
       description: metadata.description,
       images: {
         ...genericMetadata.twitter.images,
-        url: `${baseURL}/api/og?${og}`,
+        url: `${baseUrl}/api/og?${metadata.og}`,
         alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
       },
     },
@@ -201,15 +188,11 @@ export function generateMetadata({ params }: ContentProps): Metadata {
       description: metadata.description,
       images: [
         {
-          ...genericMetadata.openGraph.images[0],
-          url: `${baseURL}/api/og?${og}`,
+          ...genericMetadata.openGraph.images,
+          url: `${baseUrl}/api/og?${metadata.og}`,
           alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
         },
       ],
     },
   };
 }
-
-const baseURL = process.env.VERCEL_URL
-  ? "https://" + process.env.VERCEL_URL
-  : "http://localhost:3000";

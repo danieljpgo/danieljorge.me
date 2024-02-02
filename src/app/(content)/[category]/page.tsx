@@ -2,19 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
-import { messages } from "~/lib/content";
-import { genericMetadata } from "~/lib/metadata";
-import { documents, routes } from "~/lib/contentlayer";
-import { formatDateNumerical } from "~/lib/date";
+import { documents } from "~/lib/contentlayer";
+import { CATEGORY, OG, messages } from "~/lib/content";
+import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
 type ContentsProps = {
-  params: { type: string };
+  params: { category: (typeof CATEGORY)[keyof typeof CATEGORY] };
 };
 export default function Contents({ params }: ContentsProps) {
-  const contents = documents.filter(
-    (doc) => doc._raw.sourceFileDir === params.type,
-  );
+  const contents = documents.filter((doc) => doc.category === params.category);
   if (!contents.length) return notFound();
 
   return (
@@ -44,9 +41,9 @@ export default function Contents({ params }: ContentsProps) {
             leading="tight"
             color="darker"
           >
-            {messages[contents[0].type].title}
+            {messages[params.category].title}
           </Heading>
-          <Text color="base">{messages[contents[0].type].description}</Text>
+          <Text color="base">{messages[params.category].description}</Text>
         </div>
         <hr />
         <div className="grid gap-4">
@@ -75,7 +72,6 @@ export default function Contents({ params }: ContentsProps) {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      {/* @ts-expect-error: */}
                       <View slug={content.slug} type="view" /> views
                     </Text>
                   </div>
@@ -113,34 +109,21 @@ export default function Contents({ params }: ContentsProps) {
 }
 
 export function generateStaticParams(): Array<ContentsProps["params"]> {
-  return routes.map((path) => ({ type: path }));
+  return documents.map((doc) => ({ category: doc.category }));
 }
 
 export function generateMetadata({ params }: ContentsProps): Metadata {
-  const contents = documents.filter(
-    (doc) => doc._raw.sourceFileDir === params.type,
-  );
+  const contents = documents.filter((doc) => doc.category === params.category);
   if (!contents.length) return notFound();
 
   const metadata = {
-    title: messages[contents[0].type].title,
-    description: messages[contents[0].type].description,
+    title: messages[params.category].title,
+    description: messages[params.category].description,
+    og: new URLSearchParams({
+      type: OG.INDEX,
+      category: params.category,
+    }).toString(),
   };
-
-  const og = new URLSearchParams({
-    title: metadata.title,
-    description: metadata.description,
-    type: "list",
-    items: contents
-      .map(
-        (content) =>
-          `${formatDateNumerical(
-            "createdAt" in content ? content.createdAt : content.publishedAt,
-          )};${content.title}`,
-      )
-      .slice(0, 10)
-      .join("|"),
-  }).toString();
 
   return {
     title: metadata.title,
@@ -151,7 +134,7 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
       description: metadata.description,
       images: {
         ...genericMetadata.twitter.images,
-        url: `${baseURL}/api/og?${og}`,
+        url: `${baseUrl}/api/og?${metadata.og}`,
         alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
       },
     },
@@ -161,15 +144,11 @@ export function generateMetadata({ params }: ContentsProps): Metadata {
       description: metadata.description,
       images: [
         {
-          ...genericMetadata.openGraph.images[0],
-          url: `${baseURL}/api/og?${og}`,
+          ...genericMetadata.openGraph.images,
+          url: `${baseUrl}/api/og?${metadata.og}`,
           alt: `Banner with title "${metadata.title}" and description "${metadata.description}"`,
         },
       ],
     },
   };
 }
-
-const baseURL = process.env.VERCEL_URL
-  ? "https://" + process.env.VERCEL_URL
-  : "http://localhost:3000";

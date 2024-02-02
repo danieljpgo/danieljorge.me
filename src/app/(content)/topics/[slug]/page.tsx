@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { topics } from "~/lib/content";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
-import { genericMetadata } from "~/lib/metadata";
-import { formatDateNumerical } from "~/lib/date";
+import { OG, TOPIC, messages } from "~/lib/content";
+import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
 type TopicProps = {
-  params: { slug: keyof typeof topics };
+  params: { slug: (typeof TOPIC)[keyof typeof TOPIC] };
 };
 export default function Topic({ params }: TopicProps) {
-  if (!Object.keys(topics).includes(params.slug)) return notFound();
+  if (!Object.values(TOPIC).includes(params.slug)) return notFound();
   const contents = documents.filter((doc) => doc.topics.includes(params.slug));
 
   return (
@@ -42,10 +41,10 @@ export default function Topic({ params }: TopicProps) {
             leading="tight"
             color="darker"
           >
-            {topics[params.slug]}
+            {messages[params.slug]}
           </Heading>
           <Text color="base">{`Writings, notes, diagrams, and more related to ${
-            topics[params.slug]
+            messages[params.slug]
           }`}</Text>
         </div>
         <hr />
@@ -75,7 +74,6 @@ export default function Topic({ params }: TopicProps) {
                       •
                     </Text>
                     <Text size="sm" color="light">
-                      {/* @ts-expect-error: */}
                       <View slug={content.slug} type="view" /> views
                     </Text>
                   </div>
@@ -112,47 +110,26 @@ export default function Topic({ params }: TopicProps) {
   );
 }
 
-export async function generateStaticParams(): Promise<
-  Array<TopicProps["params"]>
-> {
-  // @TODO fix TS HERE
-  return (Object.keys(topics) as Array<keyof typeof topics>).map((slug) => ({
-    slug,
-  }));
+export function generateStaticParams(): Array<TopicProps["params"]> {
+  return Object.values(TOPIC).map((slug) => ({ slug }));
 }
 
 type generateMetadataProps = {
   params: TopicProps["params"];
   searchParams: { [key: string]: string | string[] | undefined };
 };
-export async function generateMetadata({
-  params,
-}: generateMetadataProps): Promise<Metadata> {
+export function generateMetadata({ params }: generateMetadataProps): Metadata {
   const contents = documents.filter((doc) => doc.topics.includes(params.slug));
   if (!contents.length) return notFound();
 
   const metadata = {
-    title: `${topics[params.slug]} - Topics`,
-    description: `Writings, notes, diagrams and more related to ${
-      topics[params.slug]
-    }`,
+    title: `${messages[params.slug]}`,
+    description: `Writings, notes, diagrams and more related to ${messages[params.slug]}`,
+    og: new URLSearchParams({
+      type: OG.INDEX,
+      topic: params.slug,
+    }).toString(),
   };
-
-  const og = new URLSearchParams({
-    title: topics[params.slug],
-    description: `Writings, notes, diagrams and more related to ${
-      topics[params.slug]
-    }`,
-    type: "list",
-    items: contents
-      .map((a) =>
-        "createdAt" in a
-          ? `${formatDateNumerical(a.createdAt)};${a.title}`
-          : `${formatDateNumerical(a.publishedAt)};${a.title}`,
-      )
-      .slice(0, 10)
-      .join("|"),
-  }).toString();
 
   return {
     title: metadata.title,
@@ -163,7 +140,7 @@ export async function generateMetadata({
       description: metadata.description,
       images: {
         ...genericMetadata.twitter.images,
-        url: `${baseURL}/api/og?${og}`,
+        url: `${baseUrl}/api/og?${metadata.og}`,
         alt: `Banner with title "${metadata.title}", description "${metadata.description}"`,
       },
     },
@@ -173,15 +150,11 @@ export async function generateMetadata({
       description: metadata.description,
       images: [
         {
-          ...genericMetadata.openGraph.images[0],
-          url: `${baseURL}/api/og?${og}`,
+          ...genericMetadata.openGraph.images,
+          url: `${baseUrl}/api/og?${metadata.og}`,
           alt: `Banner with title "${metadata.title}", description "${metadata.description}"`,
         },
       ],
     },
   };
 }
-
-const baseURL = process.env.VERCEL_URL
-  ? "https://" + process.env.VERCEL_URL
-  : "http://localhost:3000";

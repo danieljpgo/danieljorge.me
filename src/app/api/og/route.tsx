@@ -1,7 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextRequest } from "next/server";
+import type { ImageResponseOptions, NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 import { cn } from "~/lib/tailwindcss";
+import { documents } from "~/lib/contentlayer";
+import { formatDateNumerical } from "~/lib/date";
+import {
+  OG,
+  messages,
+  validateOG,
+  validateTopic,
+  validateCategory,
+} from "~/lib/content";
 
 const fonts = Promise.all([
   fetch(
@@ -16,80 +25,139 @@ export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const type = searchParams.get("type")?.slice(0, 120) ?? "None";
-  const title = searchParams.get("title")?.slice(0, 80) ?? "None";
-  const description = searchParams.get("description")?.slice(0, 120) ?? "None";
-  const images = searchParams.get("images") ?? "None";
-  const og = searchParams.get("og") ?? "None";
-  const items = searchParams.get("items") ?? "";
-
   const [fontRegular, fontMedium] = await fonts;
+  const og = {
+    slug: searchParams.get("slug"),
+    type: validateOG(searchParams.get("type")),
+    topic: validateTopic(searchParams.get("topic")),
+    category: validateCategory(searchParams.get("category")),
+  };
+  const config = {
+    width: 1200,
+    height: 630,
+    fonts: [
+      { name: "Inter", data: fontMedium, weight: 500, style: "normal" },
+      { name: "Inter", data: fontRegular, weight: 400, style: "normal" },
+    ],
+  } satisfies ImageResponseOptions;
 
   try {
-    return new ImageResponse(
-      (() => {
-        if (type === "home") {
-          return <Home origin={req.nextUrl.origin} />;
-        }
-        if (type === "content") {
-          return (
-            <Content
-              title={title}
-              description={description}
-              origin={req.nextUrl.origin}
-            />
-          );
-        }
-        if (type === "content-image") {
-          return (
-            <ContentImage
-              title={title}
-              description={description}
-              origin={req.nextUrl.origin}
-              og={og}
-            />
-          );
-        }
-        if (type === "list") {
-          return (
-            <List
-              title={title}
-              description={description}
-              origin={req.nextUrl.origin}
-              items={items}
-            />
-          );
-        }
-        if (type === "diagram") {
-          return (
-            <Diagram
-              title={title}
-              origin={req.nextUrl.origin}
-              images={images}
-            />
-          );
-        }
+    if (og.type === OG.HOME) {
+      return new ImageResponse(<Home origin={req.nextUrl.origin} />, config);
+    }
+    if (og.type === OG.INDEX && og.topic) {
+      const contents = documents.filter(
+        (doc) => og.topic && doc.topics.includes(og.topic),
+      );
+      if (!contents.length) {
+        return Response.json("Topic doesn't exit", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <List
+            title={`${messages[og.topic]}`}
+            description={`Writings, notes, diagrams and more related to ${messages[og.topic]}`}
+            origin={req.nextUrl.origin}
+            items={contents
+              .map((content) => ({
+                title: content.title,
+                date:
+                  "createdAt" in content
+                    ? content.createdAt
+                    : content.publishedAt,
+              }))
+              .slice(0, 10)}
+          />
+        ),
+        config,
+      );
+    }
+    if (og.type === OG.INDEX && og.category) {
+      const contents = documents.filter(
+        (doc) => og.category && doc.category.includes(og.category),
+      );
+      if (!contents.length) {
+        return Response.json("Category doesn't exit", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <List
+            title={messages[contents[0].type].title}
+            description={messages[contents[0].type].description}
+            origin={req.nextUrl.origin}
+            items={contents
+              .map((content) => ({
+                title: content.title,
+                date:
+                  "createdAt" in content
+                    ? content.createdAt
+                    : content.publishedAt,
+              }))
+              .slice(0, 10)}
+          />
+        ),
+        config,
+      );
+    }
+    if (og.type === OG.CONTENT && og.slug) {
+      const content = documents.find((doc) => doc.slug === og.slug);
+      if (!content) {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <Content
+            title={content.title}
+            description={content.description}
+            origin={req.nextUrl.origin}
+          />
+        ),
+        config,
+      );
+    }
+    if (og.type === OG.CONTENT_IMAGE && og.slug) {
+      const content = documents.find((doc) => doc.slug === og.slug);
+      if (!content || !("og" in content)) {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <ContentImage
+            title={content.title}
+            description={content.description}
+            origin={req.nextUrl.origin}
+            og={content.og}
+          />
+        ),
+        config,
+      );
+    }
+    if (og.type === OG.CONTENT_AUTO_IMAGES && og.slug) {
+      const content = documents.find((doc) => doc.slug === og.slug);
+      if (!content || !("images" in content)) {
+        return Response.json("Slug doesn't exist", { status: 404 });
+      }
+      return new ImageResponse(
+        (
+          <ContentAutoImage
+            title={content.title}
+            origin={req.nextUrl.origin}
+            images={content.images}
+          />
+        ),
+        config,
+      );
+    }
 
-        return <Home origin={req.nextUrl.origin} />;
-      })(),
-      {
-        width: 1200,
-        height: 630,
-        fonts: [
-          { name: "Inter", data: fontMedium, weight: 500, style: "normal" },
-          { name: "Inter", data: fontRegular, weight: 400, style: "normal" },
-        ],
-      },
-    );
+    return new ImageResponse(<Home origin={req.nextUrl.origin} />, config);
   } catch (error) {
     if (error instanceof Error) {
       console.log(`${error.message}`);
     }
-    return new Response(`Failed to generate the image`, {
-      status: 500,
-    });
+    return new Response(`Failed to generate the image`, { status: 500 });
   }
 }
+
 function Home({ origin }: { origin: string }) {
   return (
     <Layout>
@@ -112,6 +180,7 @@ function Home({ origin }: { origin: string }) {
     </Layout>
   );
 }
+
 function Content({
   title,
   description,
@@ -136,6 +205,7 @@ function Content({
     </Layout>
   );
 }
+
 function ContentImage({
   title,
   description,
@@ -169,6 +239,7 @@ function ContentImage({
     </Panel>
   );
 }
+
 function List({
   title,
   description,
@@ -178,12 +249,8 @@ function List({
   title: string;
   description: string;
   origin: string;
-  items: string;
+  items: Array<{ title: string; date: string }>;
 }) {
-  const content = items
-    .split("|")
-    .map((item) => item.split(";"))
-    .slice(0, 10);
   return (
     <Panel>
       <Section>
@@ -204,16 +271,18 @@ function List({
         <ul
           tw={cn(
             "flex flex-col self-center justify-center border-t border-gray-300 w-134",
-            content.length > 8 && "absolute top-0",
+            items.length > 8 && "absolute top-0",
           )}
         >
-          {content.map(([data, post]) => (
+          {items.map((item) => (
             <li
-              key={post}
+              key={item.title}
               tw="flex py-4 text-xl border-gray-300 border-b w-full items-center"
             >
-              <small tw="flex text-gray-400 text-lg">{data}</small>
-              <p tw="pl-4 flex m-0">{post}</p>
+              <small tw="flex text-gray-400 text-lg">
+                {formatDateNumerical(item.date)}
+              </small>
+              <p tw="pl-4 flex m-0">{item.title}</p>
               {/* <p tw="flex m-0 text-gray-400 pl-7">{"11"}</p> */}
             </li>
           ))}
@@ -222,14 +291,15 @@ function List({
     </Panel>
   );
 }
-function Diagram({
+
+function ContentAutoImage({
   title,
   origin,
   images,
 }: {
   title: string;
   origin: string;
-  images: string;
+  images: Array<string>;
 }) {
   return (
     <Panel>
@@ -244,13 +314,13 @@ function Diagram({
       </Section>
       <Aside>
         <div tw="flex flex-col-reverse relative self-center justify-center">
-          {images.split(",").map((image, i) => (
+          {images.map((image, i) => (
             <img
               key={i}
               src={`${origin}${image}`}
               alt="diagram"
               tw="w-200 absolute"
-              style={{ left: (images.split(",").length - i) * 60 }}
+              style={{ left: (images.length - i) * 60 }}
             />
           ))}
         </div>
@@ -258,6 +328,7 @@ function Diagram({
     </Panel>
   );
 }
+
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -268,6 +339,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 function Panel({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -278,6 +350,7 @@ function Panel({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 function Section({ children }: { children: React.ReactNode }) {
   return (
     <section tw="h-full justify-between flex flex-col w-140">
@@ -285,9 +358,11 @@ function Section({ children }: { children: React.ReactNode }) {
     </section>
   );
 }
+
 function Aside({ children }: { children: React.ReactNode }) {
   return <aside tw="w-full h-full flex">{children}</aside>;
 }
+
 function Header({ origin }: { origin: string }) {
   return (
     <header tw="flex items-center">
@@ -296,6 +371,7 @@ function Header({ origin }: { origin: string }) {
     </header>
   );
 }
+
 function Footer({ origin }: { origin: string }) {
   return (
     <footer tw="flex items-center">
@@ -311,6 +387,7 @@ function Footer({ origin }: { origin: string }) {
     </footer>
   );
 }
+
 function Title({ children }: { children: string }) {
   return (
     <h1
@@ -321,6 +398,7 @@ function Title({ children }: { children: string }) {
     </h1>
   );
 }
+
 function Description({ children }: { children: string }) {
   return (
     <p
@@ -331,5 +409,3 @@ function Description({ children }: { children: string }) {
     </p>
   );
 }
-
-// @TODO add protection
