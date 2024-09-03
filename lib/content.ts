@@ -8,6 +8,10 @@ export const OG = {
   CONTENT_AUTO_IMAGES: "content-auto-images",
 } as const;
 
+export const PAGE = {
+  USES: "uses",
+} as const;
+
 export const TOPIC = {
   UI: "ui",
   CSS: "css",
@@ -15,6 +19,8 @@ export const TOPIC = {
   REACT: "react",
   PRODUCTIVITY: "productivity",
   DESIGN_SYSTEM: "design-system",
+  HARDWARE: "hardware",
+  PERIPHERAL: "peripheral",
 } as const;
 
 export const CATEGORY = {
@@ -51,6 +57,10 @@ export const messages = {
   [CATEGORY.WRITINGS]: {
     title: "Writings",
     description: "Crafted, long form thoughts and ideas.",
+  },
+  [PAGE.USES]: {
+    title: "Uses",
+    description: "Lorem ipsum",
   },
 } as const;
 

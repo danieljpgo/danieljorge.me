@@ -233,8 +233,6 @@ export default function Home() {
               </div>
             </article>
           </li>
-        </ul>
-        <ul className="grid gap-4">
           <li>
             <article className="grid gap-1">
               <Link href="/configs">
@@ -251,6 +249,26 @@ export default function Home() {
               <div className="flex gap-2">
                 <Text size="sm" color="light">
                   {messages.configs.description}
+                </Text>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article className="grid gap-1">
+              <Link href="/uses">
+                <Heading
+                  as="h3"
+                  size="base"
+                  weight="medium"
+                  leading="tight"
+                  color="darker"
+                >
+                  {messages.uses.title}
+                </Heading>
+              </Link>
+              <div className="flex gap-2">
+                <Text size="sm" color="light">
+                  {messages.uses.description}
                 </Text>
               </div>
             </article>
