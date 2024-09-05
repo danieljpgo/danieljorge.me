@@ -31,18 +31,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const topicsRoute = [
-    ...new Set(documents.map((content) => content.topics).flat()),
+    ...new Set(documents.flatMap((content) => content.topics)),
   ].map((slug) => ({
     url: `https://danieljorge.me/topics/${slug}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
-  const routes = ["", "/notes", "/diagrams", "/crafts", "/configs"].map(
-    (route) => ({
-      url: `https://danieljorge.me${route}`,
-      lastModified: new Date().toISOString().split("T")[0],
-    }),
-  );
+  const routes = [
+    "",
+    "/notes",
+    "/diagrams",
+    "/crafts",
+    "/configs",
+    "/topics",
+  ].map((route) => ({
+    url: `https://danieljorge.me${route}`,
+    lastModified: new Date().toISOString().split("T")[0],
+  }));
 
   return [
     ...routes,
