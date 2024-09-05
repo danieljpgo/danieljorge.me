@@ -102,3 +102,12 @@ export function validateTopic(param?: string | null) {
   }
   return undefined;
 }
+
+export function validatePage(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(PAGE)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}

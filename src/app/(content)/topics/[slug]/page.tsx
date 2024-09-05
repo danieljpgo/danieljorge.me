@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cn } from "~/lib/tailwindcss";
 import { documents } from "~/lib/contentlayer";
-import { OG, TOPIC, messages } from "~/lib/content";
+import { OG, PAGE, TOPIC, messages } from "~/lib/content";
 import { baseUrl, genericMetadata } from "~/lib/metadata";
 import { Heading, Text, View } from "~/components";
 
@@ -84,26 +84,26 @@ export default function Topic({ params }: TopicProps) {
           <hr />
           <div className="flex justify-center pb-8">
             <Link
-              href="/"
+              href="/topics"
               className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
             >
               <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
                 ←
               </span>
-              Home
+              {messages[PAGE.TOPICS].title}
             </Link>
           </div>
         </div>
       </article>
       <div className="hidden h-min w-full max-w-[14rem] justify-end pt-8 xl:flex xl:max-w-[16rem]">
         <Link
-          href="/"
+          href="/topics"
           className="group flex gap-2 text-sm text-gray-700 transition-colors duration-200 hover:text-gray-400 active:text-gray-300"
         >
           <span className="translate-x-0 transition-transform duration-200 group-hover:translate-x-[2px] group-active:translate-x-[-2px]">
             ←
           </span>
-          Home
+          {messages[PAGE.TOPICS].title}
         </Link>
       </div>
     </>

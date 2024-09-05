@@ -45,7 +45,7 @@ export default function Topics() {
             {Object.values(TOPIC).map((topic) => (
               <li key={topic}>
                 <article>
-                  <Link href={`/topics/${topic}`} className="flex gap-1 pb-6">
+                  <Link href={`/topics/${topic}`} className="flex gap-1">
                     <Heading
                       as="h2"
                       size="base"
@@ -100,7 +100,8 @@ export function generateMetadata(): Metadata {
     title: messages[PAGE.TOPICS].title,
     description: messages[PAGE.TOPICS].description,
     og: new URLSearchParams({
-      type: OG.HOME,
+      type: OG.INDEX,
+      page: PAGE.TOPICS,
     }).toString(),
   };
 

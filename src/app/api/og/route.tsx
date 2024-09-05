@@ -2,14 +2,16 @@
 import type { ImageResponseOptions, NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 import { cn } from "~/lib/tailwindcss";
-import { documents } from "~/lib/contentlayer";
+import { documents, topics } from "~/lib/contentlayer";
 import { formatDateNumerical } from "~/lib/date";
 import {
   OG,
   messages,
   validateOG,
+  validatePage,
   validateTopic,
   validateCategory,
+  TOPIC,
 } from "~/lib/content";
 
 const fonts = Promise.all([
@@ -29,6 +31,7 @@ export async function GET(req: NextRequest) {
   const og = {
     slug: searchParams.get("slug"),
     type: validateOG(searchParams.get("type")),
+    page: validatePage(searchParams.get("page")),
     topic: validateTopic(searchParams.get("topic")),
     category: validateCategory(searchParams.get("category")),
   };
@@ -44,6 +47,24 @@ export async function GET(req: NextRequest) {
   try {
     if (og.type === OG.HOME) {
       return new ImageResponse(<Home origin={req.nextUrl.origin} />, config);
+    }
+    if (og.type === OG.INDEX && og.page === "topics") {
+      return new ImageResponse(
+        (
+          <ListBasic
+            title={messages[og.page].title}
+            description={messages[og.page].description}
+            origin={req.nextUrl.origin}
+            items={Object.values(TOPIC)
+              .map((topic) => ({
+                title: messages[topic],
+                amount: topics[topic],
+              }))
+              .slice(0, 10)}
+          />
+        ),
+        config,
+      );
     }
     if (og.type === OG.INDEX && og.topic) {
       const contents = documents.filter(
@@ -407,5 +428,57 @@ function Description({ children }: { children: string }) {
     >
       {children}
     </p>
+  );
+}
+
+function ListBasic({
+  title,
+  description,
+  origin,
+  items,
+}: {
+  title: string;
+  description: string;
+  origin: string;
+  items: Array<{ title: string; amount: number }>;
+}) {
+  return (
+    <Panel>
+      <Section>
+        <Header origin={origin} />
+        <main tw="flex w-140 pr-10 items-center">
+          <div tw="flex flex-col">
+            <div tw="flex mb-2.5">
+              <Title>{title}</Title>
+            </div>
+            <div tw="flex">
+              <Description>{description}</Description>
+            </div>
+          </div>
+        </main>
+        <Footer origin={origin} />
+      </Section>
+      <Aside>
+        <ul
+          tw={cn(
+            "flex flex-col self-center justify-center border-t border-gray-300 w-134",
+            items.length > 8 && "absolute top-0",
+          )}
+        >
+          {items.map((item) => (
+            <li
+              key={item.title}
+              tw="flex py-4 text-xl border-gray-300 border-b w-full items-center"
+            >
+              <p tw="pl-3 flex m-0">{item.title}</p>
+              <small tw="flex pl-1.5 text-gray-400 text-lg">•</small>
+              <small tw="flex pl-1.5 text-gray-400 text-lg">
+                ({item.amount})
+              </small>
+            </li>
+          ))}
+        </ul>
+      </Aside>
+    </Panel>
   );
 }
