@@ -11,6 +11,7 @@ import {
   allCrafts,
   allDocuments,
 } from "contentlayer/generated";
+import { TOPIC } from "./content";
 
 type Heading = {
   level: number;
@@ -80,3 +81,21 @@ export const documents = [...allDocuments]
     }
     return 0;
   });
+
+export const topics = documents
+  .flatMap((document) => document.topics)
+  .reduce(
+    (a, t) => ({ ...a, [t]: a[t] ? a[t] + 1 : 1 }),
+    {} as Record<(typeof TOPIC)[keyof typeof TOPIC], number>,
+  );
+
+// type a = Array<[(typeof TOPIC)[keyof typeof TOPIC], number]>;
+// export const topicsss = documents.reduce(
+//   (acc, curr) => {
+//     curr.topics.forEach((topic) => {
+//       acc[topic] = acc[topic] ? acc[topic] + 1 : 1;
+//     });
+//     return acc;
+//   },
+//   {} as Record<string, number>,
+// );

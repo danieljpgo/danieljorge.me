@@ -17,6 +17,11 @@ export const TOPIC = {
   DESIGN_SYSTEM: "design-system",
 } as const;
 
+export const PAGE = {
+  TOPICS: "topics",
+} as const;
+
+// @TODO: refactore to pages
 export const CATEGORY = {
   NOTES: "notes",
   CRAFTS: "crafts",
@@ -51,6 +56,10 @@ export const messages = {
   [CATEGORY.WRITINGS]: {
     title: "Writings",
     description: "Crafted, long form thoughts and ideas.",
+  },
+  [PAGE.TOPICS]: {
+    title: "Topics",
+    description: "lorem.",
   },
 } as const;
 
