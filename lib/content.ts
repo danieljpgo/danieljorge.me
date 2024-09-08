@@ -17,6 +17,11 @@ export const TOPIC = {
   DESIGN_SYSTEM: "design-system",
 } as const;
 
+export const PAGE = {
+  TOPICS: "topics",
+  TOPICS_DETAILS: "topics-details",
+} as const;
+
 export const CATEGORY = {
   NOTES: "notes",
   CRAFTS: "crafts",
@@ -52,6 +57,11 @@ export const messages = {
     title: "Writings",
     description: "Crafted, long form thoughts and ideas.",
   },
+  [PAGE.TOPICS]: {
+    title: "Topics",
+    description: "A comprehensive list of all published content topics.",
+  },
+  [PAGE.TOPICS_DETAILS]: "",
 } as const;
 
 //@TODO more type safety?
@@ -93,3 +103,16 @@ export function validateTopic(param?: string | null) {
   }
   return undefined;
 }
+
+export function validatePage(param?: string | null) {
+  if (!param) return undefined;
+
+  for (const a of Object.values(PAGE)) {
+    if (a === param) return param;
+  }
+  return undefined;
+}
+
+// @TODO: refactore from category to pages
+// @TODO: check validate functions
+// @TODO: fix warning from contentlayer
