@@ -431,6 +431,7 @@ function Description({ children }: { children: string }) {
   );
 }
 
+// @TODO: improve og list component
 function ListBasic({
   title,
   description,

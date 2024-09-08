@@ -19,9 +19,9 @@ export const TOPIC = {
 
 export const PAGE = {
   TOPICS: "topics",
+  TOPICS_DETAILS: "topics-details",
 } as const;
 
-// @TODO: refactore to pages
 export const CATEGORY = {
   NOTES: "notes",
   CRAFTS: "crafts",
@@ -59,8 +59,9 @@ export const messages = {
   },
   [PAGE.TOPICS]: {
     title: "Topics",
-    description: "lorem.",
+    description: "A comprehensive list of all published content topics.",
   },
+  [PAGE.TOPICS_DETAILS]: "",
 } as const;
 
 //@TODO more type safety?
@@ -111,3 +112,7 @@ export function validatePage(param?: string | null) {
   }
   return undefined;
 }
+
+// @TODO: refactore from category to pages
+// @TODO: check validate functions
+// @TODO: fix warning from contentlayer

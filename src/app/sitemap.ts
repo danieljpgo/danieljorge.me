@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import {
   notes,
+  crafts,
+  configs,
   diagrams,
   documents,
-  configs,
-  crafts,
 } from "~/lib/contentlayer";
 
 // @TODO use documents
@@ -37,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
+  // @TODO get pages from content?
   const routes = [
     "",
     "/notes",

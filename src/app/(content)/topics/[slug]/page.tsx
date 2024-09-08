@@ -43,9 +43,7 @@ export default function Topic({ params }: TopicProps) {
           >
             {messages[params.slug]}
           </Heading>
-          <Text color="base">{`Writings, notes, diagrams, and more related to ${
-            messages[params.slug]
-          }`}</Text>
+          <Text color="base">{`${messages[PAGE.TOPICS_DETAILS]} ${messages[params.slug]}`}</Text>
         </div>
         <hr />
         <div className="grid gap-4">
