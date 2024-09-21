@@ -52,25 +52,46 @@ Here is my curated list of commands and modifications that I personally use on M
 
 The key repeat, also known as repeat delay, refers to the time interval between holding down a key and when it starts repeating.
 
-- Default value is 6.
+Lowering the value increases the response time for faster character input.
 
 ```bash title="Terminal"
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain KeyRepeat -float 1.5
 ```
 
-Lowering the value increases the response time for faster character input.
+- Default value is `6`.
 
 ### Initial Key Repeat
 
 The repeat rate, also referred to as initial key repeat, determines how quickly a character repeats itself once it starts.
 
-- Default value is 25.
+Adjusting this value allows you to customize the speed of character repetition to suit your preferences.
 
 ```bash title="Terminal"
-defaults write NSGlobalDomain InitialKeyRepeat -int 12
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 ```
 
-Adjusting this value allows you to customize the speed of character repetition to suit your preferences.
+- Default value is `25`.
+
+### Autohide delay
+
+Remove the autohide delay, the Dock appears instantly
+
+```bash title="Terminal"
+defaults write com.apple.dock "autohide-delay" -float "0" && killall Dock
+```
+
+### Key held down behavior
+
+Allows you to select the behavior when a key is held down for a long time. The two possible behaviors are:
+
+- show character accents menu (default)
+- repeat character while key held
+
+```bash title="Terminal"
+defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool "false"
+```
+
+- Default value is `true`.
 
 ## OS
 
