@@ -46,7 +46,7 @@ topics: ["productivity"]
 
 ## Keyboard
 
-Here is my curated list of commands and modifications that I personally use on MacOS to enhance keyboard experience.
+{/* Here is my curated list of commands and modifications that I personally use on MacOS to enhance keyboard experience. */}
 
 ### Key Repeat
 
@@ -72,14 +72,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 - Default value is `25`.
 
-### Autohide delay
-
-Remove the autohide delay, the Dock appears instantly
-
-```bash title="Terminal"
-defaults write com.apple.dock "autohide-delay" -float "0" && killall Dock
-```
-
 ### Key held down behavior
 
 Allows you to select the behavior when a key is held down for a long time. The two possible behaviors are:
@@ -93,11 +85,19 @@ defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool "false"
 
 - Default value is `true`.
 
+## Dock
+
+### Autohide delay
+
+Remove the autohide delay, the Dock appears instantly
+
+```bash title="Terminal"
+defaults write com.apple.dock "autohide-delay" -float "0" && killall Dock
+```
+
 ## OS
 
 {/* Here's is a list of changes, settings and commands to improve the use of the operating system. */}
-
-### Dock
 
 Coming Soon
 
